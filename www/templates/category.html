@@ -1,0 +1,21 @@
+    <ion-header-bar class="bar-stable">
+      <h1 class="title">Category</h1>
+    </ion-header-bar>
+
+    <ion-content>
+      <ion-list>
+        <ion-item nav-clear menu-close href="#/app/mypage">
+          Login
+        </ion-item>
+        <ion-item nav-clear menu-close href="#/app/search">
+          Search
+        </ion-item>
+        <ion-item nav-clear menu-close href="#/app/mypage">
+          My Page
+        </ion-item>
+        <ion-item nav-clear ui-sref="app.subcategory({currentCategory:'category'})">
+        <!-- <ion-item nav-clear menu-close href="#/app/products"> -->
+          Products
+        </ion-item>
+      </ion-list>
+    </ion-content>

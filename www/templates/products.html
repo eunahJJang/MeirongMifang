@@ -1,0 +1,15 @@
+<ion-view view-title="Twinkle">
+  <ion-content>
+    <ion-list>
+      <!-- <ion-item ng-repeat="product in products" href="#/app/product/{{product.id}}"> -->
+      <ion-item ng-repeat="product in products" ui-sref="app.single({ productId: product.productId })">
+       <div style="display:inline-block">{{product.content}} <br />{{product.price}} 원<br /> <div style="display:inline-block; float: right;"> {{product.shopName}}</div></div>
+       
+       <div style="display: inline-block; float: right;"><img src = "{{product.image}}" width="100px" height="100px"></div>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+     <div class="bar bar-footer">
+      <button class="button button-clear pull-right" ui-sref="app.mypage">문의하기</button>
+    </div>
+</ion-view>
