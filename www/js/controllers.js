@@ -310,7 +310,7 @@ angular.module('starter.controllers', [])
       .success(function(data){
         $scope.products = [];
           for(index = 0; index < data.length; index++){
-             $scope.products.push({ productId:data[index].productId, content: data[index].content, shopName: data[index].shopName, id: index, image: data[index].imag, price: data[index].price });
+             $scope.products.push({ productId:data[index].productId, content: data[index].content, shopName: data[index].shopName, id: index, image: data[index].imag, price: data[index].price, address: data[index].address, minPrice: data[index].minPrice, maxPrice: data[index].maxPrice });
           }
       })
       .error(function(data){

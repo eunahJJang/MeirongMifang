@@ -1,12 +1,13 @@
 <ion-view view-title="Product">
-  <ion-content>
-	  <ion-slide-box>
-	  <ion-slide ng-repeat="data in datas">
-	    <div><img style="width: 100%" src = "{{data}}"></div>
-	  </ion-slide>
-	</ion-slide-box>
-  </ion-content>
-       <div class="bar bar-footer">
-      <button class="button button-clear pull-right" ui-sref="app.mypage">문의하기</button>
-    </div>
+	<ion-content>
+		<ion-slide-box>
+			<ion-slide ng-repeat="data in datas">
+				<div><img style="width: 100%" src = "{{data}}"></div>
+			</ion-slide>
+		</ion-slide-box>
+	</ion-content>
+	
+	<div class="bar bar-footer">
+	  <button class="button button-clear pull-right" ui-sref="app.mypage">문의하기</button>
+	</div>
 </ion-view>
