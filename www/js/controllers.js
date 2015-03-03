@@ -1,6 +1,6 @@
 angular.module('starter.controllers', [])
 
-.controller('AppCtrl', function($scope, $state, $ionicModal, $cordovaPush, $cordovaDialogs, $cordovaMedia, $cordovaToast, ionPlatform) {
+.controller('AppCtrl', function($scope, $state, $ionicModal, $cordovaPush, $cordovaDialogs, $cordovaMedia, $cordovaToast, ionPlatform, $cookieStore) {
   $ionicModal.fromTemplateUrl('templates/login.html', function(modal) {
       $scope.loginModal = modal;
     },
@@ -14,6 +14,14 @@ angular.module('starter.controllers', [])
   $scope.$on('$destroy', function() {
     $scope.loginModal.remove();
   });
+
+  $scope.$on('$ionicView.beforeEnter', function (e, data) {
+    if ($cookieStore.get('isLogin') == true) {
+        $scope.$root.isLogin = true;
+    } else {
+        $scope.$root.isLogin = fals;
+    }
+});
 
   
 })
