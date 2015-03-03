@@ -1,6 +1,6 @@
 angular.module('starter.controllers', [])
 
-.controller('AppCtrl', function($scope, $state, $ionicModal, $cordovaPush, $cordovaDialogs, $cordovaMedia, $cordovaToast, ionPlatform, $cookieStore) {
+.controller('AppCtrl', function($scope, $state, $ionicModal, $cookieStore) {
   $ionicModal.fromTemplateUrl('templates/login.html', function(modal) {
       $scope.loginModal = modal;
     },
@@ -17,16 +17,14 @@ angular.module('starter.controllers', [])
 
   $scope.$on('$ionicView.beforeEnter', function (e, data) {
     if ($cookieStore.get('isLogin') == true) {
-        $scope.$root.isLogin = true;
+      $scope.$root.isLogin = true;
     } else {
-        $scope.$root.isLogin = fals;
+      $scope.$root.isLogin = fals;
     }
-});
-
-  
+  });  
 })
   
-.controller('LoginCtrl', function($scope, $http, $state, $cookieStore, AuthenticationService) {
+.controller('LoginCtrl', function($scope, $http, $state, $cookieStore, AuthenticationService, $cordovaToast, $cordovaPush, $cordovaDialogs, $cordovaMedia, $cordovaDevice) {
   $scope.message = "";
 
   $scope.user = {
@@ -36,7 +34,7 @@ angular.module('starter.controllers', [])
  
   $scope.login = function() {
     AuthenticationService.login($scope.user.username, $scope.user.password);
-     $scope.register();
+    $scope.registerDevice();
   };
 
   $scope.closeLogin = function() {
@@ -68,7 +66,7 @@ angular.module('starter.controllers', [])
    $scope.notifications = [];
 
     // Register
-    $scope.register = function () {
+    $scope.registerDevice = function (username, device) {
         var config = null;
 
         if (ionic.Platform.isAndroid()) {
@@ -85,8 +83,6 @@ angular.module('starter.controllers', [])
         }
 
         $cordovaPush.register(config).then(function (result) {
-            console.log("Register success " + result);
-
             $scope.registerDisabled=true;
             // ** NOTE: Android regid result comes back in the pushNotificationReceived, only iOS returned here
             if (ionic.Platform.isIOS()) {
@@ -116,9 +112,7 @@ angular.module('starter.controllers', [])
     function handleAndroid(notification) {
         // ** NOTE: ** You could add code for when app is in foreground or not, or coming from coldstart here too
         //             via the console fields as shown.
-
         console.log("In foreground " + notification.foreground  + " Coldstart " + notification.coldstart);
-            function storeDeviceToken(type) {
         if (notification.event == "registered") {
             $scope.regId = notification.regid;
             storeDeviceToken("android");
@@ -174,12 +168,10 @@ angular.module('starter.controllers', [])
     //
     // type:  Platform type (ios, android etc)
     function storeDeviceToken(type) {
-         $cordovaToast.showShortCenter('Registered for push notifications');
         // Create a random userid to store with it
         var user = { email: $scope.user.username, type: type, regId: $scope.regId };
         console.log("Post token for registered device with data " + JSON.stringify(user));
-
-        $http.post('http://cpromise.cafe24.com/twinkle/gcm_server/register.php', JSON.stringify(user))
+        $http.get('http://cpromise.cafe24.com/twinkle/gcm_server/register.php', {params : {"email": $scope.user.username, "type": type, "regId": $scope.regId}})
             .success(function (data, status) {
                 console.log("Token stored, device is successfully subscribed to receive push notifications.");
             })
@@ -215,9 +207,7 @@ angular.module('starter.controllers', [])
         removeDeviceToken();
         $scope.registerDisabled=false;
         //need to define options here, not sure what that needs to be but this is not recommended anyway
-    }
-
-  }    
+    }    
 })
 
 .controller('BackCtrl', function($scope, $state, $stateParams){

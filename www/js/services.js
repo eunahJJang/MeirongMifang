@@ -28,15 +28,3 @@ angular.module('starter.services', ['http-auth-interceptor'])
   };
   return service;
 })
-
-.factory(("ionPlatform"), function($q){
-  var ready = $q.defer();
-
-  ionic.Platform.ready(function(device){
-    ready.resolve(device);
-  });
-
-  return {
-    ready : ready.promise
-  }
-})
