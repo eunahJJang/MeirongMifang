@@ -1,6 +1,10 @@
 <ion-view view-title="Twinkle">
   <ion-content>
     <ion-list>
+      <div style="width=100%; height:40px; background-color:red">
+        <p style="margin:0; line-height:40px; padding-left:16px;">전체  {{noOfProduct}}</p>
+
+      </div>
       <!-- <ion-item ng-repeat="product in products" href="#/app/product/{{product.id}}"> -->
       <ion-item ng-repeat="product in products" ui-sref="app.single({ productId: product.productId })">
         <div style="display:inline-block; margin-left:20px;">

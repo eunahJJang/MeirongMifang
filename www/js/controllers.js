@@ -355,6 +355,8 @@ angular.module('starter.controllers', [])
   $scope.getProducts = function(category){
     $http.get("http://cpromise.cafe24.com/twinkle/products.php", {params : {"category" : category}})
       .success(function(data){
+        $scope.noOfProduct = data.length;
+
         $scope.products = [];
           for(index = 0; index < data.length; index++){
              $scope.products.push({ productId:data[index].productId, content: data[index].content, shopName: data[index].shopName, id: index, image: data[index].imag, price: data[index].price, address: data[index].address, minPrice: data[index].minPrice, maxPrice: data[index].maxPrice });
