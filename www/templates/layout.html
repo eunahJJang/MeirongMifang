@@ -3,10 +3,9 @@
     <ion-nav-bar class="bar-stable">
       <ion-nav-back-button>
       </ion-nav-back-button>
-        <ion-nav-buttons side="left" >
-          <button class="button button-icon button-clear ion-log-in" OnClick="location.href='#/app/mypage'" ng-if="$root.isLogin == false">
-          <button class="button button-icon button-clear ion-log-out" ng-if="$root.isLogin == true">
-        </button>
+        <ion-nav-buttons side="left">
+          <button class="button" OnClick="location.href='#/app/mypage'" ng-if="$root.isLogin==false">login</button>
+          <button class="button" ng-if="$root.isLogin==true">logout</button>
       </ion-nav-buttons>
       <ion-nav-buttons side="right">
         <button class="button button-icon button-clear ion-search" >

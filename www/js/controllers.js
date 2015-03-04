@@ -19,7 +19,7 @@ angular.module('starter.controllers', [])
     if ($cookieStore.get('isLogin') == true) {
       $scope.$root.isLogin = true;
     } else {
-      $scope.$root.isLogin = fals;
+      $scope.$root.isLogin = false;
     }
   });  
 })
@@ -302,6 +302,10 @@ angular.module('starter.controllers', [])
 //       .error(function (data, status, headers, config) {
 //           console.log("Error occurred.  Status:" + status);
 //       });
+})
+
+.controller('ChatCtrl', function($scope, $http){
+
 })
 
 .controller('ProductsCtrl', function($scope, $http, $stateParams, $rootScope) {
