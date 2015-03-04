@@ -101,6 +101,16 @@ angular.module('starter', ['ionic', 'ngCookies', 'ngCordova', 'starter.controlle
       }
     }
   })
+
+  .state('app.chat', {
+    url: "/chat",
+    views: {
+      'content': {
+        templateUrl: "templates/chat.html",
+        controller: 'ChatCtrl'
+      }
+    }
+  })
   
   .state('app.single', {
     url: "/product/:productId",
