@@ -161,6 +161,16 @@ angular.module('starter', ['ionic', 'ngCookies', 'ngCordova', 'starter.controlle
         templateUrl:"templates/category.html"
       }
     }
+  })
+
+  .state('app.detailImage',{
+    url: "/productDetail/:productId/:detailId",
+    views: {
+      'content':{
+        templateUrl: "templates/detailImage.html",
+        controller: 'DetailImageCtrl'
+      }
+    }
   });
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/app/main');

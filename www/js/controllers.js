@@ -398,15 +398,28 @@ angular.module('starter.controllers', [])
 })
 
 .controller('ProductCtrl', function($scope, $http, $stateParams, $rootScope, $cookieStore) {
-  console.log($cookieStore.get('isLogin'));
     $http.get("http://cpromise.cafe24.com/twinkle/productDetail.php", {params : {"productId" : $stateParams.productId}})
       .success(function(data, status, headers, config){
           $scope.datas = [];
           for(index = 0; index < data.length; index++){
-             $scope.datas.push(data[index].imageList);
+             $scope.datas.push({productId:data[index].productId, detail_id:data[index].detail_id, img:data[index].product_img, name:data[index].name, price:data[index].price});
           }
       })
       .error(function(data, status, headers, config){
 
-      });      
+      });
+})
+
+.controller('DetailImageCtrl', function($scope, $http, $stateParams){
+     console.log($stateParams);
+  $http.get("http://cpromise.cafe24.com/twinkle/detailImage.php", {params : {"productId" : $stateParams.productId, "detail_id" :$stateParams.detailId}})
+      .success(function(data, status, headers, config){
+          $scope.datas = [];
+          for(index = 0; index < data.length; index++){
+             $scope.datas.push({productId:data[index].productId, detail_id:data[index].detail_id, img:data[index].product_img, name:data[index].name, price:data[index].price, before:data[index].before, after:data[index].after});
+          }
+      })
+      .error(function(data, status, headers, config){
+
+      });
 });
