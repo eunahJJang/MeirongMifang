@@ -33,6 +33,7 @@ angular.module('starter.controllers', [])
   };
  
   $scope.login = function() {
+    $scope.$root.username = $scope.user.username;
     AuthenticationService.login($scope.user.username, $scope.user.password);
     $scope.registerDevice();
   };
@@ -274,19 +275,20 @@ angular.module('starter.controllers', [])
   };
 })
 
-.controller('MypageCtrl', function($scope, $http, $stateParams, $cookieStore, $rootScope) {
+.controller('MypageCtrl', function($scope, $http, $stateParams, $cookieStore, $rootScope, $cordovaToast) {
 
     // TODO 전체를 다 로딩할 필요가 없음
   $scope.$on('event:auth-loginConfirmed', function() {
     $cookieStore.put('isLogin', true);
-    $scope.username = null;
+    $scope.$root.isLogin = true;
+    // $scope.username = null;
     $scope.password = null;
     $scope.loginModal.hide();
     getProducts();
   });
 
   if($cookieStore.get('isLogin') != true){
-           $rootScope.$broadcast('event:auth-loginRequired');
+    $rootScope.$broadcast('event:auth-loginRequired');
   }
 
   var getProducts = function(){
@@ -304,29 +306,54 @@ angular.module('starter.controllers', [])
 //       });
 })
 
-.controller('ChatCtrl', function($scope, $http, $timeout, $ionicScrollDelegate){
-  $scope.hideTime = true;
+.controller('ChatCtrl', function($scope, $http, $timeout, $ionicScrollDelegate, $rootScope, $cookieStore, $cordovaToast){
+  $scope.data = {};
+  $scope.messages = [];
 
-  var alternate,
-    isIOS = ionic.Platform.isWebView() && ionic.Platform.isIOS();
+  if($scope.$root.isLogin != true){
+    $rootScope.$broadcast('event:auth-loginRequired');
+  }
+
+  $scope.hideTime = true;
+  var isIOS = ionic.Platform.isWebView() && ionic.Platform.isIOS();
+
+  $scope.getMessages = function(){
+    $http.get("http://cpromise.cafe24.com/twinkle/getMessages.php", {params : {"from" : $scope.$root.username}})
+      .success(function(data){
+        for(index = 0; index < data.length; index++){
+           $scope.messages.push( {from:data[index].sender_id, to:data[index].receiver_id, text:data[index].message, time:data[index].created_time});
+        }
+      })
+      .error(function(data){
+
+      })
+  }
 
   $scope.sendMessage = function() {
-    alternate = !alternate;
-
     var d = new Date();
-  d = d.toLocaleTimeString().replace(/:\d+ /, ' ');
+    d = d.toLocaleTimeString().replace(/:\d+ /, ' ');
 
     $scope.messages.push({
-      userId: alternate ? '12345' : '54321',
+      from: $scope.$root.username,
+      to: 'admin',
       text: $scope.data.message,
       time: d
     });
 
+
+    $http.get("http://cpromise.cafe24.com/twinkle/sendMessage.php", {params : {"from" : $scope.$root.username, "to" : 'admin', "message" : $scope.data.message}})
+      .success(function(data){
+        for(index = 0; index < data.length; index++){
+           $scope.messages.push( {from:data[index].sender_id, to:data[index].receiver_id, text:data[index].message, time:data[index].created_time});
+        }
+      })
+      .error(function(data){
+  
+      })
+
     delete $scope.data.message;
     $ionicScrollDelegate.scrollBottom(true);
-
   };
-
 
   $scope.inputUp = function() {
     if (isIOS) $scope.data.keyboardHeight = 216;
@@ -345,10 +372,7 @@ angular.module('starter.controllers', [])
     // cordova.plugins.Keyboard.close();
   };
 
-
-  $scope.data = {};
-  $scope.myId = '12345';
-  $scope.messages = [];
+  $scope.getMessages();
 })
 
 .controller('ProductsCtrl', function($scope, $http, $stateParams, $rootScope) {

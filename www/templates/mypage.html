@@ -2,7 +2,11 @@
   <ion-content>
     <h3> 개인 정보 </h3>
     	<div> {{username}} </div>
-  	<h3> 상담 목록 </h3>
+    <div> 상담 </div>
+      <div> 
+        <button class="button" ui-sref="app.chat">바로 상담하기</button>
+      </div>
+    <h3> 관심 병원 </h3>
     <ion-list>
       <ion-item ng-repeat="product in products" href="#/app/product/{{product.id}}">
        <div style="display:inline-block">{{product.content}} <br />{{product.price}} 원<br /> <div style="display:inline-block; float: right;"> {{product.shop_name}}</div></div>

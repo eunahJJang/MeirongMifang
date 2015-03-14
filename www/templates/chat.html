@@ -3,7 +3,14 @@
     <ion-content>
       <div ng-repeat="message in messages">
         <div class="message">
-          <span>{{ message }}</span>
+           <div ng-switch on="message.from">
+              <div ng-switch-when="admin">
+                  <span>{{ message.text }}</span>
+              </div>
+              <div style="text-align: right;" ng-switch-default>
+                  <span>{{ message.text }}</span>
+              </div>
+            </div>  
         </div>
       </div>
     </ion-content>
