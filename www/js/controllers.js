@@ -399,27 +399,43 @@ angular.module('starter.controllers', [])
 
 .controller('ProductCtrl', function($scope, $http, $stateParams, $rootScope, $cookieStore) {
     $http.get("http://cpromise.cafe24.com/twinkle/productDetail.php", {params : {"productId" : $stateParams.productId}})
-      .success(function(data, status, headers, config){
+      .success(function(data){
           $scope.datas = [];
           for(index = 0; index < data.length; index++){
              $scope.datas.push({productId:data[index].productId, detail_id:data[index].detail_id, img:data[index].product_img, name:data[index].name, price:data[index].price});
           }
       })
-      .error(function(data, status, headers, config){
+      .error(function(data){
 
       });
+
+      $scope.changePage = function(){
+        $state.go('app.productInfo', { "shopId": 1});
+      }
 })
 
 .controller('DetailImageCtrl', function($scope, $http, $stateParams){
-     console.log($stateParams);
   $http.get("http://cpromise.cafe24.com/twinkle/detailImage.php", {params : {"productId" : $stateParams.productId, "detail_id" :$stateParams.detailId}})
-      .success(function(data, status, headers, config){
+      .success(function(data){
           $scope.datas = [];
           for(index = 0; index < data.length; index++){
              $scope.datas.push({productId:data[index].productId, detail_id:data[index].detail_id, img:data[index].product_img, name:data[index].name, price:data[index].price, before:data[index].before, after:data[index].after});
           }
       })
-      .error(function(data, status, headers, config){
+      .error(function(data){
 
       });
+})
+
+.controller('ProductInfoCtrl', function($scope, $http, $stateParams){
+  $http.get("http://cpromise.cafe24.com/twinkle/productInfo.php", {params : {"shopId" : $stateParams.shopId}})
+    .success(function(data){
+      $scope.datas = [];
+      for(index = 0; index < data.length; index++){
+             $scope.datas.push({logoImg:data[index].logo, name:data[index].name, address:data[index].address, map:data[index].map, doctorImgList:data[index].doctorImgList, shopImgList:data[index].shopImgList});
+      }
+    })
+    .error(function(data){
+
+    });
 });

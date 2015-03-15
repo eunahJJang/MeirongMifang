@@ -4,7 +4,7 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'ngCookies', 'ngCordova', 'starter.controllers', 'starter.services'])
+angular.module('starter', ['ionic', 'ngCookies', 'ngCordova', 'ngAnimate', 'ngTouch', 'starter.controllers', 'starter.services'])
 
 .run(function($ionicPlatform, $ionicPlatform, $http) { 
   
@@ -169,6 +169,16 @@ angular.module('starter', ['ionic', 'ngCookies', 'ngCordova', 'starter.controlle
       'content':{
         templateUrl: "templates/detailImage.html",
         controller: 'DetailImageCtrl'
+      }
+    }
+  })
+
+  .state('app.productInfo', {
+    url:"/productInfo/:shopId",
+    views: {
+      'content':{
+        templateUrl: "templates/productInfo.html",
+        controller: 'ProductInfoCtrl'
       }
     }
   });
