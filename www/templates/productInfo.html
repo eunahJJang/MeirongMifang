@@ -1,5 +1,30 @@
 <ion-view view-title="병원정보">
 	<ion-content>
+		<div ng-repeat="data in datas">
+			<div style="display: inline-block; float: left; margin:10px 10px">
+				<img src = "{{ data.logoImg }}" width="100px" height="100px">
+			</div>
+			<div >
+				<span style="display: inline-block; font-size:20px; margin-top:30px;">{{data.name}}</span>
+				<br />
+				<span>{{data.address}}</span>
+			</div>
+			<div style="clear:both; font-size:20px; margin-top:10px;">
+				<span >오시는길 </span>
+				<br />
+				<img src = "{{ data.map }}" width="500px" height="200px">
+			</div>
+			<div style="clear:both; font-size:20px; margin-top:10px;">
+				<span > 의료진</span>
+				<br />
+				<img src = "{{ data.doctorImgList }}" width="100px" height="150px">
+			</div>
+			<div style="clear:both; font-size:20px; margin-top:10px;">
+				<span > 병원 </span>
+				<br />
+				<img src = "{{ data.shopImgList }}" width="150px" height="100px">
+			</div>
+		</div>
 	</ion-content>
 	
 	<div class="bar bar-footer">

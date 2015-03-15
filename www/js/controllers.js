@@ -397,7 +397,7 @@ angular.module('starter.controllers', [])
   $scope.getProducts(category);
 })
 
-.controller('ProductCtrl', function($scope, $http, $stateParams, $rootScope, $cookieStore) {
+.controller('ProductCtrl', function($scope, $state, $http, $stateParams, $rootScope, $cookieStore, $cordovaToast) {
     $http.get("http://cpromise.cafe24.com/twinkle/productDetail.php", {params : {"productId" : $stateParams.productId}})
       .success(function(data){
           $scope.datas = [];
