@@ -181,6 +181,16 @@ angular.module('starter', ['ionic', 'ngCookies', 'ngCordova', 'ngAnimate', 'ngTo
         controller: 'ProductInfoCtrl'
       }
     }
+  })
+
+  .state('app.review', {
+    url:"/review/:productId",
+    views: {
+      'content':{
+        templateUrl: "templates/review.html",
+        controller: 'ReviewCtrl'
+      }
+    }
   });
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/app/main');
