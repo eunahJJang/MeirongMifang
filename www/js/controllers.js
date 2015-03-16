@@ -318,6 +318,7 @@ angular.module('starter.controllers', [])
   var isIOS = ionic.Platform.isWebView() && ionic.Platform.isIOS();
 
   $scope.getMessages = function(){
+
     $http.get("http://cpromise.cafe24.com/twinkle/getMessages.php", {params : {"from" : $scope.$root.username}})
       .success(function(data){
         for(index = 0; index < data.length; index++){
@@ -395,9 +396,6 @@ angular.module('starter.controllers', [])
     category = 'all';
   }
   $scope.getProducts(category);
-
-
-
 })
 
 .controller('ProductCtrl', function($scope, $state, $http, $stateParams, $rootScope, $cookieStore, $cordovaToast) {
@@ -413,7 +411,7 @@ angular.module('starter.controllers', [])
       });
 
       $scope.changePage = function(){
-        $state.go('app.productInfo', { "shopId": 1});
+        $state.go('app.productInfo', {"shopId": $stateParams.shopId, "productId" : $stateParams.productId});
       }
 })
 
@@ -441,4 +439,12 @@ angular.module('starter.controllers', [])
     .error(function(data){
 
     });
+
+    $scope.changePage = function(){
+        $state.go('app.single', {"shopId": $stateParams.shopId, "productId" : $stateParams.productId});
+      }
+})
+
+.controller('ReviewCtrl', function($scope, $http, $stateParams){
+
 });

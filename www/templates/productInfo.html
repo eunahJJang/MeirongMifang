@@ -1,5 +1,5 @@
 <ion-view view-title="병원정보">
-	<ion-content>
+	<ion-content ng-swipe-right="changePage()">
 		<div ng-repeat="data in datas">
 			<div style="display: inline-block; float: left; margin:10px 10px">
 				<img src = "{{ data.logoImg }}" width="100px" height="100px">
@@ -17,17 +17,18 @@
 			<div style="clear:both; font-size:20px; margin-top:10px;">
 				<span > 의료진</span>
 				<br />
-				<img src = "{{ data.doctorImgList }}" width="100px" height="150px">
+				<img style="margin:10px 10px 0px 10px" src = "{{ data.doctorImgList }}" width="100px" height="150px">
 			</div>
-			<div style="clear:both; font-size:20px; margin-top:10px;">
-				<span > 병원 </span>
+			<div style="clear:both; font-size:20px; ">
+				<span > 병원 내부 </span>
 				<br />
-				<img src = "{{ data.shopImgList }}" width="150px" height="100px">
+				<img style="margin:10px 10px 80px 10px" src = "{{ data.shopImgList }}" width="150px" height="100px">
 			</div>
 		</div>
 	</ion-content>
 	
 	<div class="bar bar-footer">
-	  <button class="button button-clear pull-right" ui-sref="app.chat">문의하기</button>
+		<button class="button button-assertive" ui-sref="app.review">후기</button>
+		<button class="button button-assertive" ui-sref="app.chat">문의하기</button>
 	</div>
 </ion-view>

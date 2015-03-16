@@ -8,10 +8,10 @@
 
 
       <!-- <ion-item ng-repeat="product in products" href="#/app/product/{{product.id}}"> -->
-      <ion-item ng-repeat="product in products" ui-sref="app.single({ productId: product.productId })">
+      <ion-item ng-repeat="product in products" ui-sref="app.single({ productId: product.productId, shopId:product.shopId})">
         <div style="display:inline-block; margin-left:20px;">
             <!--{{product.content}} <br />-->
-            <span style="background-color:red; color:white; font-weight:bold">{{product.shopId}}.{{product.region}}<br /></span>
+            <span style="background-color:red; color:white; font-weight:bold">{{product.region}}<br /></span>
             <p style=""><div style="display:inline-block; float: left; font-size:20px; margin-top:5px; font-weight:bold"> {{product.shopName}}</div></p>
             <p style="float:left; margin-top:5px;">{{product.minPrice}} won<br /></p>
             <p style="clear:both"></p>
@@ -22,7 +22,9 @@
       </ion-item>
     </ion-list>
   </ion-content>
-     <div class="bar bar-footer">
-      <button class="button button-clear pull-right" ui-sref="app.chat">문의하기</button>
-    </div>
+  
+  <div class="bar bar-footer">
+    <button class="button button-assertive" ui-sref="app.review">후기</button>
+    <button class="button button-assertive" ui-sref="app.chat">문의하기</button>
+  </div>
 </ion-view>
