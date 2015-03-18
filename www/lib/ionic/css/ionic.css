@@ -7011,3 +7011,12 @@ a.button {
   opacity: 0;
   -webkit-transition-duration: 0s;
   transition-duration: 0s; }
+
+
+.categories a:active,
+.categories a:hover,
+.categories a:link,
+.categories a:visited{
+	text-decoration: none;
+	color:#111;
+}
