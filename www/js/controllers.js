@@ -427,13 +427,29 @@ angular.module('starter.controllers', [])
         $http.get("http://www.webservicex.net/CurrencyConvertor.asmx/ConversionRate?FromCurrency=KRW&ToCurrency=CNY")
           .success(function(data){
 
-            alert(data.substring(84,90));
+            return data.substring(84,90);
           })
           .error(function(data){
-            alert('error');
+            alert('getCurrency-error');
+            return false;
           });
       }
- $scope.getCurrency();
+
+//      var currency = $scope.getCurrency();
+      var currency = 0.55;
+
+      $scope.showConvPrice = function(){
+        var tmps = document.getElementsByName("price");
+        for( tmp in tmps){
+          alert(1);
+        }
+        alert(tmps.length);
+        // var won = tmp.replace(/,/g,'');
+        // won = won.replace('won','');
+        // won = parseInt(won);
+
+        // document.getElementById("price").innerText = won/currency;
+      }
 })
 
 .controller('DetailImageCtrl', function($scope, $http, $stateParams){
