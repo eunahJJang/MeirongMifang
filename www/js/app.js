@@ -88,16 +88,6 @@ angular.module('starter', ['ionic', 'ngCookies', 'ngCordova', 'ngAnimate', 'ngTo
     }
   })
 
-  // [왼쪽사이드] 상세 카테고리 
-  .state('app.subcategory', {
-      url: "/subcategory/:currentCategory",
-      views: {
-        'sideMenu': {
-          templateUrl:"templates/subcategory.html",
-        }
-      }
-  })
-
   // 가입 페이지
   .state('app.join', {
     url: "/join",

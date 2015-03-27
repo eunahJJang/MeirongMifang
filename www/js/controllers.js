@@ -376,16 +376,15 @@ angular.module('starter.controllers', [])
   $scope.getMessages();
 })
 
-.controller('ProductsCtrl', function($scope, $http, $stateParams, $rootScope) {
-  
+.controller('ProductsCtrl', function($scope, $http, $stateParams) {
   $scope.getProducts = function(category){
-    $http.get("http://cpromise.cafe24.com/twinkle/products.php", {params : {"category" : category}})
+    $http.get("http://meirong-mifang.com/products/getList.php", {params : {"category" : category}})
       .success(function(data){
         $scope.noOfProduct = data.length;
 
         $scope.products = [];
           for(index = 0; index < data.length; index++){
-             $scope.products.push({ shopId:data[index].shopId,productId:data[index].productId, content: data[index].content, shopName: data[index].shopName, id: index, image: data[index].imag, price: data[index].price, region: data[index].region, minPrice: data[index].minPrice, maxPrice: data[index].maxPrice });
+             $scope.products.push({ shopId:data[index].shopId,productId:data[index].productId, content: data[index].content, shopName: data[index].shopName, id: index, logo: data[index].logo, price: data[index].price, region: data[index].region, minPrice: data[index].minPrice, maxPrice: data[index].maxPrice });
           }
       })
       .error(function(data){
@@ -399,12 +398,15 @@ angular.module('starter.controllers', [])
   $scope.getProducts(category);
 })
 
-.controller('ProductCtrl', function($scope, $state, $http, $stateParams, $rootScope, $cookieStore, $cordovaToast) {
-    $http.get("http://cpromise.cafe24.com/twinkle/productDetail.php", {params : {"productId" : $stateParams.productId}})
+.controller('ProductCtrl', function($scope, $state, $http, $stateParams) {
+    $http.get("http://meirong-mifang.com/products/getDetail.php", {params : {"productId" : $stateParams.productId}})
       .success(function(data){
           $scope.datas = [];
+          $scope.img = data[0].productImg;
+          $scope.productId = data[0].productId;
+
           for(index = 0; index < data.length; index++){
-             $scope.datas.push({productId:data[index].productId, detail_id:data[index].detail_id, img:data[index].product_img, name:data[index].name, price:data[index].price});
+             $scope.datas.push({productId:data[index].productId, detailId:data[index].detailId, name:data[index].name, price:data[index].price});
           }
       })
       .error(function(data){
@@ -417,11 +419,11 @@ angular.module('starter.controllers', [])
 })
 
 .controller('DetailImageCtrl', function($scope, $http, $stateParams){
-  $http.get("http://cpromise.cafe24.com/twinkle/detailImage.php", {params : {"productId" : $stateParams.productId, "detail_id" :$stateParams.detailId}})
+  $http.get("http://meirong-mifang.com/products/getDetailImage.php", {params : {"productId" : $stateParams.productId, "detailId" :$stateParams.detailId}})
       .success(function(data){
           $scope.datas = [];
           for(index = 0; index < data.length; index++){
-             $scope.datas.push({productId:data[index].productId, detail_id:data[index].detail_id, img:data[index].product_img, name:data[index].name, price:data[index].price, before:data[index].before, after:data[index].after});
+             $scope.datas.push({productId:data[index].productId, detailId:data[index].detailId, img:data[index].product_img, name:data[index].name, price:data[index].price, before:data[index].before, after:data[index].after});
           }
       })
       .error(function(data){

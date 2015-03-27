@@ -1,10 +1,22 @@
 <ion-view view-title="Product">
-	<ion-content>
-		<ion-slide-box>
-			<ion-slide ng-repeat="data in datas">
-				<div><img style="width: 100%" src = "{{data}}"></div>
-			</ion-slide>
-		</ion-slide-box>
+	<ion-content  ng-swipe-right="changePage()">
+	<div style="height: 300px; width: 100%; overflow: hidden">
+		<div><img src = "{{img}}"></div>
+	</div>
+		<a href="#/app/productDetail/{{productId}}/all" style="text-decoration: none">
+			<span style=" font-size:24px;"> 전체보기 </span>
+		</a>
+		<div ng-repeat="data in datas">
+			<a href="#/app/productDetail/{{data.productId}}/{{data.detailId}}" style="text-decoration: none">
+				<span style="color:black; font-size:20px;">{{ data.name }}</span>
+			</a>
+			<div style="display:inline-block; position:absolute; right:0; margin-right:8px;">
+				<button class="button-clear">
+					<span style="color:black; font-size:18px;">{{ data.price }}</span>
+				</button>
+				<!-- 환율은  http://www.webservicex.net/CurrencyConvertor.asmx/ConversionRate?FromCurrency=KRW&ToCurrency=CNY 이걸로 javascript로 해결  -->
+			</div>
+		</div>
 	</ion-content>
 	
 	<div class="bar bar-footer">
