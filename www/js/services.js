@@ -5,7 +5,6 @@ angular.module('starter.services', ['http-auth-interceptor'])
       $http.get('http://cpromise.cafe24.com/twinkle/login.php', {params : {"username" : username, "password" : password}}, { ignoreAuthModule: true })
        .success(function (data, status, headers, config) {
     	   $http.defaults.headers.common.Authorization = data.authorizationToken;  // Step 1
-        
           authService.loginConfirmed(data, function(config) {  // Step 2 & 3
             config.headers.Authorization = data.authorizationToken;
             return config;

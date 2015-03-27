@@ -3,14 +3,25 @@
     <ion-nav-bar class="bar-stable">
       <ion-nav-back-button>
       </ion-nav-back-button>
-        <ion-nav-buttons side="left">
-          <button class="button" OnClick="location.href='#/app/mypage'" ng-if="$root.isLogin==false">login</button>
-          <button class="button" ng-if="$root.isLogin==true">logout</button>
-      </ion-nav-buttons>
       <ion-nav-buttons side="right">
         <button class="button button-icon button-clear ion-search" >
+        <button class="button" ui-sref="app.mypage">MY</button>
       </button>
     </ion-nav-bar>
     <ion-nav-view name="content"></ion-nav-view>
   </ion-side-menu-content>
 </ion-side-menus>
+<ion-footer-bar class="bar-light">
+  <div class="buttons">
+    <button class="button">HOME</button>
+  </div>
+  <div class="buttons"  ng-click="doSomething()">
+    <button class="button">COMMUNITY</button>
+  </div>
+  <div class="buttons" ng-click="doSomething()">
+    <button class="button">REVIEW</button>
+  </div>
+  <div class="buttons" ng-click="doSomething()">
+    <button class="button">CHAT</button>
+  </div>
+</ion-footer-bar>

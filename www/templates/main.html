@@ -1,7 +1,11 @@
 <ion-view view-title="美容秘方">
   <ion-header>
     <meta info_name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scal=1.0, user-scalable=no, minimal-ui"/>
-  </ion-heaer>
+  </ion-header>
+   <ion-nav-buttons side="left">
+      <button class="button" ng-click="login()" ng-if="$root.isLogin==false">login</button>
+      <button class="button" ng-if="$root.isLogin==true">logout</button>
+  </ion-nav-buttons>
   <ion-content  style="background-color: #ffbfc9">
     <ion-list>
     <div class="row" style="width: 80%; padding:20% 10% 0% 10%">

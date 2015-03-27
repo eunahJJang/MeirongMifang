@@ -23,8 +23,14 @@ angular.module('starter.controllers', [])
     }
   });  
 })
+
+.controller('mainCtrl', function($scope, $rootScope, $cookieStore){
+  $scope.login = function(){
+    $rootScope.$broadcast('event:auth-loginRequired', { state: 'app.main' });
+  }
+})
   
-.controller('LoginCtrl', function($scope, $http, $state, $cookieStore, AuthenticationService, $cordovaToast, $cordovaPush, $cordovaDialogs, $cordovaMedia, $cordovaDevice) {
+.controller('LoginCtrl', function($scope, $http, $state, $cookieStore, AuthenticationService, $rootScope, $cordovaPush, $cordovaDialogs, $cordovaMedia, $cordovaDevice) {
   $scope.message = "";
 
   $scope.user = {
@@ -39,13 +45,23 @@ angular.module('starter.controllers', [])
   };
 
   $scope.closeLogin = function() {
-    $scope.loginModal.remove();
+    $scope.loginModal.hide();
   };
  
-  $scope.$on('event:auth-loginRequired', function(e, rejection) {
+  $scope.$on('event:auth-loginRequired', function(e, args) {
+    $scope.$root.state = args.state;
     $scope.loginModal.show();
   });
   
+  $scope.$on('event:auth-loginConfirmed', function() {
+    $cookieStore.put('isLogin', true);
+    $scope.$root.isLogin = true;
+    // $scope.username = null;
+    $scope.password = null;
+    $scope.loginModal.hide();
+    $state.go($scope.$root.state)
+  });
+
   $scope.$on('event:auth-login-failed', function(e, status) {
     var error = "Login failed.";
     if (status == 401) {
@@ -275,26 +291,12 @@ angular.module('starter.controllers', [])
   };
 })
 
-.controller('MypageCtrl', function($scope, $http, $stateParams, $cookieStore, $rootScope, $cordovaToast) {
-
-    // TODO 전체를 다 로딩할 필요가 없음
-  $scope.$on('event:auth-loginConfirmed', function() {
-    $cookieStore.put('isLogin', true);
-    $scope.$root.isLogin = true;
-    // $scope.username = null;
-    $scope.password = null;
-    $scope.loginModal.hide();
-    getProducts();
-  });
-
+.controller('MypageCtrl', function($scope, $state, $http, $stateParams, $cookieStore, $rootScope, $cordovaToast) {
   if($cookieStore.get('isLogin') != true){
-    $rootScope.$broadcast('event:auth-loginRequired');
+    $rootScope.$broadcast('event:auth-loginRequired', { state: 'app.mypage' });
   }
-
-  var getProducts = function(){
      $scope.products = [];
      $scope.products.push({ content: "눈의짱", shop_name: "압구정성형외과", id: 0, image: "http://www.stclinic.net/img/main_visual04.png", price: "200000~3000000" });    
-  }
 
 //     $http.get("http://cpromise.cafe24.com/twinkle/mypage.php", {params : {"username" : $stateParams.username}})
 //       .success(function (data, status, headers, config) {
@@ -311,7 +313,7 @@ angular.module('starter.controllers', [])
   $scope.messages = [];
 
   if($scope.$root.isLogin != true){
-    $rootScope.$broadcast('event:auth-loginRequired');
+    $rootScope.$broadcast('event:auth-loginRequired' );
   }
 
   $scope.hideTime = true;

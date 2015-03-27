@@ -66,10 +66,8 @@ angular.module('starter', ['ionic', 'ngCookies', 'ngCordova', 'ngAnimate', 'ngTo
     url: "/main",
     views: {
       'content': {
-        templateUrl: "templates/main.html"
-      },
-      'sideMenu': {
-        templateUrl:"templates/category.html"
+        templateUrl: "templates/main.html",
+        controller: 'mainCtrl'
       }
     }
   })
@@ -81,9 +79,6 @@ angular.module('starter', ['ionic', 'ngCookies', 'ngCordova', 'ngAnimate', 'ngTo
       'content': {
         templateUrl: "templates/products.html",
         controller: 'ProductsCtrl',
-      },
-      'sideMenu': {
-        templateUrl:"templates/category.html"
       }
     }
   })
@@ -114,9 +109,6 @@ angular.module('starter', ['ionic', 'ngCookies', 'ngCordova', 'ngAnimate', 'ngTo
       'content': {
         templateUrl: "templates/mypage.html",
         controller: 'MypageCtrl'
-      },
-      'sideMenu': {
-        templateUrl:"templates/category.html"
       }
     }
   })
