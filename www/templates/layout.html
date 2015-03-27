@@ -13,7 +13,7 @@
 </ion-side-menus>
 <ion-footer-bar class="bar-light">
   <div class="buttons">
-    <button class="button">HOME</button>
+    <button class="button" ui-sref="app.main">HOME</button>
   </div>
   <div class="buttons"  ng-click="doSomething()">
     <button class="button">COMMUNITY</button>
@@ -21,7 +21,7 @@
   <div class="buttons" ng-click="doSomething()">
     <button class="button">REVIEW</button>
   </div>
-  <div class="buttons" ng-click="doSomething()">
-    <button class="button">CHAT</button>
+  <div class="buttons">
+    <button class="button" ui-sref="app.chat">CHAT</button>
   </div>
 </ion-footer-bar>

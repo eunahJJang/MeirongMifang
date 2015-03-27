@@ -295,10 +295,20 @@ angular.module('starter.controllers', [])
   if($cookieStore.get('isLogin') != true){
     $rootScope.$broadcast('event:auth-loginRequired', { state: 'app.mypage' });
   }
-     $scope.products = [];
+
+
+})
+
+.controller('ProfileCtrl', function($scope){
+
+})
+
+.controller('LikeCtrl', function($scope){
+       $scope.products = [];
      $scope.products.push({ content: "눈의짱", shop_name: "압구정성형외과", id: 0, image: "http://www.stclinic.net/img/main_visual04.png", price: "200000~3000000" });    
 
-//     $http.get("http://cpromise.cafe24.com/twinkle/mypage.php", {params : {"username" : $stateParams.username}})
+
+  //     $http.get("http://cpromise.cafe24.com/twinkle/mypage.php", {params : {"username" : $stateParams.username}})
 //       .success(function (data, status, headers, config) {
 //     $scope.products = [];
 //       $scope.products.push({ content: "눈의짱", shop_name: "압구정성형외과", id: 0, image: "http://www.stclinic.net/img/main_visual04.png", price: "200000~3000000" });
@@ -306,21 +316,21 @@ angular.module('starter.controllers', [])
 //       .error(function (data, status, headers, config) {
 //           console.log("Error occurred.  Status:" + status);
 //       });
+  
 })
 
 .controller('ChatCtrl', function($scope, $http, $timeout, $ionicScrollDelegate, $rootScope, $cookieStore, $cordovaToast){
+  if($scope.$root.isLogin != true){
+    $rootScope.$broadcast('event:auth-loginRequired', { state: 'app.chat' });
+  }
+
   $scope.data = {};
   $scope.messages = [];
-
-  if($scope.$root.isLogin != true){
-    $rootScope.$broadcast('event:auth-loginRequired' );
-  }
 
   $scope.hideTime = true;
   var isIOS = ionic.Platform.isWebView() && ionic.Platform.isIOS();
 
   $scope.getMessages = function(){
-
     $http.get("http://cpromise.cafe24.com/twinkle/getMessages.php", {params : {"from" : $scope.$root.username}})
       .success(function(data){
         for(index = 0; index < data.length; index++){
@@ -423,7 +433,6 @@ angular.module('starter.controllers', [])
 
      
       $scope.getCurrency = function(){
-
         $http.get("http://www.webservicex.net/CurrencyConvertor.asmx/ConversionRate?FromCurrency=KRW&ToCurrency=CNY")
           .success(function(data){
 

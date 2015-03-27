@@ -113,6 +113,35 @@ angular.module('starter', ['ionic', 'ngCookies', 'ngCordova', 'ngAnimate', 'ngTo
     }
   })
 
+  .state('app.profile', {
+    url: "/profile",
+    views: {
+      'content': {
+        templateUrl: "templates/profile.html",
+        controller: 'ProfileCtrl'
+      }
+    }
+  })
+
+  .state('app.event', {
+    url: "/event",
+    views: {
+      'content': {
+        templateUrl: "templates/event.html"
+      }
+    }
+  })
+
+  .state('app.like', {
+    url: "/like",
+    views: {
+      'content': {
+        templateUrl: "templates/like.html",
+        controller: 'LikeCtrl'
+      }
+    }
+  })
+
   .state('app.chat', {
     url: "/chat",
     views: {
