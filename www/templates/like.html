@@ -1,0 +1,11 @@
+<ion-view view-title="관심 수술">
+  <ion-content>
+   	<ion-list>
+      <ion-item ng-repeat="product in products" href="#/app/product/{{product.id}}">
+       <div style="display:inline-block">{{product.content}} <br />{{product.price}} 원<br /> <div style="display:inline-block; float: right;"> {{product.shop_name}}</div></div>
+       
+       <div style="display: inline-block; float: right;"><img src = "{{product.image}}" width="100px" height="100px"></div>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-view>

@@ -1,18 +1,8 @@
 <ion-view view-title="My page">
   <ion-content>
-    <h3> 개인 정보 </h3>
-    	<div> {{username}} </div>
-    <div> 상담 </div>
-      <div> 
-        <button class="button" ui-sref="app.chat">바로 상담하기</button>
-      </div>
-    <h3> 관심 병원 </h3>
-    <ion-list>
-      <ion-item ng-repeat="product in products" href="#/app/product/{{product.id}}">
-       <div style="display:inline-block">{{product.content}} <br />{{product.price}} 원<br /> <div style="display:inline-block; float: right;"> {{product.shop_name}}</div></div>
-       
-       <div style="display: inline-block; float: right;"><img src = "{{product.image}}" width="100px" height="100px"></div>
-      </ion-item>
-    </ion-list>
+    <ion-item ui-sref="app.profile">개인 정보</ion-item>
+    <ion-item ui-sref="app.event">소식</ion-item>
+    <ion-item ui-sref="app.chat">상담 하기</ion-item>
+    <ion-item ui-sref="app.like">관심 수술</ion-item>
   </ion-content>
 </ion-view>
