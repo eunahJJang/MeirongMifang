@@ -399,11 +399,22 @@ angular.module('starter.controllers', [])
 
       })
   }
+
+  $scope.getExchange = function(){
+    $http.get("http://meirong-mifang.com/products/getExchange.php")
+      .success(function(data){
+        $scope.exRate = data.exrate;        
+      })
+      .error( function(){
+
+      })
+  }
   category = $stateParams.category;
   if(category == null){
     category = 'all';
   }
   $scope.getProducts(category);
+  $scope.getExchange();
 })
 
 .controller('ProductCtrl', function($scope, $state, $http, $stateParams) {
