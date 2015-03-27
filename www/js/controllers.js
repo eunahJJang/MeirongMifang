@@ -384,7 +384,13 @@ angular.module('starter.controllers', [])
 
         $scope.products = [];
           for(index = 0; index < data.length; index++){
-             $scope.products.push({ shopId:data[index].shopId,productId:data[index].productId, content: data[index].content, shopName: data[index].shopName, id: index, logo: data[index].logo, price: data[index].price, region: data[index].region, minPrice: data[index].minPrice, maxPrice: data[index].maxPrice });
+             $scope.products.push({ 
+              shopId:data[index].shopId,
+              shopName: data[index].shopName, 
+              logo: data[index].logo, 
+              region: data[index].region, 
+              minPrice: data[index].minPrice, 
+              maxPrice: data[index].maxPrice });
           }
       })
       .error(function(data){
