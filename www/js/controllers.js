@@ -435,6 +435,20 @@ angular.module('starter.controllers', [])
       $scope.changePage = function(){
         $state.go('app.productInfo', {"shopId": $stateParams.shopId, "productId" : $stateParams.productId});
       }
+
+     
+      $scope.getCurrency = function(){
+
+        $http.get("http://www.webservicex.net/CurrencyConvertor.asmx/ConversionRate?FromCurrency=KRW&ToCurrency=CNY")
+          .success(function(data){
+
+            alert(data.substring(84,90));
+          })
+          .error(function(data){
+            alert('error');
+          });
+      }
+ $scope.getCurrency();
 })
 
 .controller('DetailImageCtrl', function($scope, $http, $stateParams){
