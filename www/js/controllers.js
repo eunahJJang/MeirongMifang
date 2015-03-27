@@ -399,38 +399,23 @@ angular.module('starter.controllers', [])
 
       })
   }
-
-  $scope.getExchange = function(){
-    $http.get("http://meirong-mifang.com/products/getExchange.php")
-      .success(function(data){
-        $scope.exRate = data.exrate;        
-      })
-      .error( function(){
-
-      })
-  }
   category = $stateParams.category;
   if(category == null){
     category = 'all';
   }
   $scope.getProducts(category);
-  $scope.getExchange();
 })
 
 .controller('ProductCtrl', function($scope, $state, $http, $stateParams) {
-    $http.get("http://meirong-mifang.com/products/getDetail.php", {params : {"productId" : $stateParams.productId}})
+    $http.get("http://meirong-mifang.com/products/getDetail.php", {params : {"category":category,"shopId": $stateParams.shopId}})
       .success(function(data){
           $scope.datas = [];
-          $scope.img = data[0].productImg;
-          $scope.productId = data[0].productId;
-
           for(index = 0; index < data.length; index++){
-             $scope.datas.push({productId:data[index].productId, detailId:data[index].detailId, name:data[index].name, price:data[index].price});
+             $scope.datas.push({surgeryId:data[index].surgeryId, method:data[index].method, price:data[index].price});
           }
       })
       .error(function(data){
-
-      });
+      })
 
       $scope.changePage = function(){
         $state.go('app.productInfo', {"shopId": $stateParams.shopId, "productId" : $stateParams.productId});

@@ -124,7 +124,7 @@ angular.module('starter', ['ionic', 'ngCookies', 'ngCordova', 'ngAnimate', 'ngTo
   })
   
   .state('app.single', {
-    url: "/product/:productId",
+    url: "/product/:shopId",
     views: {
       'content': {
         templateUrl: "templates/product.html",
