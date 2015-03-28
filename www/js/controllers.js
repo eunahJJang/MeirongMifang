@@ -455,15 +455,22 @@ angular.module('starter.controllers', [])
 //      var currency = $scope.getCurrency();
       var currency = 178;
 
+      //현재 화폐단위가 원화이면 클릭 시 중국위안으로, 현재 화폐단위가 위안이면 클릭 시 원화로 바꾸어 보여주는 메소드
       $scope.showConvPrice = function(){
         var isWon = false;
+
+        //현재 화폐단위가 won으로 끝날 경우 (문자열 끝에서 3개 잘라서 확인)
         if( $scope.datas[0].price.substr(-3,3) == "won"){
           isWon = true;
         }
+        //현재 화폐단위가 CNY 로 끝날 경우 (문자열 끝에서 3개 잘라서 확인)
         else if( $scope.datas[0].price.substr(-3,3) == "CNY"){
           isWon = false;
         }
 
+        //현재 값이 won으로 끝날 경우(초기 값)
+        //원화를 담는 배열에 현재 초기 원화 값을 저장해 둔다 -> 위안에서 원화를 보여줄 때 가져오기 위함
+        //굳이 배열에 원화를 담아 두는 이유 : 환율이 실수이므로 여러차례 곱셈연산하다보면 값이 변하게 될까봐
         if(isWon){
          for(var i=0; i< $scope.datas.length; i++){
           $scope.priceWon[i] = $scope.datas[i].price;
