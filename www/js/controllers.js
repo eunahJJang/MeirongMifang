@@ -59,7 +59,7 @@ angular.module('starter.controllers', [])
     // $scope.username = null;
     $scope.password = null;
     $scope.loginModal.hide();
-    $state.go($scope.$root.state)
+    $state.go($scope.$root.state);
   });
 
   $scope.$on('event:auth-login-failed', function(e, status) {
@@ -292,6 +292,7 @@ angular.module('starter.controllers', [])
 })
 
 .controller('MypageCtrl', function($scope, $state, $http, $stateParams, $cookieStore, $rootScope, $cordovaToast) {
+
   if($cookieStore.get('isLogin') != true){
     $rootScope.$broadcast('event:auth-loginRequired', { state: 'app.mypage' });
   }
