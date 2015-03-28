@@ -1,3 +1,9 @@
+//콤마찍기
+function comma(str) {
+    str = String(str);
+    return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
+}
+
 angular.module('starter.controllers', [])
 
 .controller('AppCtrl', function($scope, $state, $ionicModal, $cookieStore) {
@@ -418,11 +424,12 @@ angular.module('starter.controllers', [])
 })
 
 .controller('ProductCtrl', function($scope, $state, $http, $stateParams) {
+    $scope.priceWon = [];
     $http.get("http://meirong-mifang.com/products/getDetail.php", {params : {"category":category,"shopId": $stateParams.shopId}})
       .success(function(data){
           $scope.datas = [];
           for(index = 0; index < data.length; index++){
-             $scope.datas.push({surgeryId:data[index].surgeryId, method:data[index].method, price:data[index].price});
+             $scope.datas.push({surgeryId:data[index].surgeryId, method:data[index].method, price:data[index].price+" won"});
           }
       })
       .error(function(data){
@@ -446,19 +453,32 @@ angular.module('starter.controllers', [])
       }
 
 //      var currency = $scope.getCurrency();
-      var currency = 0.55;
+      var currency = 178;
 
       $scope.showConvPrice = function(){
-        var tmps = document.getElementsByName("price");
-        for( tmp in tmps){
-          alert(1);
+        var isWon = false;
+        if( $scope.datas[0].price.substr(-3,3) == "won"){
+          isWon = true;
         }
-        alert(tmps.length);
-        // var won = tmp.replace(/,/g,'');
-        // won = won.replace('won','');
-        // won = parseInt(won);
+        else if( $scope.datas[0].price.substr(-3,3) == "CNY"){
+          isWon = false;
+        }
 
-        // document.getElementById("price").innerText = won/currency;
+        if(isWon){
+         for(var i=0; i< $scope.datas.length; i++){
+          $scope.priceWon[i] = $scope.datas[i].price;
+          var tmp = parseInt($scope.datas[i].price.replace(/,/g,""));
+          tmp /= currency;
+          tmp = parseInt(tmp)+"";
+          tmp = comma(tmp);
+          $scope.datas[i].price = tmp + " CNY";
+         }
+        }
+        else{
+          for(var i=0; i< $scope.datas.length; i++){
+            $scope.datas[i].price = $scope.priceWon[i];
+          }
+        }
       }
 })
 

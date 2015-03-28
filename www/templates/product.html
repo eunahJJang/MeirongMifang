@@ -10,9 +10,9 @@
 			<a href="#/app/productDetail/{{data.productId}}/{{data.detailId}}" style="text-decoration: none">
 				<span style="color:black; font-size:20px;">{{ data.method }}</span>
 			</a>
-			<div style="display:inline-block; position:absolute; right:0; margin-right:8px;">
+			<div id="price" style="display:inline-block; position:absolute; right:0; margin-right:8px;">
 				<button class="button-clear">
-					<span name="price" style="color:black; font-size:18px;" ng-click="showConvPrice()">{{ data.price }} won</span>
+					<span style="color:black; font-size:18px;" ng-click="showConvPrice()">{{ data.price }}</span>
 				</button>
 				<!-- 환율은  http://www.webservicex.net/CurrencyConvertor.asmx/ConversionRate?FromCurrency=KRW&ToCurrency=CNY 이걸로 javascript로 해결  -->
 			</div>
