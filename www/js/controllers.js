@@ -34,6 +34,10 @@ angular.module('starter.controllers', [])
   $scope.login = function(){
     $rootScope.$broadcast('event:auth-loginRequired', { state: 'app.main' });
   }
+
+  $scope.logout = function(){
+    $rootScope.$broadcast('event:auth-logoutRequired');
+  }
 })
   
 .controller('LoginCtrl', function($scope, $http, $state, $cookieStore, AuthenticationService, $rootScope, $cordovaPush, $cordovaDialogs, $cordovaMedia, $cordovaDevice) {
@@ -75,9 +79,16 @@ angular.module('starter.controllers', [])
     }
     $scope.message = error;
   });
+
+  $scope.$on('event:auth-logoutRequired', function(e, args){
+    AuthenticationService.logout($scope.user.username);
+    $scope.unregister();
+  });
  
   $scope.$on('event:auth-logout-complete', function() {
-    $state.go('app.home', {}, {reload: true, inherit: false});
+    $cookieStore.put('isLogin', false); 
+    $scope.$root.isLogin = false;
+    $state.go('app.main', {}, {reload: true, inherit: false});
   }); 
 
   $scope.join = function(){

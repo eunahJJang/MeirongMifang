@@ -14,12 +14,12 @@ angular.module('starter.services', ['http-auth-interceptor'])
           $rootScope.$broadcast('event:auth-login-failed', status);
         });
     },
-    logout: function(user) {
-      $http.post('https://logout', {}, { ignoreAuthModule: true })
-      .finally(function(data) {
+    logout: function(username) {
+      // $http.post('https://logout', {}, { ignoreAuthModule: true })
+      // .finally(function(data) {
         delete $http.defaults.headers.common.Authorization;
         $rootScope.$broadcast('event:auth-logout-complete');
-      });			
+      // });			
     },	
     loginCancelled: function() {
       authService.loginCancelled();

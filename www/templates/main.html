@@ -3,8 +3,8 @@
     <meta info_name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scal=1.0, user-scalable=no, minimal-ui"/>
   </ion-header>
    <ion-nav-buttons side="left">
-      <button class="button" ng-click="login()" ng-if="$root.isLogin==false">login</button>
-      <button class="button" ng-if="$root.isLogin==true">logout</button>
+      <button class="button button-icon ion-log-in" ng-click="login()" ng-if="$root.isLogin==false"></button>
+      <button class="button button-icon ion-log-out" ng-click="logout()" ng-if="$root.isLogin==true"></button>
   </ion-nav-buttons>
   <ion-content  style="background-color: #ffbfc9">
     <ion-list>
