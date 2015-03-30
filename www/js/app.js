@@ -158,9 +158,6 @@ angular.module('starter', ['ionic', 'ngCookies', 'ngCordova', 'ngAnimate', 'ngTo
       'content': {
         templateUrl: "templates/product.html",
         controller: 'ProductCtrl'
-      },
-      'sideMenu': {
-        templateUrl:"templates/category.html"
       }
     }
   })

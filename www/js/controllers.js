@@ -436,7 +436,7 @@ angular.module('starter.controllers', [])
 
 .controller('ProductCtrl', function($scope, $state, $http, $stateParams) {
     $scope.priceWon = [];
-    $http.get("http://meirong-mifang.com/products/getDetail.php", {params : {"category":category,"shopId": $stateParams.shopId}})
+    $http.get("http://meirong-mifang.com/products/getDetail.php", {params : {"category": category, "shopId": $stateParams.shopId}})
       .success(function(data){
           $scope.datas = [];
           for(index = 0; index < data.length; index++){
