@@ -1,16 +1,16 @@
 <ion-view view-title="비포애프터">
 	<ion-content>
-		<div style="text-align:center; margin:50px 50px">
-		병원로고
+		<div style="text-align:center; margin:30px 30px">
+			<div><img src = "{{logo}}"></div>
 		</div>
-		<div ng-repeat="data in datas">
-			<div style="margin-top:10px">
-				<span style="color:black; font-size:20px; margin-left:30px;">{{ data.name }}</span>
+		<ion-item ng-repeat="data in datas" style="height:200px">
+			<div>
+				<span style="color:black; font-size:20px; margin-left:30px;">{{ data.method }}</span>
 				<div style="display:inline-block; position:absolute; right:0; margin-right:8px;">
 					<span style="color:black; font-size:18px;">{{ data.price }}</span>
 				</div>
 			</div>
-			<div style="margin-top:10px">
+			<div>
 				<div style="position:absolute; left:0; margin-left:8px;">
 					<img style="width: 150px; height: 150px;" src = "{{ data.before }}">
 				</div>
@@ -18,11 +18,6 @@
 					<img style="width: 150px; height: 150px;" src = "{{ data.after }}">
 				</div>
 			</div>
-		</div>
+		</ion-item>
 	</ion-content>
-	
-	<div class="bar bar-footer">
-		<button class="button button-assertive" ui-sref="app.review">후기</button>
-		<button class="button button-assertive" ui-sref="app.chat">문의하기</button>
-	</div>
 </ion-view>

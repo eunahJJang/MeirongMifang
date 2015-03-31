@@ -244,20 +244,6 @@ angular.module('starter.controllers', [])
     }    
 })
 
-.controller('BackCtrl', function($scope, $state, $stateParams){
-  $scope.items = [{ id: 0 }];
-
-  currentCategory = $stateParams.currentCategory;
-
-  $scope.returnCategory = function(param) {
-    if(currentCategory == 'category'){
-      $state.go('app.products');
-    }else{
-      console.log(currentCategory);
-    }
-  };
-})
-
 .controller('JoinCtrl', function($scope, $ionicModal, $state, $http){
   $scope.joinData = {};
 
@@ -338,10 +324,6 @@ angular.module('starter.controllers', [])
 })
 
 .controller('ChatCtrl', function($scope, $http, $timeout, $ionicScrollDelegate, $rootScope, $cookieStore, $cordovaToast){
-  if($scope.$root.isLogin != true){
-    $rootScope.$broadcast('event:auth-loginRequired', { state: 'app.chat' });
-  }
-
   $scope.data = {};
   $scope.messages = [];
 
@@ -403,7 +385,11 @@ angular.module('starter.controllers', [])
     // cordova.plugins.Keyboard.close();
   };
 
-  $scope.getMessages();
+  if($scope.$root.isLogin != true){
+    $rootScope.$broadcast('event:auth-loginRequired', { state: 'app.chat' });
+  }else{
+    $scope.getMessages();
+  }
 })
 
 .controller('ProductsCtrl', function($scope, $http, $stateParams) {
@@ -415,6 +401,7 @@ angular.module('starter.controllers', [])
         $scope.products = [];
           for(index = 0; index < data.length; index++){
              $scope.products.push({ 
+              category:category,
               shopId:data[index].shopId,
               shopName: data[index].shopName, 
               logo: data[index].logo, 
@@ -436,18 +423,23 @@ angular.module('starter.controllers', [])
 
 .controller('ProductCtrl', function($scope, $state, $http, $stateParams) {
     $scope.priceWon = [];
-    $http.get("http://meirong-mifang.com/products/getDetail.php", {params : {"category": category, "shopId": $stateParams.shopId}})
+    $http.get("http://meirong-mifang.com/products/getDetail.php", {params : {"category": $stateParams.category, "shopId": $stateParams.shopId}})
       .success(function(data){
           $scope.datas = [];
+          $scope.logo = $stateParams.logo;
+          $scope.shopId = $stateParams.shopId;
           for(index = 0; index < data.length; index++){
-             $scope.datas.push({surgeryId:data[index].surgeryId, method:data[index].method, price:data[index].price+" won"});
+             $scope.datas.push({
+              surgeryId:data[index].surgeryId, 
+              method:data[index].method, 
+              price:data[index].price+" won"});
           }
       })
       .error(function(data){
       })
 
       $scope.changePage = function(){
-        $state.go('app.productInfo', {"shopId": $stateParams.shopId, "productId" : $stateParams.productId});
+        $state.go("app.detailImage", {"shopId": $stateParams.shopId, "surgeryId" : "all"});
       }
 
      
@@ -501,16 +493,40 @@ angular.module('starter.controllers', [])
 })
 
 .controller('DetailImageCtrl', function($scope, $http, $stateParams){
-  $http.get("http://meirong-mifang.com/products/getDetailImage.php", {params : {"productId" : $stateParams.productId, "detailId" :$stateParams.detailId}})
+  $scope.getEachDetailImage = function(surgeryId){
+    $http.get("http://meirong-mifang.com/products/getDetailImage.php", {params : {"shopId" : $stateParams.shopId, "surgeryId" :surgeryId}})
       .success(function(data){
           $scope.datas = [];
+          $scope.logo = $stateParams.logo;
           for(index = 0; index < data.length; index++){
-             $scope.datas.push({productId:data[index].productId, detailId:data[index].detailId, img:data[index].product_img, name:data[index].name, price:data[index].price, before:data[index].before, after:data[index].after});
+             $scope.datas.push({shopId:data[index].shopId, surgeryId:data[index].surgeryId, method:data[index].method, price:data[index].price, before:data[index].picBeforeSrc, after:data[index].picAfterSrc});
           }
       })
       .error(function(data){
 
       });
+  }
+
+  $scope.getAllDetailImage = function(shopId){
+    $http.get("http://meirong-mifang.com/products/getAllDetailImage.php", {params : {"shopId" : shopId}})
+      .success(function(data){
+          $scope.datas = [];
+          $scope.logo = $stateParams.logo;
+          for(index = 0; index < data.length; index++){
+             $scope.datas.push({shopId:data[index].shopId, surgeryId:data[index].surgeryId, method:data[index].method, price:data[index].price, before:data[index].picBeforeSrc, after:data[index].picAfterSrc});
+          }
+      })
+      .error(function(data){
+
+      });
+  }
+  
+  surgeryId = $stateParams.surgeryId;
+  if(surgeryId == 'all'){
+    $scope.getAllDetailImage($stateParams.shopId);
+  }else{
+    $scope.getEachDetailImage(surgeryId);
+  }
 })
 
 .controller('ProductInfoCtrl', function($scope, $http, $stateParams){

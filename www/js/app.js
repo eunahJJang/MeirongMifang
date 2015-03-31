@@ -153,7 +153,7 @@ angular.module('starter', ['ionic', 'ngCookies', 'ngCordova', 'ngAnimate', 'ngTo
   })
   
   .state('app.single', {
-    url: "/product/:shopId",
+    url: "/product/:category?shopId&logo",
     views: {
       'content': {
         templateUrl: "templates/product.html",
@@ -163,7 +163,7 @@ angular.module('starter', ['ionic', 'ngCookies', 'ngCordova', 'ngAnimate', 'ngTo
   })
 
   .state('app.detailImage',{
-    url: "/productDetail/:productId/:detailId",
+    url: "/productDetail/:shopId?surgeryId&logo",
     views: {
       'content':{
         templateUrl: "templates/detailImage.html",
@@ -183,11 +183,21 @@ angular.module('starter', ['ionic', 'ngCookies', 'ngCordova', 'ngAnimate', 'ngTo
   })
 
   .state('app.review', {
-    url:"/review/:productId",
+    url:"/review",
     views: {
       'content':{
         templateUrl: "templates/review.html",
         controller: 'ReviewCtrl'
+      }
+    }
+  })
+
+  .state('app.reviewWrite', {
+    url:"/reviewWrite",
+    views: {
+      'content':{
+        templateUrl: "templates/write.html",
+        controller: 'WriteCtrl'
       }
     }
   });

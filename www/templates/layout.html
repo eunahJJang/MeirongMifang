@@ -1,27 +1,27 @@
 <ion-side-menus enable-menu-with-back-views="false">
   <ion-side-menu-content>
-    <ion-nav-bar class="bar-stable">
+    <ion-nav-bar class="bar-assertive" >
       <ion-nav-back-button>
       </ion-nav-back-button>
       <ion-nav-buttons side="right">
-        <button class="button button-icon button-clear ion-search" >
-        <button class="button" ui-sref="app.mypage">MY</button>
+        <button class="button button-icon ion-navicon-round" ui-sref="app.mypage" />
+        <button class="button button-icon button-clear ion-search" />
       </button>
     </ion-nav-bar>
     <ion-nav-view name="content"></ion-nav-view>
   </ion-side-menu-content>
 </ion-side-menus>
-<ion-footer-bar class="bar-light">
-  <div class="buttons">
-    <button class="button" ui-sref="app.main">HOME</button>
+<ion-footer-bar style="height: 60px; background-color:#666666">
+  <div style="background-color:#e42012; margin: 0 auto;">
+    <button style="border: none;" ui-sref="app.main"><img src ="./img/footer_home.png" style="height: 50px"></button>
   </div>
-  <div class="buttons"  ng-click="doSomething()">
-    <button class="button">COMMUNITY</button>
+  <div style="background-color:#e42012; margin: 0 auto;">
+    <button style="border: none;"><img src ="./img/footer_review.png" style="height: 50px"></button></button>
   </div>
-  <div class="buttons" ng-click="doSomething()">
-    <button class="button">REVIEW</button>
+  <div style="background-color:#e42012; margin: 0 auto;">
+    <button style="border: none;" ui-sref="app.review"><img src ="./img/footer_community.png" style="height: 50px"></button>
   </div>
-  <div class="buttons">
-    <button class="button" ui-sref="app.chat">CHAT</button>
+  <div style="background-color:#666666; margin: 0 auto;">
+    <button style="border: none;" ui-sref="app.chat"><img src ="./img/footer_chat.png" style="height: 50px"></button>
   </div>
 </ion-footer-bar>
