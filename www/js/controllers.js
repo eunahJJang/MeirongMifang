@@ -530,11 +530,18 @@ angular.module('starter.controllers', [])
 })
 
 .controller('ProductInfoCtrl', function($scope, $http, $stateParams){
-  $http.get("http://cpromise.cafe24.com/twinkle/productInfo.php", {params : {"shopId" : $stateParams.shopId}})
+  $http.get("http://meirong-mifang.com/products/getShopInfo.php", {params : {"shopId" : $stateParams.shopId}})
     .success(function(data){
+      alert(1);
       $scope.datas = [];
       for(index = 0; index < data.length; index++){
-             $scope.datas.push({logoImg:data[index].logo, name:data[index].name, address:data[index].address, map:data[index].map, doctorImgList:data[index].doctorImgList, shopImgList:data[index].shopImgList});
+             $scope.datas.push({
+              logoImg:data[index].logo, 
+              name:data[index].name, 
+              address:data[index].address, 
+              map:data[index].map, 
+              docImgs:data[index].docImgs, 
+              shopImgs:data[index].shopImgs});
       }
     })
     .error(function(data){
