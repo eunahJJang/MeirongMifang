@@ -27,3 +27,6 @@ angular.module('starter.services', ['http-auth-interceptor'])
   };
   return service;
 })
+.config(['$ionicConfigProvider', function($ionicConfigProvider) {
+  $ionicConfigProvider.tabs.position('bottom');
+}]);

@@ -455,8 +455,8 @@ angular.module('starter.controllers', [])
           });
       }
 
-//      var currency = $scope.getCurrency();
-      var currency = 178;
+     var currency = $scope.getCurrency();
+ //     var currency = 178;
 
       //현재 화폐단위가 원화이면 클릭 시 중국위안으로, 현재 화폐단위가 위안이면 클릭 시 원화로 바꾸어 보여주는 메소드
       $scope.showConvPrice = function(){

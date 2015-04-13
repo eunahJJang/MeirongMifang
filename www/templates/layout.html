@@ -4,24 +4,38 @@
       <ion-nav-back-button>
       </ion-nav-back-button>
       <ion-nav-buttons side="right">
-        <button class="button button-icon ion-navicon-round" ui-sref="app.mypage" />
+        <button class="button button-icon ion-navicon" ui-sref="app.mypage" />
         <button class="button button-icon button-clear ion-search" />
       </button>
     </ion-nav-bar>
     <ion-nav-view name="content"></ion-nav-view>
   </ion-side-menu-content>
 </ion-side-menus>
-<ion-footer-bar style="height: 60px; background-color:#666666">
+<!-- <ion-footer-bar style="height: 40px; background-color:#666666">
   <div style="background-color:#e42012; margin: 0 auto;">
-    <button style="border: none;" ui-sref="app.main"><img src ="./img/footer_home.png" style="height: 50px"></button>
+    <button style="border: none; padding:0;" ui-sref="app.main"><img src ="./img/footer_home.png" style="height: 35px"></button>
   </div>
   <div style="background-color:#e42012; margin: 0 auto;">
-    <button style="border: none;"><img src ="./img/footer_review.png" style="height: 50px"></button></button>
+    <button style="border: none; padding:0;"><img src ="./img/footer_review.png" style="height: 35px"></button></button>
   </div>
   <div style="background-color:#e42012; margin: 0 auto;">
-    <button style="border: none;" ui-sref="app.review"><img src ="./img/footer_community.png" style="height: 50px"></button>
+    <button style="border: none; padding:0;" ui-sref="app.review"><img src ="./img/footer_community.png" style="height: 35px"></button>
   </div>
   <div style="background-color:#666666; margin: 0 auto;">
-    <button style="border: none;" ui-sref="app.chat"><img src ="./img/footer_chat.png" style="height: 50px"></button>
+    <button style="border: none; padding:0;" ui-sref="app.chat"><img src ="./img/footer_chat.png" style="height: 35px"></button>
   </div>
-</ion-footer-bar>
+</ion-footer-bar> -->
+
+<ion-tabs class="tabs-icon-only tabs-dark">
+  <ion-tab title="Home" icon="ion-home" ui-sref="app.main">
+  </ion-tab>
+
+  <ion-tab title="About" icon="ion-funnel" href="#/tab/about">
+  </ion-tab>
+
+  <ion-tab title="Contact" icon="ion-coffee" ui-sref="app.review">
+  </ion-tab>
+
+  <ion-tab title="Contact" icon="ion-chatbubble" ui-sref="app.chat">
+  </ion-tab>
+</ion-tabs>
