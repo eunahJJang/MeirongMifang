@@ -1,5 +1,8 @@
 <div class="modal" ng-controller="LoginCtrl">
   <ion-header-bar>
+    <div class="buttons">
+      <button class="button button-clear" ng-click="join()">Sign in</button>
+    </div>
     <h1 class="title">Login</h1>
     <div class="buttons">
       <button class="button button-clear" ng-click="closeLogin()">Close</button>
@@ -17,12 +20,8 @@
           <input type="hidden" ng-model="state" value="{{ $root.state }}" required>
         </label> -->
         <div class="padding">
-          <button class="button button-block button-positive" ng-click="login()">Login</button>
+          <button class="button button-block button-assertive" ng-click="login()">Login</button>
         </div>
       </form>
-    
-    <div class="padding">
-      <button class="button button-block button-positive" ng-click="join()">Sign in</button>
-    </div>
     </ion-content>
 </div>

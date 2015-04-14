@@ -3960,13 +3960,15 @@ ion-tabs.tabs-color-active-dark .tab-item {
     background-color: rgba(0, 0, 0, 0.5); }
 
 .modal {
-  display: block;
+  /*display: block;*/
   position: absolute;
-  top: 0;
-  z-index: 10;
+  top:50%;
+  left: 50%;
+  width: 300px;
+  height: 200px;
+  margin-left: -150px;
+  margin-top: -100px;
   overflow: hidden;
-  min-height: 100%;
-  width: 100%;
   background-color: #fff; }
 
 @media (min-width: 680px) {
@@ -6081,8 +6083,8 @@ progress {
         box-shadow: none;
         color: #fff; }
   .button.button-assertive {
-    border-color: #e42012;
-    background-color: #ef473a;
+    border-color: #ff697e;
+    background-color: #ff697e;
     color: #fff; }
     .button.button-assertive:hover {
       color: #fff;
