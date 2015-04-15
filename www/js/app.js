@@ -182,6 +182,26 @@ angular.module('starter', ['ionic', 'ngCookies', 'ngCordova', 'ngAnimate', 'ngTo
     }
   })
 
+  .state('app.docProfile', {
+    url:"/docProfile:docId",
+    views: {
+      'content':{
+        templateUrl: "templates/docprofile.html",
+        controller: 'docProfile'
+      }
+    }
+  })
+
+  .state('app.shopImg', {
+    url:"/shopImg:shopId",
+    views: {
+      'content':{
+        templateUrl: "templates/shopimg.html",
+        controller: 'shopImgCtrl'
+      }
+    }
+  })
+
   .state('app.review', {
     url:"/review",
     views: {

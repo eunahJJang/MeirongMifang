@@ -17,12 +17,16 @@
 			<div style="clear:both; font-size:20px; margin-top:10px;">
 				<span > 의료진</span>
 				<br />
-				<img style="margin:10px 10px 0px 10px" src = "{{ data.docImgs }}" width="100px" height="150px">
+				<a ui-sref="app.docProfile({docId:'{{data.docId}}'})">
+					<img style="margin:10px 10px 0px 10px" src = "{{ data.docImgs }}" width="100px" height="150px">				
+				</a>
 			</div>
-			<div style="clear:both; font-size:20px; ">
+			<div style="clear:both; font-size:20px;">
 				<span > 병원 내부 </span>
 				<br />
-				<img style="margin:10px 10px 80px 10px" src = "{{ data.shopImgs }}" width="150px" height="100px">
+				<a ui-sref="app.shopImg({shopId:'{{data.shopId}}'})">
+					<img style="margin:10px 10px 80px 10px; border:1px solid #eee;" src = "{{ data.shopImgs }}" width="150px" height="100px">			
+				</a>
 			</div>
 		</div>
 	</ion-content>

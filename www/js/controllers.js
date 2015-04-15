@@ -532,10 +532,12 @@ angular.module('starter.controllers', [])
 .controller('ProductInfoCtrl', function($scope, $http, $stateParams){
   $http.get("http://meirong-mifang.com/products/getShopInfo.php", {params : {"shopId" : $stateParams.shopId}})
     .success(function(data){
-      alert(1);
       $scope.datas = [];
+//      alert(data.length);
       for(index = 0; index < data.length; index++){
              $scope.datas.push({
+              shopId:data[index].shopId,
+              docId:data[index].docId,
               logoImg:data[index].logo, 
               name:data[index].name, 
               address:data[index].address, 
@@ -551,6 +553,17 @@ angular.module('starter.controllers', [])
     $scope.changePage = function(){
         $state.go('app.single', {"shopId": $stateParams.shopId, "productId" : $stateParams.productId});
       }
+})
+
+.controller('docProfile', function($scope, $state, $stateParams){
+  var docId = $stateParams.docId;
+
+  $scope.docId = docId;
+})
+
+.controller('shopImgCtrl', function($scope, $state, $stateParams){
+  var shopId = $stateParams.shopId;
+  $scope.shopId = shopId;
 })
 
 .controller('ReviewCtrl', function($scope, $stateParams, $cordovaCamera, $cordovaFile){
