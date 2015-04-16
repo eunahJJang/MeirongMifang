@@ -532,19 +532,27 @@ angular.module('starter.controllers', [])
 .controller('ProductInfoCtrl', function($scope, $http, $stateParams){
   $http.get("http://meirong-mifang.com/products/getShopInfo.php", {params : {"shopId" : $stateParams.shopId}})
     .success(function(data){
-      $scope.datas = [];
-//      alert(data.length);
+      $scope.datas    = [];
+      $scope.logoImg  = data[0].logo;
+      $scope.shopName = data[0].name;
+      $scope.address  = data[0].address;
+      $scope.shopId   = data[0].shopId;
+      $scope.map      = data[0].map;
+
+      $scope.doctors  = [];
+      $scope.shopimgs = [];
+
+      //shopImgSrc 임시로 지정
+      $scope.shopImgSrc = data[0].shopImgs;
+
       for(index = 0; index < data.length; index++){
-             $scope.datas.push({
-              shopId:data[index].shopId,
-              docId:data[index].docId,
-              logoImg:data[index].logo, 
-              name:data[index].name, 
-              address:data[index].address, 
-              map:data[index].map, 
-              docImgs:data[index].docImgs, 
-              shopImgs:data[index].shopImgs});
+        $scope.doctors.push({
+            imgsrc : data[index].docImgs,
+            id     : data[index].docId
+          })
       }
+
+
     })
     .error(function(data){
 

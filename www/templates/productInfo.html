@@ -1,31 +1,31 @@
 <ion-view view-title="병원정보">
 	<ion-content ng-swipe-right="changePage()">
-		<div ng-repeat="data in datas">
+		<div>
 			<div style="display: inline-block; float: left; margin:10px 10px">
-				<img src = "{{ data.logoImg }}" width="100px" height="100px">
+				<img src = "{{ logoImg }}" width="100px" height="100px">
 			</div>
 			<div >
-				<span style="display: inline-block; font-size:20px; margin-top:30px;">{{data.name}}</span>
+				<span style="display: inline-block; font-size:20px; margin-top:30px;">{{shopName}}</span>
 				<br />
-				<span>{{data.address}}</span>
+				<span>{{address}}</span>
 			</div>
 			<div style="clear:both; font-size:20px; margin-top:10px;">
 				<span >오시는길 </span>
 				<br />
-				<img src = "{{ data.map }}" width="100%" height="200px">
+				<img src = "{{ map }}" width="100%" height="200px">
 			</div>
 			<div style="clear:both; font-size:20px; margin-top:10px;">
 				<span > 의료진</span>
 				<br />
-				<a ui-sref="app.docProfile({docId:'{{data.docId}}'})">
-					<img style="margin:10px 10px 0px 10px" src = "{{ data.docImgs }}" width="100px" height="150px">				
+				<a ui-sref="app.docProfile({docId:'{{doctor.id}}'})" ng-repeat="doctor in doctors">
+					<img style="margin:10px 10px 0px 10px" src = "{{ doctor.imgsrc }}" width="100px" height="150px">				
 				</a>
 			</div>
 			<div style="clear:both; font-size:20px;">
 				<span > 병원 내부 </span>
 				<br />
-				<a ui-sref="app.shopImg({shopId:'{{data.shopId}}'})">
-					<img style="margin:10px 10px 80px 10px; border:1px solid #eee;" src = "{{ data.shopImgs }}" width="150px" height="100px">			
+				<a ui-sref="app.shopImg({shopId:'{{shopId}}'})">
+					<img style="margin:10px 10px 80px 10px; border:1px solid #eee;" src = "{{ shopImgSrc }}" width="150px" height="100px">			
 				</a>
 			</div>
 		</div>
