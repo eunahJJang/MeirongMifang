@@ -1,5 +1,6 @@
+
 <ion-view view-title="Chat">
-	<ion-pane>
+  <ion-pane>
     <ion-content>
       <div ng-repeat="message in messages">
         <div class="message">
@@ -13,13 +14,15 @@
             </div>  
         </div>
       </div>
-    <div class="bar-stable item-input-inset">
+
+    </ion-content>
+
+    <div class="bar bar-footer item-input-inset" style="bottom:49px">
       <label class="item-input-wrapper">
         <input type="text" placeholder="Type your message" on-return="sendMessage()" ng-model="data.message" />
       </label>
       <button class="button button-clear" ng-click="sendMessage()">Send</button>
     </div>
-    </ion-content>
 
 <!--     <ion-footer-bar class="bar-stable item-input-inset">
       <label class="item-input-wrapper">
