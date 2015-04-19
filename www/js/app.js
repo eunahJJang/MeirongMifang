@@ -183,7 +183,7 @@ angular.module('starter', ['ionic', 'ngCookies', 'ngCordova', 'ngAnimate', 'ngTo
   })
 
   .state('app.docProfile', {
-    url:"/docProfile:docId",
+    url:"/docProfile/:docId",
     views: {
       'content':{
         templateUrl: "templates/docprofile.html",
@@ -193,7 +193,7 @@ angular.module('starter', ['ionic', 'ngCookies', 'ngCordova', 'ngAnimate', 'ngTo
   })
 
   .state('app.shopImg', {
-    url:"/shopImg:shopId",
+    url:"/shopImg/:shopId",
     views: {
       'content':{
         templateUrl: "templates/shopimg.html",

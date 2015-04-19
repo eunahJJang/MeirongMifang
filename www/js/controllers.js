@@ -444,7 +444,7 @@ angular.module('starter.controllers', [])
 
      
       $scope.getCurrency = function(){
-        $http.get("http://www.webservicex.net/CurrencyConvertor.asmx/ConversionRate?FromCurrency=KRW&ToCurrency=CNY")
+        $http.get("http://www.webservicex.net/CurrencyConvertor.asmx/ConversionRate?FromCurrency=CNY&ToCurrency=KRW")
           .success(function(data){
 
             return data.substring(84,90);
@@ -536,7 +536,6 @@ angular.module('starter.controllers', [])
       $scope.logoImg  = data[0].logo;
       $scope.shopName = data[0].name;
       $scope.address  = data[0].address;
-      $scope.shopId   = data[0].shopId;
       $scope.map      = data[0].map;
 
       $scope.doctors  = [];
@@ -551,25 +550,47 @@ angular.module('starter.controllers', [])
             id     : data[index].docId
           })
       }
-
-
     })
     .error(function(data){
-
     });
+
+    $scope.shopId   = $stateParams.shopId;
+
 
     $scope.changePage = function(){
         $state.go('app.single', {"shopId": $stateParams.shopId, "productId" : $stateParams.productId});
       }
 })
 
-.controller('docProfile', function($scope, $state, $stateParams){
-  var docId = $stateParams.docId;
+.controller('docProfile', function($scope, $http, $stateParams){
+  $http.get("http://meirong-mifang.com/products/getDoctor.php", {params : {"docId" : $stateParams.docId}})
+    .success(function(data){
+      $scope.docName = data[0].name;
+      $scope.imgSrc  = data[0].imgSrc;
+    })
+    .error(function(data){
+    });
 
-  $scope.docId = docId;
+  $scope.docId = $stateParams.docId;
 })
 
-.controller('shopImgCtrl', function($scope, $state, $stateParams){
+.controller('shopImgCtrl', function($scope, $http, $stateParams){
+  $scope.imgList = [];
+  var index = 0;
+  $http.get("http://meirong-mifang.com/products/getShopImg.php", {params : {"shopId" : $stateParams.shopId}})
+  .success(function(data){
+    for(index=0; index<data.length; index++){
+      $scope.imgList.push({
+        imgsrc : data[index].imgSrc,
+        desc   : data[index].imgDesc
+      })
+    }
+  })
+  .error(function(data){
+
+  });
+
+
   var shopId = $stateParams.shopId;
   $scope.shopId = shopId;
 })
