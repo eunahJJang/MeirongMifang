@@ -6,4 +6,42 @@
    		<button class="button" ng-click="takePicture()">Take Picture</button>
    		<button class="button" ng-click="uploadPhoto()">Bring From Assets</button>
 	</ion-content> -->
+	<ion-content style="background-color:gray">
+		<!--
+		카테고리 부분입니다. 부위별 후기를 볼 수 있도록 선택이 가능합니다.
+		-->
+		<div style="margin: 0px 10px 0px 10px; top:10px"class="list">
+		  <label class="item item-input item-select">
+			<div style="padding-left:16px"class="input-label">Category</div>
+			<select>
+				<option selected>eye</option>
+				<option>nose</option>
+				<option>bosom</option>
+				<option>face</option>
+				<option>body</option>
+				<option>beauty</option>
+			</select>
+		  </label>
+		</div>		
+
+		<!--
+		list card 클래스를 활용하여 만들어 보았습니다. 상단에는 후기의 제목과 올린 시간을
+		알 수 있고 올린 사진을 간략하게 볼 수 있습니다. 현재 사진의 크기는 width 100% height 200px로
+		설정하였지만 수정 가능합니다.
+		-->
+		<div style="padding: 0px 5px 10px 5px;"class="list card">
+			<div class="row">
+				<div class="col col-75">
+					<a class="item" href="#"> Title-Title-Title </a>
+				</div>
+				<div class="col"> 
+					<a style="pointer-events:none; text-align:right"class="item" href=""> date</a>
+				</div>
+			</div>
+			<div style="width:100%; height:200px; border:1px solid gray"class ="item item-image">
+				<img src="./img/icon.png">
+			</div>
+		</div>
+	
+	</ion-content>
 </ion-view>
