@@ -331,7 +331,7 @@ angular.module('starter.controllers', [])
   var isIOS = ionic.Platform.isWebView() && ionic.Platform.isIOS();
 
   $scope.getMessages = function(){
-    $http.get("http://cpromise.cafe24.com/twinkle/getMessages.php", {params : {"from" : $scope.$root.username}})
+    $http.get("meirong-mifang.com/products/getMessages.php", {params : {"from" : $scope.$root.username}})
       .success(function(data){
         for(index = 0; index < data.length; index++){
            $scope.messages.push( {from:data[index].sender_id, to:data[index].receiver_id, text:data[index].message, time:data[index].created_time});
@@ -354,7 +354,7 @@ angular.module('starter.controllers', [])
     });
 
 
-    $http.get("http://cpromise.cafe24.com/twinkle/sendMessage.php", {params : {"from" : $scope.$root.username, "to" : 'admin', "message" : $scope.data.message}})
+    $http.get("http://meirong-mifang.com/products/sendMessages.php", {params : {"from" : $scope.$root.username, "to" : 'admin', "message" : $scope.data.message}})
       .success(function(data){
         for(index = 0; index < data.length; index++){
            $scope.messages.push( {from:data[index].sender_id, to:data[index].receiver_id, text:data[index].message, time:data[index].created_time});
@@ -543,6 +543,7 @@ angular.module('starter.controllers', [])
 
       //shopImgSrc 임시로 지정
       $scope.shopImgSrc = data[0].shopImgs;
+      $scope.shopImgSrc = "http://meirong-mifang.com/img/emptyimg.jpg";
 
       for(index = 0; index < data.length; index++){
         $scope.doctors.push({
