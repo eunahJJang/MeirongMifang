@@ -527,6 +527,10 @@ angular.module('starter.controllers', [])
   }else{
     $scope.getEachDetailImage(surgeryId);
   }
+
+  $scope.changePage = function(){
+    $state.go("app.productInfo", {"shopId": $stateParams.shopId});
+  }
 })
 
 .controller('ProductInfoCtrl', function($scope, $http, $stateParams){
@@ -556,7 +560,6 @@ angular.module('starter.controllers', [])
     });
 
     $scope.shopId   = $stateParams.shopId;
-
 
     $scope.changePage = function(){
         $state.go('app.single', {"shopId": $stateParams.shopId, "productId" : $stateParams.productId});
