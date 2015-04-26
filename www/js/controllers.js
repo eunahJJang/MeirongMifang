@@ -327,6 +327,58 @@ angular.module('starter.controllers', [])
   $scope.data = {};
   $scope.messages = [];
 
+  //
+  jQuery('.imgSndBtn').click( function(){
+    jQuery('.sndBtnWrap').slideToggle();
+  });
+
+  jQuery('imgSndPic').click( function(){
+
+  });
+
+  jQuery('imgSndCam').click( function(){
+
+  });
+  $scope.takePicture = function() {
+      var options = { 
+          quality : 75, 
+          destinationType : Camera.DestinationType.DATA_URL, 
+          sourceType : Camera.PictureSourceType.CAMERA, 
+          allowEdit : true,
+          encodingType: Camera.EncodingType.JPEG,
+          targetWidth: 300,
+          targetHeight: 300,
+          popoverOptions: CameraPopoverOptions,
+          saveToPhotoAlbum: false
+      };
+      $cordovaCamera.getPicture(options).then(function(imageData) {
+          $scope.imgURI = "data:image/jpeg;base64," + imageData;
+      }, function(err) {
+          // An error occured. Show a message to the user
+      });
+  }
+
+  $scope.uploadPhoto = function() {
+    var options = { 
+          quality : 75, 
+          destinationType: Camera.DestinationType.FILE_URI, 
+          sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
+          allowEdit : true,
+          encodingType: Camera.EncodingType.JPEG,
+          targetWidth: 300,
+          targetHeight: 300,
+          popoverOptions: CameraPopoverOptions,
+          saveToPhotoAlbum: false
+      };
+    $cordovaCamera.getPicture(options).then(function(imageData) {
+          $scope.imgURI = "data:image/jpeg;base64," + imageData;
+      }, function(err) {
+          // An error occured. Show a message to the user
+      });
+  }
+
+  //
+
   $scope.hideTime = true;
   var isIOS = ionic.Platform.isWebView() && ionic.Platform.isIOS();
 
