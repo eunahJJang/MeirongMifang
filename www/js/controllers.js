@@ -328,18 +328,13 @@ angular.module('starter.controllers', [])
   $scope.messages = [];
 
   //
-  jQuery('.imgSndBtn').click( function(){
+  jQuery('.imgSndBtn,.imgSndPic,.imgSndCam').click( function(){
     jQuery('.sndBtnWrap').slideToggle();
   });
 
-  jQuery('imgSndPic').click( function(){
-
-  });
-
-  jQuery('imgSndCam').click( function(){
-
-  });
   $scope.takePicture = function() {
+    
+      /*
       var options = { 
           quality : 75, 
           destinationType : Camera.DestinationType.DATA_URL, 
@@ -350,15 +345,19 @@ angular.module('starter.controllers', [])
           targetHeight: 300,
           popoverOptions: CameraPopoverOptions,
           saveToPhotoAlbum: false
-      };
+      };alert(1);
+      /*
       $cordovaCamera.getPicture(options).then(function(imageData) {
           $scope.imgURI = "data:image/jpeg;base64," + imageData;
       }, function(err) {
           // An error occured. Show a message to the user
       });
+*/
   }
 
   $scope.uploadPhoto = function() {
+    
+    /*
     var options = { 
           quality : 75, 
           destinationType: Camera.DestinationType.FILE_URI, 
@@ -370,11 +369,13 @@ angular.module('starter.controllers', [])
           popoverOptions: CameraPopoverOptions,
           saveToPhotoAlbum: false
       };
+
     $cordovaCamera.getPicture(options).then(function(imageData) {
           $scope.imgURI = "data:image/jpeg;base64," + imageData;
       }, function(err) {
           // An error occured. Show a message to the user
       });
+*/
   }
 
   //
