@@ -212,6 +212,16 @@ angular.module('starter', ['ionic', 'ngCookies', 'ngCordova', 'ngAnimate', 'ngTo
     }
   })
 
+  .state('app.uploadReview',{
+  url:"/uploadReview",
+  views: {
+    'content':{
+    templateUrl:"templates/uploadReview.html",
+    controller: 'ReviewCtrl'
+    }
+  }
+  })
+
   .state('app.reviewWrite', {
     url:"/reviewWrite",
     views: {

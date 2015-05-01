@@ -8,9 +8,17 @@
               <div ng-switch-when="admin">
                   <span>{{ message.text }}</span>
               </div>
-              <div style="text-align: right;" ng-switch-default>
-                  <span>{{ message.text }}</span>
+              <div id = "tableContainer" ng-switch-default>
+                <div id="tableRow">
+                  <div id="sub">
+                    <table><tr><td>읽음</td></tr><tr><td>오전12:58</td></tr></table>
+                  </div>
+                  <div class="sidebar">
+                    <span class="chat-bubble right">{{ message.text }}</span>
+                  </div>
+                  </div>  
               </div>
+              <div class="clear"></div>
             </div>  
         </div>
       </div>

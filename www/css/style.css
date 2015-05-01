@@ -28,3 +28,86 @@
 
 .item-input-wrapper-defined ~ .button {
   margin-left: 10.66667px; }
+
+img.profile-pic {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  position: absolute;
+  top: 0px;
+}
+
+img.profile-pic.left {
+  left: 10px;
+}
+
+img.profile-pic.right {
+  right: 10px;
+}
+
+div#tableContainer {
+  display:table;
+  table-layout:fixed;
+
+  float:right;
+  min-height: 40px;
+  max-width:80%;
+}
+div#tableRow{
+  display:table-row;
+}
+#sub{
+  display: table-cell;
+  font-size: 70%;
+  color:gray;
+  width: 45px;
+  text-align:right;
+  padding-bottom:5px;
+  vertical-align:bottom;
+  line-height:100%;
+}
+.sidebar{
+  display: table-cell;
+  word-break:break-all;
+  max-width:80%;
+}
+.clear{
+  clear:both;
+
+}
+.chat-bubble{
+  display: block;
+  position:relative;
+  border-radius: 5px;
+  padding: 10px 15px;
+  margin: 5px 0px 5px 3px;
+}
+.chat-bubble:before{
+  content: "\00a0";
+  height: 16px;
+  width: 9px;
+  position: absolute;
+  bottom: -7.5px;
+}
+.chat-bubble.right{
+  background-color: #ffbfc9;
+  margin-right: 10px;
+}
+.chat-bubble.right:before{
+  background-color: #ffbfc9;
+  top: 5px;
+  right:-5px;
+  -webkit-transform: rotate(0deg) skew(-30deg);
+}
+.chat-bubble.left {
+  background-color: #ff697e;
+  float: left;
+  margin-left: 55px;
+  margin-right: 100%;
+}
+.chat-bubble.left:before {
+  background-color: #ff697e;
+  top: 5px;
+  left: -5px;
+  -webkit-transform: rotate(180deg) skew(30deg);
+}
