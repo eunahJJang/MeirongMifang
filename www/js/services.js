@@ -27,6 +27,25 @@ angular.module('starter.services', ['http-auth-interceptor'])
   };
   return service;
 })
+
+//카메라 서비스
+.factory('Camera', ['$q', function($q) {
+ 
+  return {
+    getPicture: function(options) {
+      var q = $q.defer();
+      
+      navigator.camera.getPicture(function(result) {
+        q.resolve(result);
+      }, function(err) {
+        q.reject(err);
+      }, options);
+      
+      return q.promise;
+    }
+  }
+}])
+
 .config(['$ionicConfigProvider', function($ionicConfigProvider) {
   $ionicConfigProvider.tabs.position('bottom');
 }]);
