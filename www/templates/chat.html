@@ -25,14 +25,14 @@
 
     </ion-content>
 
+        <img src="{{imgURI}}" />
     <div class="bar bar-footer item-input-inset" style="bottom:49px; overflow:visible">
-      <ul ng-controller="PictureCtrl" style="position:absolute; bottom:39px; width:40px; background-color:#fff; display:none;" class="sndBtnWrap">
+      <ul style="position:absolute; bottom:39px; width:40px; background-color:#fff; display:none;" class="sndBtnWrap">
         <li class="" ng-click="takePicture()"><a class="button button-icon icon ion-camera" style="padding:0"></a></li>
         <li class="" ng-click="uploadPhoto()"><a class="button button-icon icon ion-images" style="padding:0"></a></li>
-
       </ul>
       <a class="button button-icon icon ion-plus-round imgSndBtn" style="padding-left:0"></a>
-
+      
 
       <label class="item-input-wrapper">
         <input type="text" placeholder="Type your message" on-return="sendMessage()" ng-model="data.message" />
