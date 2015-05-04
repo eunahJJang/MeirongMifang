@@ -1,15 +1,14 @@
 <ion-view view-title="美容秘方">
   <ion-content>
-    <ion-list>
-
+  
       <div class="categories" style="width:100%; overflow:scroll; background-color:white;">
         <ion-scroll direction="x" style=" overflow: scroll; white-space: nowrap;">
-          <a ui-sref="app.products({category:'eye'})" style="margin-left:10px; margin-right:30px; font-size:15px;" href="">Eye</a>
-          <a ui-sref="app.products({category:'nose'})" style="margin-right:30px; font-size:15px;" href="">Nose</a>
-          <a ui-sref="app.products({category:'face'})" style="margin-right:30px; font-size:15px;" href="">Face</a>
-          <a ui-sref="app.products({category:'bosom'})" style="margin-right:30px; font-size:15px;" href="">Bosom</a>
-          <a ui-sref="app.products({category:'body'})" style="margin-right:30px; font-size:15px;" href="">Body</a>
-          <a ui-sref="app.products({category:'beauty'})" style="font-size:15px;" >Beauty</a>
+          <a ng-click="getProducts('eye')" style="margin-left:10px; margin-right:30px; font-size:15px;" href="">Eye</a>
+          <a ng-click="getProducts('nose')" style="margin-right:30px; font-size:15px;" href="">Nose</a> 
+          <a ng-click="getProducts('face')" style="margin-right:30px; font-size:15px;" href="">Face</a>
+          <a ng-click="getProducts('bosom')" style="margin-right:30px; font-size:15px;" href="">Bosom</a>
+          <a ng-click="getProducts('body')" style="margin-right:30px; font-size:15px;" href="">Body</a>
+          <a ng-click="getProducts('beauty')" style="font-size:15px;" href="">Beauty</a> 
         </ion-scroll>
       </div>
 
@@ -20,7 +19,7 @@
           <div style="display:inline-block; padding-right:16px; float: right;">낮은가격순</div>
         </div>
       </div>
- 
+ <ion-list>
 
       <!-- <ion-item ng-repeat="product in products" href="#/app/product/{{product.id}}"> -->
       <ion-item ng-repeat="product in products" ui-sref="app.single({ shopId:product.shopId, category:product.category, logo:product.logo })">
