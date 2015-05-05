@@ -1,14 +1,22 @@
 <ion-view view-title="美容秘方">
   <ion-content>
   
-      <div class="categories" style="width:100%; overflow:scroll; background-color:white;">
-        <ion-scroll direction="x" style=" overflow: scroll; white-space: nowrap;">
-          <a ng-click="getProducts('eye')" style="margin-left:10px; margin-right:30px; font-size:15px;" href="">眼睛</a>
+      <div class="categories" style="height:30px; width:100%; overflow:scroll; background-color:white;">
+        <ion-scroll direction="x" style="overflow: scroll; white-space: nowrap;">
+        <div>
+          <a ng-click="getProducts('eye')" ng-class="{'active' : data.activeB == 'eye'}" class="button button-light">眼睛</a>
+          <a ng-click="getProducts('nose')" ng-class="{'active' : data.activeB == 'nose'}" class="button button-light">鼻</a>
+          <a ng-click="getProducts('face')" ng-class="{'active' : data.activeB == 'face'}" class="button button-light">面部</a>
+          <a ng-click="getProducts('bosom')" ng-class="{'active' : data.activeB == 'bosom'}" class="button button-light">隆胸整形</a>
+          <a ng-click="getProducts('body')" ng-class="{'active' : data.activeB == 'body'}" class="button button-light">体型</a>
+          <a ng-click="getProducts('beauty')" ng-class="{'active' : data.activeB == 'beauty'}" class="button button-light">美容术</a>
+        </div>
+<!--           <a ng-click="getProducts('eye')" style="margin-left:10px; margin-right:30px; font-size:15px;" href="">眼睛</a>
           <a ng-click="getProducts('nose')" style="margin-right:30px; font-size:15px;" href="">鼻</a> 
           <a ng-click="getProducts('face')" style="margin-right:30px; font-size:15px;" href="">面部</a>
           <a ng-click="getProducts('bosom')" style="margin-right:30px; font-size:15px;" href="">隆胸整形</a>
           <a ng-click="getProducts('body')" style="margin-right:30px; font-size:15px;" href="">体型</a>
-          <a ng-click="getProducts('beauty')" style="font-size:15px;" href="">美容术</a> 
+          <a ng-click="getProducts('beauty')" style="font-size:15px;" href="">美容术</a>  -->
         </ion-scroll>
       </div>
 

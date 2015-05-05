@@ -448,16 +448,20 @@ angular.module('starter.controllers', [])
         $scope.noOfProduct = data.length;
 
         $scope.products = [];
-          for(index = 0; index < data.length; index++){
-             $scope.products.push({ 
-              category:category,
-              shopId:data[index].shopId,
-              shopName: data[index].shopName, 
-              logo: data[index].logo, 
-              region: data[index].region, 
-              minPrice: data[index].minPrice, 
-              maxPrice: data[index].maxPrice });
-          }
+        for(index = 0; index < data.length; index++){
+           $scope.products.push({ 
+            category:category,
+            shopId:data[index].shopId,
+            shopName: data[index].shopName, 
+            logo: data[index].logo, 
+            region: data[index].region, 
+            minPrice: data[index].minPrice, 
+            maxPrice: data[index].maxPrice });
+        }
+
+        $scope.data = {
+          activeB : category
+        } 
       })
       .error(function(data){
 
@@ -468,6 +472,8 @@ angular.module('starter.controllers', [])
     category = 'all';
   }
   $scope.getProducts(category);
+
+
 })
 
 .controller('ProductCtrl', function($scope, $state, $http, $stateParams) {
