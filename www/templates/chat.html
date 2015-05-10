@@ -23,6 +23,16 @@
         </div>
       </div>
 
+
+    <div class="list">
+      <a class="item item-avatar" ng-repeat="chat in chats" style="border:0;">
+        <img src="{{chat.imgURL}}">
+
+        <h2>{{chat.user}}</h2>
+        <p>{{chat.message}}</p>
+      </a>
+    </div>
+
     </ion-content>
 
         <img src="{{imgURI}}" />{{imgURI}}
@@ -35,9 +45,9 @@
       
 
       <label class="item-input-wrapper">
-        <input id="chatInput" type="text" placeholder="Type your message" on-return="sendMessage()" ng-model="data.message" />
+        <input id="chatInput" type="text" placeholder="Type your message" on-return="sendMessage()" ng-model="chat.message" />
       </label>
-      <button class="button button-clear" ng-click="sendMessage()">Send</button>
+      <button class="button button-clear" ng-click="sendMsg(chat)">Send</button>
     </div>
   </ion-pane>
 </ion-view>

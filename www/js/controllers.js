@@ -4,7 +4,7 @@ function comma(str) {
     return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
 }
 
-angular.module('starter.controllers', [])
+angular.module('starter.controllers', ['firebase'])
 
 .controller('AppCtrl', function($scope, $state, $ionicModal, $cookieStore) {
   $ionicModal.fromTemplateUrl('templates/login.html', function(modal) {
@@ -323,9 +323,23 @@ angular.module('starter.controllers', [])
   
 })
 
-.controller('ChatCtrl', function($scope, $http, $timeout, $ionicScrollDelegate, $rootScope, $cookieStore, $cordovaToast, $cordovaCamera){
+.controller('ChatCtrl', function($scope, $firebase, $http, $timeout, $ionicScrollDelegate, $rootScope, $cookieStore, $cordovaToast, $cordovaCamera){
   $scope.data = {};
   $scope.messages = [];
+
+  var ref = new Firebase('https://mifangchat.firebaseio.com/');
+  var sync = $firebase(ref);
+  $scope.chats = sync.$asArray();
+
+  $scope.sendMsg = function(chat){
+    $scope.chats.$add({
+      user: 'user',
+      message : chat.message
+//      imgURL : $rootScope.authData.facebook.cachedUserProfile.picture.data.url
+    });
+    chat.message = "";
+  };
+
   
   jQuery('.imgSndBtn').click( function(){
     jQuery('.sndBtnWrap').slideToggle();
