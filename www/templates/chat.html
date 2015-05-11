@@ -25,10 +25,10 @@
 
 
     <div class="list">
-      <a class="item item-avatar" ng-repeat="chat in chats" style="border:0;">
-        <img src="{{chat.imgURL}}">
+      <a class="item item-avatar {{chat.user}}" ng-repeat="chat in chats" ng-switch="chat.user" style="border:0;">
+        <img src="{{chat.imgURL}}" ng-hide="chat.user == 'user'">
 
-        <h2>{{chat.user}}</h2>
+        <h2 ng-hide="chat.user == 'user'">{{chat.user}}</h2>
         <p>{{chat.message}}</p>
       </a>
     </div>
