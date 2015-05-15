@@ -111,3 +111,9 @@ div#tableRow{
   left: -5px;
   -webkit-transform: rotate(180deg) skew(30deg);
 }
+/*
+ mypage 에서 아이콘 색 변경
+*/
+.item.item-icon-right.item-icon-left i {
+  color: #ff697e;
+}
