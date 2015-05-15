@@ -4,7 +4,7 @@ function comma(str) {
     return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
 }
 
-angular.module('starter.controllers', [])
+angular.module('starter.controllers', ['firebase'])
 
 .controller('AppCtrl', function($scope, $state, $ionicModal, $cookieStore) {
   $ionicModal.fromTemplateUrl('templates/login.html', function(modal) {
@@ -323,10 +323,27 @@ angular.module('starter.controllers', [])
   
 })
 
-.controller('ChatCtrl', function($scope, $http, $timeout, $ionicScrollDelegate, $rootScope, $cookieStore, $cordovaToast, $cordovaCamera){
+.controller('ChatCtrl', function($scope, $firebase, $http, $timeout, $ionicScrollDelegate, $rootScope, $cookieStore, $cordovaToast, $cordovaCamera){
   $scope.data = {};
   $scope.messages = [];
 
+  var ref = new Firebase('https://mifangchat.firebaseio.com/');
+  var sync = $firebase(ref);
+  $scope.chats = sync.$asArray();
+
+  $scope.sendMsg = function(chat){
+    $scope.chats.$add({
+      user: 'user',
+      message : chat.message
+//      imgURL : $rootScope.authData.facebook.cachedUserProfile.picture.data.url
+    });
+    chat.message = "";
+  };
+
+  
+  jQuery('.imgSndBtn').click( function(){
+    jQuery('.sndBtnWrap').slideToggle();
+  });
 
    $scope.takePicture = function() {
       jQuery('.sndBtnWrap').hide();
@@ -370,12 +387,6 @@ angular.module('starter.controllers', [])
         });
     }
 
-
-  
-  jQuery('.imgSndBtn').click( function(){
-    jQuery('.sndBtnWrap').slideToggle();
-  });
-
   $scope.hideTime = true;
   var isIOS = ionic.Platform.isWebView() && ionic.Platform.isIOS();
 
@@ -392,21 +403,27 @@ angular.module('starter.controllers', [])
   }
 
   $scope.sendMessage = function() {
-    var d = new Date();
-    d = d.toLocaleTimeString().replace(/:\d+ /, ' ');
 
+    //채팅창에 아무것도 입력하지 않을 시 전송하지 않음.
+    if($scope.data.message == '' || $scope.data.message == null){
+      jQuery('#chatInput').focus();
+      document.getElementById("chatInput").focus();
+      return -1;
+    }
+
+    var d = new Date();
+    d = d.toLocaleTimeString().replace(/:\d+ /, ' '); //d예시 : 오후 10:26:10
     $scope.messages.push({
       from: $scope.$root.username,
       to: 'admin',
       text: $scope.data.message,
       time: d
     });
-
-
     $http.get("http://meirong-mifang.com/products/sendMessages.php", {params : {"from" : $scope.$root.username, "to" : 'admin', "message" : $scope.data.message}})
       .success(function(data){
         for(index = 0; index < data.length; index++){
            $scope.messages.push( {from:data[index].sender_id, to:data[index].receiver_id, text:data[index].message, time:data[index].created_time});
+           alert(1);
         }
       })
       .error(function(data){
@@ -415,6 +432,8 @@ angular.module('starter.controllers', [])
 
     delete $scope.data.message;
     $ionicScrollDelegate.scrollBottom(true);
+
+    jQuery('.chatInput').focus();
   };
 
   $scope.inputUp = function() {

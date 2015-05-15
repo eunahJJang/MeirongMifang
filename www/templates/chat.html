@@ -23,9 +23,19 @@
         </div>
       </div>
 
+
+    <div class="list" style="padding-bottom:91px;">
+      <a class="item item-avatar {{chat.user}}" ng-repeat="chat in chats" ng-switch="chat.user" style="border:0;">
+        <img src="{{chat.imgURL}}" ng-hide="chat.user == 'user'">
+
+        <h2 ng-hide="chat.user == 'user'">{{chat.user}}</h2>
+        <p>{{chat.message}}</p>
+      </a>
+    </div>
+
     </ion-content>
 
-        <img src="{{imgURI}}" />
+        <img src="{{imgURI}}" />{{imgURI}}
     <div class="bar bar-footer item-input-inset" style="bottom:49px; overflow:visible">
       <ul style="position:absolute; bottom:39px; width:40px; background-color:#fff; display:none;" class="sndBtnWrap">
         <li class="" ng-click="takePicture()"><a class="button button-icon icon ion-camera" style="padding:0"></a></li>
@@ -35,9 +45,9 @@
       
 
       <label class="item-input-wrapper">
-        <input type="text" placeholder="Type your message" on-return="sendMessage()" ng-model="data.message" />
+        <input id="chatInput" type="text" placeholder="Type your message" on-return="sendMessage()" ng-model="chat.message" />
       </label>
-      <button class="button button-clear" ng-click="sendMessage()">Send</button>
+      <button class="button button-clear" ng-click="sendMsg(chat)">Send</button>
     </div>
   </ion-pane>
 </ion-view>

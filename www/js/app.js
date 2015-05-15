@@ -1,4 +1,4 @@
-angular.module('starter', ['ionic', 'ngCookies', 'ngCordova', 'ngAnimate', 'ngTouch', 'starter.controllers', 'starter.services'])
+angular.module('starter', ['ionic', 'ngCookies', 'ngCordova', 'ngAnimate', 'ngTouch', 'starter.controllers', 'starter.services', 'firebase'])
 
 .run(function($ionicPlatform, $ionicPlatform, $http) { 
   
