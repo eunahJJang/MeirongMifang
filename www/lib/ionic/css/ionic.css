@@ -8508,8 +8508,12 @@ a.button {
 a.user{
 	min-height:0;
 }
+a.user>img{
+	visibility: hidden;
+}
 a.user>h2{
-  text-align:right;
+	text-align:right;
+	visibility: hidden;
 }
 a.user>p{
   text-align:right;

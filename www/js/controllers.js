@@ -33,7 +33,7 @@ angular.module('starter.controllers', ['firebase'])
     };
 })
 
-.controller('AppCtrl', function($scope, $state, $ionicModal, $cookieStore, $ionicHistory) {
+.controller('AppCtrl', function($scope, $state, $ionicModal, $cookieStore) {
   $ionicModal.fromTemplateUrl('templates/login.html', function(modal) {
       $scope.loginModal = modal;
     },
@@ -54,14 +54,7 @@ angular.module('starter.controllers', ['firebase'])
     } else {
       $scope.$root.isLogin = false;
     }
-  });
-
-  $scope.goHome = function(){
-    $ionicHistory.nextViewOptions({
-      disableBack: true
-    });
-    $state.go('app.main');
-  }   
+  });  
 })
 
 .controller('mainCtrl', function($scope, $rootScope, $cookieStore){
@@ -375,31 +368,46 @@ angular.module('starter.controllers', ['firebase'])
   };
 
   $scope.setScrollPos = function(){
-    document.body.scrollTop = document.body.scrollHeight;
-    var chatHeight = jQuery('div.scroll').height();
-    var windowHeight = jQuery('ion-content').height();
-    var listHeight = jQuery('div.list').height();
-    var scrollPos = chatHeight - windowHeight;
-    scrollPos *= -1;
-    scrollPos = scrollPos + 'px';
-
-    jQuery('div.list').append('<input type="hidden" name="chatBottom"/>');
-
-    console.log("chatHeight : "+chatHeight);
-    console.log("windowHeight : "+windowHeight);
-    console.log("listHeight : "+listHeight);
-    console.log("scrollPos : "+scrollPos);
-/*
-    alert("chatHeight : "+chatHeight);
-    alert("windowHeight : "+windowHeight);
-    alert("scrollPos : "+scrollPos);
-    alert('translate3d(0px,'+scrollPos+',0px) scale(1)');
-*/
     jQuery(document).ready( function(){
-      jQuery('div.scroll').css('-webkit-transform','translate3d(0px,'+scrollPos+',0px) scale(1)');
+          document.body.scrollTop = document.body.scrollHeight;
+      var chatHeight = jQuery('div.scroll').height();
+      var windowHeight = jQuery('ion-content').height();
+      var listHeight = jQuery('div.list').height();
+      var scrollHeight = jQuery('div.scroll-bar>div.scroll-bar-indicator').height();
+
+//      alert(scrollHeight);
+
+      var chatPos = chatHeight - windowHeight;
+      var scrollPos = windowHeight - scrollHeight;
+
+      chatPos *= -1;
+      chatPos = chatPos + 'px';
+
+      scrollPos *= -1;
+      scrollPos = scrollPos + 'px';
+
+//    jQuery('div.list').append('<input type="hidden" name="chatBottom"/>');
+
+      console.log("chatHeight : "+chatHeight);
+      console.log("windowHeight : "+windowHeight);
+      console.log("listHeight : "+listHeight);
+//      console.log("scrollPos : "+scrollPos);
+/*
+      alert("chatHeight : "+chatHeight);
+      alert("windowHeight : "+windowHeight);
+      alert("scrollPos : "+scrollPos);
+      alert('translate3d(0px,'+scrollPos+',0px) scale(1)');
+*/
+ //   jQuery('div.list').append('<input type="hidden" name="chatBottom"/>');
+
+      jQuery('div.scroll').css('-webkit-transform','translate3d(0px,'+chatPos+',0px) scale(1)');
+      jQuery('div.scroll-bar>div.scroll-bar-indicator').css('-webkit-transform','translate3d(0px,'+'400px'+',0px) scaleY(1)');
 
     });
   }
+
+  $scope.scrollPos = function(){
+  };
 
   jQuery('.imgSndBtn').click( function(){
     jQuery('.sndBtnWrap').slideToggle();
