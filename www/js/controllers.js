@@ -5,6 +5,33 @@ function comma(str) {
 }
 
 angular.module('starter.controllers', ['firebase'])
+.directive('ngRepeatEndWatch', function () {
+    return {
+        restrict: 'A',
+        scope: {},
+        link: function (scope, element, attrs) {
+            if (attrs.ngRepeat) {
+                if (scope.$parent.$last) {
+                    if (attrs.ngRepeatEndWatch !== '') {
+                        if (typeof scope.$parent.$parent[attrs.ngRepeatEndWatch] === 'function') {
+                            // Executes defined function
+                            scope.$parent.$parent[attrs.ngRepeatEndWatch]();
+                        } else {
+                            // For watcher, if you prefer
+                            scope.$parent.$parent[attrs.ngRepeatEndWatch] = true;
+                        }
+                    } else {
+                        // If no value was provided than we will provide one on you controller scope, that you can watch
+                        // WARNING: Multiple instances of this directive could yeild unwanted results.
+                        scope.$parent.$parent.ngRepeatEnd = true;
+                    }
+                }
+            } else {
+                throw 'ngRepeatEndWatch: `ngRepeat` Directive required to use this Directive';
+            }
+        }
+    };
+})
 
 .controller('AppCtrl', function($scope, $state, $ionicModal, $cookieStore, $ionicHistory) {
   $ionicModal.fromTemplateUrl('templates/login.html', function(modal) {
@@ -347,7 +374,33 @@ angular.module('starter.controllers', ['firebase'])
     chat.message = "";
   };
 
-  
+  $scope.setScrollPos = function(){
+    document.body.scrollTop = document.body.scrollHeight;
+    var chatHeight = jQuery('div.scroll').height();
+    var windowHeight = jQuery('ion-content').height();
+    var listHeight = jQuery('div.list').height();
+    var scrollPos = chatHeight - windowHeight;
+    scrollPos *= -1;
+    scrollPos = scrollPos + 'px';
+
+    jQuery('div.list').append('<input type="hidden" name="chatBottom"/>');
+
+    console.log("chatHeight : "+chatHeight);
+    console.log("windowHeight : "+windowHeight);
+    console.log("listHeight : "+listHeight);
+    console.log("scrollPos : "+scrollPos);
+/*
+    alert("chatHeight : "+chatHeight);
+    alert("windowHeight : "+windowHeight);
+    alert("scrollPos : "+scrollPos);
+    alert('translate3d(0px,'+scrollPos+',0px) scale(1)');
+*/
+    jQuery(document).ready( function(){
+      jQuery('div.scroll').css('-webkit-transform','translate3d(0px,'+scrollPos+',0px) scale(1)');
+
+    });
+  }
+
   jQuery('.imgSndBtn').click( function(){
     jQuery('.sndBtnWrap').slideToggle();
   });
@@ -465,6 +518,7 @@ angular.module('starter.controllers', ['firebase'])
   }else{
     $scope.getMessages();
   }
+
 })
 
 .controller('ProductsCtrl', function($scope, $http, $stateParams) {

@@ -4417,6 +4417,10 @@ ion-tabs.tabs-color-active-dark .tab-item {
   text-overflow: ellipsis;
   white-space: nowrap; }
 
+.chatMsg p{
+	white-space: normal;
+}
+
 a.item {
   color: inherit;
   text-decoration: none; }
