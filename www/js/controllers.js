@@ -6,7 +6,7 @@ function comma(str) {
 
 angular.module('starter.controllers', ['firebase'])
 
-.controller('AppCtrl', function($scope, $state, $ionicModal, $cookieStore) {
+.controller('AppCtrl', function($scope, $state, $ionicModal, $cookieStore, $ionicHistory) {
   $ionicModal.fromTemplateUrl('templates/login.html', function(modal) {
       $scope.loginModal = modal;
     },
@@ -27,7 +27,14 @@ angular.module('starter.controllers', ['firebase'])
     } else {
       $scope.$root.isLogin = false;
     }
-  });  
+  });
+
+  $scope.goHome = function(){
+    $ionicHistory.nextViewOptions({
+      disableBack: true
+    });
+    $state.go('app.main');
+  }   
 })
 
 .controller('mainCtrl', function($scope, $rootScope, $cookieStore){
