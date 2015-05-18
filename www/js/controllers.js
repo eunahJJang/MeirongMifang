@@ -554,25 +554,28 @@ angular.module('starter.controllers', ['firebase'])
       $scope.changePage = function(){
         $state.go("app.detailImage", {"shopId": $stateParams.shopId, "surgeryId" : "all"});
       }
-
      
       $scope.getCurrency = function(){
-        $http.get("http://www.webservicex.net/CurrencyConvertor.asmx/ConversionRate?FromCurrency=CNY&ToCurrency=KRW")
+        var config = {headers:  {
+          'Accept-Encoding': 'gzip, deflate',
+          'Accept': '*/*',
+          "User-Agent" : "runscope/0.1"
+            }
+        };
+        $http.get("http://www.webservicex.net/CurrencyConvertor.asmx/ConversionRate?FromCurrency=CNY&ToCurrency=KRW", config)
           .success(function(data){
-
             return data.substring(84,90);
           })
           .error(function(data){
-            alert('getCurrency-error');
+            alert(data);
+            // alert('getCurrency-error');
             return false;
           });
       }
 
-     var currency = $scope.getCurrency();
- //     var currency = 178;
-
       //현재 화폐단위가 원화이면 클릭 시 중국위안으로, 현재 화폐단위가 위안이면 클릭 시 원화로 바꾸어 보여주는 메소드
       $scope.showConvPrice = function(){
+        var currency = $scope.getCurrency();
         var isWon = false;
 
         //현재 화폐단위가 won으로 끝날 경우 (문자열 끝에서 3개 잘라서 확인)
@@ -605,7 +608,7 @@ angular.module('starter.controllers', ['firebase'])
       }
 })
 
-.controller('DetailImageCtrl', function($scope, $http, $stateParams){
+.controller('DetailImageCtrl', function($state, $scope, $http, $stateParams){
   $scope.getEachDetailImage = function(surgeryId){
     $http.get("http://meirong-mifang.com/products/getDetailImage.php", {params : {"shopId" : $stateParams.shopId, "surgeryId" :surgeryId}})
       .success(function(data){
@@ -642,11 +645,11 @@ angular.module('starter.controllers', ['firebase'])
   }
 
   $scope.changePage = function(){
-    $state.go("app.productInfo", {"shopId": $stateParams.shopId});
+    $state.go('app.productInfo', {"shopId": $stateParams.shopId});
   }
 })
 
-.controller('ProductInfoCtrl', function($scope, $http, $stateParams){
+.controller('ProductInfoCtrl', function($state, $scope, $http, $stateParams){
   $http.get("http://meirong-mifang.com/products/getShopInfo.php", {params : {"shopId" : $stateParams.shopId}})
     .success(function(data){
       $scope.datas    = [];
