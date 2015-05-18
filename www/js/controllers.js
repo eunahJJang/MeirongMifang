@@ -358,7 +358,7 @@ angular.module('starter.controllers', ['firebase'])
   
 })
 
-.controller('ChatCtrl', function($scope, $firebase, $http, $timeout, $ionicScrollDelegate, $rootScope, $cookieStore, $cordovaToast, $cordovaCamera){
+.controller('ChatCtrl', function($scope, $firebase, $http, $timeout, $ionicScrollDelegate, $rootScope, $cookieStore, $cordovaToast, $cordovaCamera, $ionicScrollDelegate){
   $scope.data = {};
   $scope.messages = [];
 
@@ -415,6 +415,8 @@ angular.module('starter.controllers', ['firebase'])
   }
 
   $scope.scrollPos = function(){
+    $ionicScrollDelegate.scrollBottom();
+    alert(1);
   };
 
   jQuery('.imgSndBtn').click( function(){
