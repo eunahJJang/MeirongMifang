@@ -33,7 +33,7 @@ angular.module('starter.controllers', ['firebase'])
     };
 })
 
-.controller('AppCtrl', function($scope, $state, $ionicModal, $cookieStore) {
+.controller('AppCtrl', function($scope, $state, $ionicModal, $cookieStore, $ionicHistory) {
   $ionicModal.fromTemplateUrl('templates/login.html', function(modal) {
       $scope.loginModal = modal;
     },
