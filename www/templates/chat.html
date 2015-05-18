@@ -27,7 +27,7 @@
     -->
 
     <div class="list" style="padding-bottom:91px;">
-      <a class="item item-avatar chatMsg {{chat.user}}" ng-repeat="chat in chats" ng-switch="chat.user" style="border:0;" ng-repeat-end-watch="scrollPos">
+      <a class="item item-avatar chatMsg {{chat.user}}" ng-repeat="chat in chats" ng-switch="chat.user" style="border:0;" ng-repeat-end-watch="setScrollPos">
 
 <!--        <img src="{{chat.imgURL}}" ng-hide="chat.user == 'user'"> -->
 <!--        <h2 ng-hide="chat.user == 'user'">{{chat.user}}</h2> -->
