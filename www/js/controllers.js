@@ -54,7 +54,15 @@ angular.module('starter.controllers', ['firebase'])
     } else {
       $scope.$root.isLogin = false;
     }
-  });  
+  });
+
+  
+  $scope.goHome = function(){
+    $ionicHistory.nextViewOptions({
+      disableBack: true
+    });
+    $state.go('app.main');
+  }     
 })
 
 .controller('mainCtrl', function($scope, $rootScope, $cookieStore){
@@ -740,6 +748,11 @@ angular.module('starter.controllers', ['firebase'])
 
   var shopId = $stateParams.shopId;
   $scope.shopId = shopId;
+})
+
+.controller('CommCtrl' , function($scope){
+  alert(1);
+
 })
 
 .controller('ReviewCtrl', function($scope, $stateParams, $cordovaCamera, $cordovaFile){

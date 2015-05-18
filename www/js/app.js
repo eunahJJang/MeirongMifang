@@ -202,6 +202,16 @@ angular.module('starter', ['ionic', 'ngCookies', 'ngCordova', 'ngAnimate', 'ngTo
     }
   })
 
+  .state('app.communicaion', {
+    url:"/communicaion",
+    views: {
+      'content':{
+        templateUrl: "templates/notready.html",
+        controller: 'CommCtrl'
+      }
+    }
+  })  
+
   .state('app.review', {
     url:"/review",
     views: {
