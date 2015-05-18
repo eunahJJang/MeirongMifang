@@ -56,7 +56,7 @@ angular.module('starter.controllers', ['firebase'])
     }
   });
 
-  
+
   $scope.goHome = function(){
     $ionicHistory.nextViewOptions({
       disableBack: true
@@ -751,8 +751,7 @@ angular.module('starter.controllers', ['firebase'])
 })
 
 .controller('CommCtrl' , function($scope){
-  alert(1);
-
+  $scope.pageTitle = "Communication";
 })
 
 .controller('ReviewCtrl', function($scope, $stateParams, $cordovaCamera, $cordovaFile){
@@ -794,5 +793,9 @@ angular.module('starter.controllers', ['firebase'])
             // An error occured. Show a message to the user
         });
     }
+})
+
+.controller('SearchCtrl', function($scope){
+  $scope.pageTitle = "Search";
 });
 

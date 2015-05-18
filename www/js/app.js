@@ -98,7 +98,8 @@ angular.module('starter', ['ionic', 'ngCookies', 'ngCordova', 'ngAnimate', 'ngTo
     url: "/search",
     views: {
       'content': {
-        templateUrl: "templates/search.html"
+        templateUrl: "templates/notready.html",
+        controller: 'SearchCtrl'
       }
     }
   })
@@ -202,8 +203,8 @@ angular.module('starter', ['ionic', 'ngCookies', 'ngCordova', 'ngAnimate', 'ngTo
     }
   })
 
-  .state('app.communicaion', {
-    url:"/communicaion",
+  .state('app.communication', {
+    url:"/communication",
     views: {
       'content':{
         templateUrl: "templates/notready.html",
