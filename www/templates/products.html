@@ -19,7 +19,8 @@
           <a ng-click="getProducts('beauty')" style="font-size:15px;" href="">美容术</a>  -->
         </ion-scroll>
       </div>
-
+    <!-- 상단에 위치한 부위별 이미지 사진 text-align, padding-top 속성은 이미지가 삽입될 것이므로 추후에 삭제되어야 합니다.-->
+    <div style="width=100%; height:65px; background-color:#c8c8c8; text-align:center; padding-top:25px">eye image</div> 
       <div style="width=100%; height:30px; background-color: #f5f5f5" class="shopCnt">
         <div style="margin:0; line-height:30px; padding-left:16px;">
           전체  {{noOfProduct}}
@@ -31,12 +32,15 @@
 
       <!-- <ion-item ng-repeat="product in products" href="#/app/product/{{product.id}}"> -->
       <ion-item ng-repeat="product in products" ui-sref="app.single({ shopId:product.shopId, category:product.category, logo:product.logo })">
-        <div style="display:inline-block; margin-left:20px;">
-            <span style="background-color:red; color:white; font-weight:bold">{{product.region}} <br /></span>
-            <p style=""><div style="display:inline-block; float: left; font-size:20px; margin-top:5px; font-weight:bold"> {{product.shopName}}</div></p>
-            <p style="float:left; margin-top:5px;">{{product.minPrice}} won ~ {{product.maxPrice}} won<br /></p>
-         </div>
-       <div style="display: inline-block; float: left;"><img src = "{{product.logo}}" width="70px" height="70px"></div>
+    <!-- 해당 부위에 대한 성형외과별 가격표: 좌측에 로고가 위치하며 그 옆에 지역이 오며 또 그 좌측과 좌측 하단에 병원 이름과 가격표를 표시하였습니다.-->
+    <div style="float:left"><img src = "{{product.logo}}" width="70px" height="70px"></div>
+    <div style="background-color:red; float:left; color:white; margin-left:20px; padding:0 2.5px 2.5px 2.5px">{{product.region}} </div>
+      <div style="display:inline-block; margin-left:10px;">
+    <span style="display:inline-block; font-size:20px; margin-left:10px; font-weight:bold"> {{product.shopName}}</span>
+        <p style="margin-top:20px;"></p>
+        <span style=" margin-left:10px;">{{product.minPrice}} won ~ {{product.maxPrice}} won</span>
+      </div>
+       
       </ion-item>
     </ion-list>
   </ion-content>
