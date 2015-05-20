@@ -1,9 +1,3 @@
-//콤마찍기
-function comma(str) {
-    str = String(str);
-    return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
-}
-
 angular.module('starter.controllers', ['firebase'])
 .directive('ngRepeatEndWatch', function () {
     return {
@@ -280,6 +274,8 @@ angular.module('starter.controllers', ['firebase'])
 })
 
 .controller('JoinCtrl', function($scope, $ionicModal, $state, $http){
+  setModalHeight();
+
   $scope.joinData = {};
 
   $ionicModal.fromTemplateUrl('templates/join.html', {
@@ -763,4 +759,22 @@ angular.module('starter.controllers', ['firebase'])
 .controller('SearchCtrl', function($scope){
   $scope.pageTitle = "Search";
 });
+
+
+//modal 컨텐트 크기조절
+function setModalHeight(){
+  var modalHeight;
+  var mHeader = jQuery('ion-modal-view ion-header-bar').outerHeight();
+  var mContent = jQuery('ion-modal-view ion-content form').outerHeight();
+
+  modalHeight = mHeader + mContent;
+
+  jQuery('ion-modal-view').height(modalHeight + 'px');
+}
+
+//콤마찍기
+function comma(str) {
+    str = String(str);
+    return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
+}
 

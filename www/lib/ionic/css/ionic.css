@@ -8506,16 +8506,19 @@ a.button {
 
 /*조성현추가 2015-05-12 채팅창에서 유저가 보내는 채팅은 우측에서 출력*/
 a.user{
-	min-height:0;
+	min-height:0 !important;
+	padding:0;
 }
 a.user>img{
-	visibility: hidden;
+	display:none;
 }
 a.user>h2{
 	text-align:right;
-	visibility: hidden;
+	display:none;
 }
 a.user>p{
   text-align:right;
+  padding-top:0;
+  padding-bottom: 0;
 }
 >>>>>>> origin/master

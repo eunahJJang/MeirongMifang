@@ -17,9 +17,11 @@
 			<div style="clear:both; font-size:20px; margin-top:10px;">
 				<span > 의료진</span>
 				<br />
-				<a ui-sref="app.docProfile({docId:'{{doctor.id}}'})" ng-repeat="doctor in doctors">
-					<img style="margin:10px 10px 0px 10px" src = "{{ doctor.imgsrc }}" width="100px" height="150px">				
-				</a>
+				<div>
+					<a ui-sref="app.docProfile({docId:'{{doctor.id}}'})" ng-repeat="doctor in doctors">
+						<img style="margin:10px 10px 0px 10px" src = "{{ doctor.imgsrc }}" width="100px" height="150px">				
+					</a>
+				</div>
 			</div>
 			<div style="clear:both; font-size:20px;">
 				<span > 병원 내부 </span>
