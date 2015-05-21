@@ -1,23 +1,32 @@
 <ion-view view-title="비포애프터">
 	<ion-content ng-swipe-left="changePage()">
-		<div style="text-align:center; margin:30px 30px">
-			<div><img src = "{{logo}}"></div>
-		</div>
-		<ion-item ng-repeat="data in datas" style="height:200px">
-			<div>
-				<span style="color:black; font-size:20px; margin-left:30px;">{{ data.method }}</span>
-				<div style="display:inline-block; position:absolute; right:0; margin-right:8px;">
+		<!-- 상단에 위치한 부위별 이미지 사진 text-align, padding-top 속성은 이미지가 삽입될 것이므로 추후에 삭제되어야 합니다.-->
+		<div style="width=100%; height:80px; background-color:#efefff; text-align:center; padding-top:25px">
+		  <i class="icon ion-android-star-outline" style="position:absolute; left:0; top:0; margin:5px 0 0 5px; font-size:2em" href="#"></i>
+		  shop name
+		</div>	
+		<!-- 비포애프터 디자인 구현
+			 개선해야할 사항: 1. 이미지 사이 공백 제거
+							  2. productInfo와의 연결 기능 추가
+		-->
+		<div ng-repeat="data in datas" style="height:210px;">
+			<div style="background-color:lightgray; width:100%">
+				<span style="color:black; font-size:18px; margin-left:8px;">{{ data.method }}</span>
+				<div style="display:inline-block; float:right; margin-right:8px;">
 					<span style="color:black; font-size:18px;">{{ data.price }}</span>
 				</div>
 			</div>
 			<div>
-				<div style="position:absolute; left:0; margin-left:8px;">
+				<div style="float:left;">
 					<img style="width: 150px; height: 150px;" src = "{{ data.before }}">
+					<p style="background-color:gray; color:white; width:150px; height:20px; text-align:center">BEFORE</p>
 				</div>
-				<div style="position:absolute; right:0; margin-right:8px;">
+				<div style="float:right;">
 					<img style="width: 150px; height: 150px;" src = "{{ data.after }}">
+					<p style="background-color:gray; color:white; width:150px; height:20px; text-align:center">AFTER</p>
 				</div>
 			</div>
-		</ion-item>
+		<!--/ion-item-->
+		</div>
 	</ion-content>
 </ion-view>
