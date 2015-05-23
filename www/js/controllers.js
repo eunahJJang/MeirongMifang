@@ -91,7 +91,6 @@ angular.module('starter.controllers', ['firebase'])
   $scope.$on('event:auth-loginRequired', function(e, args) {
     $scope.$root.state = args.state;
     $scope.loginModal.show();
-    setModalHeight('.modalLogin');  
   });
   
   $scope.$on('event:auth-loginConfirmed', function(data) {
@@ -273,8 +272,6 @@ angular.module('starter.controllers', ['firebase'])
 })
 
 .controller('JoinCtrl', function($scope, $ionicModal, $state, $http){
-
-  setModalHeight('.modalJoin');
 
   $scope.joinData = {};
 

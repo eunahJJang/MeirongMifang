@@ -25,26 +25,27 @@
 	  </div>
 	<!-- 전체보기와 각 시술별 디테일 사진 보기 부분을 디자인 하였습니다. 기존에 구현되었던 디자인을 조금 수정하였습니다.
 	-->
+
 	  <a class="button button-mifang" href="#/app/productDetail/{{shopId}}?surgeryId=all&logo={{logo}}" style="text-decoration: none; margin-left:10px; font-size:1.3em;">전체보기</a>
 	  <button ng-click="showConvPrice()" class="button button-mifang btnConvPrice" style="float:right; margin-right:10px;">위안화(￥)보기</button>
 	  <div style="clear:both;"></div>
 
-    	<div class="list" style="margin-top:5px;">    
+	<div class="list" style="margin-top:5px;">    
 
-    	    <a href="#/app/productDetail/{{shopId}}?surgeryId={{data.surgeryId}}&logo={{logo}}" class="item item-avatar" ng-repeat="data in datas" href="#">
-    	      <img src="http://icons.iconarchive.com/icons/custom-icon-design/mono-general-4/512/eye-icon.png">
+	    <a href="#/app/productDetail/{{shopId}}?surgeryId={{data.surgeryId}}&logo={{logo}}" class="item item-avatar" ng-repeat="data in datas" style="padding-left:10px; min-height:50px;">
 
-    	      <div class="surgInfo" style="width:25%; float:left;">
-	    	      <h2>{{data.method}}</h2>
-    		      <p ng-click="showConvPrice()">{{data.price}}</p>
-    		  </div>
+	      <!--<img src="http://icons.iconarchive.com/icons/custom-icon-design/mono-general-4/512/eye-icon.png">-->
 
-    		  <div class="surgExp" style="width:75%; float:left">
-    		  	  <p style="white-space:normal;">눈을 어찌어찌해서 저렇게 무의미한 텍스트 무의미한 텍스트 무의미한 텍스트 무의미한 무의미한 텍스트 텍스트 무의미한 텍스트 하는 시술입니다.</p>
-    		  </div>
-    	    </a>    
+	      <div class="surgInfo">
+    	      <h2 style="float:left;">{{data.method}}</h2>
+		      <p style="text-align:right" ng-click="showConvPrice()">{{data.price}}</p>
+		  </div>
 
-    	</div>
+	    </a>    
+
+	</div>
+
+
 <!--
 	  <div ng-repeat="data in datas" style="margin-top:5px;">
 		<a href="#/app/productDetail/{{shopId}}?surgeryId={{data.surgeryId}}&logo={{logo}}" style="text-decoration: none; margin-left:10px; color:black; font-size:1.2em;">{{ data.method }}</a>
@@ -54,7 +55,7 @@
 		</div>
 
 	  </div>
--->
+    -->
 
 	</ion-content>
 </ion-view>
