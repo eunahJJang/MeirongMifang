@@ -5,6 +5,7 @@ angular.module('starter.services', ['http-auth-interceptor'])
       $http.get('http://meirong-mifang.com/users/login.php', {params : {"username" : username, "password" : password}}, { ignoreAuthModule: true })
        .success(function (data, status, headers, config) {
          $cookieStore.put('loginLevel', data);
+         $cookieStore.put('username', username);
     	   $http.defaults.headers.common.Authorization = data.authorizationToken;
           authService.loginConfirmed(data, function(config) {
             config.headers.Authorization = data.authorizationToken;

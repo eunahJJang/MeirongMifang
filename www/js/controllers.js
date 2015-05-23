@@ -43,7 +43,7 @@ angular.module('starter.controllers', ['firebase'])
   });
 
   $scope.$on('$ionicView.beforeEnter', function (e, data) {
-    if ($cookieStore.get('loginLevel') == null) {
+    if ($cookieStore.get('loginLevel') != null) {
       $scope.$root.isLogin = true;
     } else {
       $scope.$root.isLogin = false;
@@ -79,6 +79,7 @@ angular.module('starter.controllers', ['firebase'])
   };
  
   $scope.login = function() {
+    $scope.$root.state = "app.main"
     $scope.$root.username = $scope.user.username;
     AuthenticationService.login($scope.user.username, $scope.user.password);
     $scope.registerDevice();
@@ -96,7 +97,7 @@ angular.module('starter.controllers', ['firebase'])
   $scope.$on('event:auth-loginConfirmed', function(data) {
     $scope.password = null;
     $scope.loginModal.hide();
-    $state.go($scope.$root.state);
+    $state.go($scope.$root.state, {}, {reload: true, inherit: false});
   });
 
   $scope.$on('event:auth-login-failed', function(e, status) {
@@ -323,13 +324,9 @@ angular.module('starter.controllers', ['firebase'])
 })
 
 .controller('MypageCtrl', function($scope, $state, $http, $stateParams, $cookieStore, $rootScope, $cordovaToast) {
-
-
   if($cookieStore.get('loginLevel') == null){
     $rootScope.$broadcast('event:auth-loginRequired', { state: 'app.mypage' });
   }
-
-
 })
 
 .controller('ProfileCtrl', function($scope){
@@ -353,6 +350,7 @@ angular.module('starter.controllers', ['firebase'])
 })
 
 .controller('ChatCtrl', function($scope, $firebase, $http, $timeout, $ionicScrollDelegate, $rootScope, $cookieStore, $cordovaToast, $cordovaCamera, $ionicScrollDelegate){
+  $cookieStore.get("username");
   $scope.data = {};
   $scope.messages = [];
 
