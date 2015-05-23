@@ -769,7 +769,7 @@ angular.module('starter.controllers', ['firebase'])
 
 //modal 컨텐트 크기조
 function setModalHeight(parentTag){
-  jQuery('.modal').css('border','3px solid red');
+//  jQuery('.modal').css('border','3px solid red');
   var modalHeight;
   var mHeader = jQuery(parentTag+' ion-header-bar').outerHeight();
   var mContent = jQuery(parentTag+' ion-content form').outerHeight();

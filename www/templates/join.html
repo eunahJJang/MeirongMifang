@@ -9,20 +9,17 @@
     <form ng-submit="doJoin()">
       <div class="list">
         <div class="item item-input-inset item-button-right">
-          <label class="item-input-wrapper-defined">
-            <span class="input-label">Username</span>
-            <input type="text" ng-model="joinData.username">
+          <label class="item-input-wrapper-defined" style="padding-left:0">
+            <input type="text" placeholder="Username" ng-model="joinData.username" >
           </label>
           <button class="button button-light" ng-click="check()">check</button>
         </div>
         <label class="item item-input">
-          <span class="input-label">Password</span>
-          <input type="password" ng-model="joinData.password">
+          <input type="password" placeholder="Password" ng-model="joinData.password">
         </label>
 
         <label class="item item-input">
-          <span class="input-label">Password Check</span>
-          <input type="password" ng-model="joinData.password">
+          <input type="password" placeholder="Password Check" ng-model="joinData.passwordChk">
         </label>
 
         <label class="item">
