@@ -1,11 +1,12 @@
 angular.module('starter.services', ['http-auth-interceptor'])
-.factory('AuthenticationService', function($rootScope, $http, authService) {
+.factory('AuthenticationService', function($rootScope, $http, authService, $cookieStore) {
   var service = {
     login: function(username, password) {
-      $http.get('http://cpromise.cafe24.com/twinkle/login.php', {params : {"username" : username, "password" : password}}, { ignoreAuthModule: true })
+      $http.get('http://meirong-mifang.com/users/login.php', {params : {"username" : username, "password" : password}}, { ignoreAuthModule: true })
        .success(function (data, status, headers, config) {
-    	   $http.defaults.headers.common.Authorization = data.authorizationToken;  // Step 1
-          authService.loginConfirmed(data, function(config) {  // Step 2 & 3
+         $cookieStore.put('loginLevel', data);
+    	   $http.defaults.headers.common.Authorization = data.authorizationToken;
+          authService.loginConfirmed(data, function(config) {
             config.headers.Authorization = data.authorizationToken;
             return config;
           });

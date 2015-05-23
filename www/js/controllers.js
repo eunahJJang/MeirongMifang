@@ -43,7 +43,7 @@ angular.module('starter.controllers', ['firebase'])
   });
 
   $scope.$on('$ionicView.beforeEnter', function (e, data) {
-    if ($cookieStore.get('isLogin') == true) {
+    if ($cookieStore.get('loginLevel') == null) {
       $scope.$root.isLogin = true;
     } else {
       $scope.$root.isLogin = false;
@@ -94,10 +94,7 @@ angular.module('starter.controllers', ['firebase'])
     $scope.loginModal.show();
   });
   
-  $scope.$on('event:auth-loginConfirmed', function() {
-    $cookieStore.put('isLogin', true);
-    $scope.$root.isLogin = true;
-    // $scope.username = null;
+  $scope.$on('event:auth-loginConfirmed', function(data) {
     $scope.password = null;
     $scope.loginModal.hide();
     $state.go($scope.$root.state);
@@ -109,6 +106,7 @@ angular.module('starter.controllers', ['firebase'])
       error = "Invalid Username or Password.";
     }
     $scope.message = error;
+    alert(error);
   });
 
   $scope.$on('event:auth-logoutRequired', function(e, args){
@@ -117,8 +115,7 @@ angular.module('starter.controllers', ['firebase'])
   });
  
   $scope.$on('event:auth-logout-complete', function() {
-    $cookieStore.put('isLogin', false); 
-    $scope.$root.isLogin = false;
+    $cookieStore.remove('loginLevel'); 
     $state.go('app.main', {}, {reload: true, inherit: false});
   }); 
 
@@ -329,7 +326,8 @@ angular.module('starter.controllers', ['firebase'])
 
 .controller('MypageCtrl', function($scope, $state, $http, $stateParams, $cookieStore, $rootScope, $cordovaToast) {
 
-  if($cookieStore.get('isLogin') != true){
+
+  if($cookieStore.get('loginLevel') == null){
     $rootScope.$broadcast('event:auth-loginRequired', { state: 'app.mypage' });
   }
 
@@ -489,7 +487,7 @@ angular.module('starter.controllers', ['firebase'])
     // cordova.plugins.Keyboard.close();
   };
 
-  if($scope.$root.isLogin != true){
+  if($cookieStore.get('loginLevel') == null){
     $rootScope.$broadcast('event:auth-loginRequired', { state: 'app.chat' });
   }else{
     $scope.getMessages();
