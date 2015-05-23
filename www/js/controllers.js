@@ -297,7 +297,7 @@ angular.module('starter.controllers', ['firebase'])
 
   // Perform the login action when the user submits the login form
   $scope.doJoin = function() {
-    $http.get("http://cpromise.cafe24.com/twinkle/join.php", {params : {"username" : $scope.joinData.username, "password" : $scope.joinData.password}})
+    $http.get("http://meirong-mifang.com/users/join.php", {params : {"username" : $scope.joinData.username, "password" : $scope.joinData.password}})
       .success(function(data){
         if(data == "true"){
           alert("OK");
@@ -311,9 +311,9 @@ angular.module('starter.controllers', ['firebase'])
   };
 
   $scope.check = function(){
-    $http.get("http://cpromise.cafe24.com/twinkle/checkEmail.php", {params : {"username" : $scope.joinData.username}})
+    $http.get("http://meirong-mifang.com/users/checkEmail.php", {params : {"username" : $scope.joinData.username}})
       .success(function(data){
-        if(data == "success"){
+        if(data == false){
           alert("OK");
         }else{
           alert("duplicated");
