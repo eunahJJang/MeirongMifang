@@ -70,7 +70,6 @@ angular.module('starter.controllers', ['firebase'])
 })
   
 .controller('LoginCtrl', function($scope, $http, $state, $cookieStore, AuthenticationService, $rootScope, $cordovaPush, $cordovaDialogs, $cordovaMedia, $cordovaDevice) {
-  setModalHeight('.modal');
 
   $scope.message = "";
 
@@ -92,6 +91,7 @@ angular.module('starter.controllers', ['firebase'])
   $scope.$on('event:auth-loginRequired', function(e, args) {
     $scope.$root.state = args.state;
     $scope.loginModal.show();
+    setModalHeight('.modalLogin');  
   });
   
   $scope.$on('event:auth-loginConfirmed', function(data) {
@@ -273,7 +273,8 @@ angular.module('starter.controllers', ['firebase'])
 })
 
 .controller('JoinCtrl', function($scope, $ionicModal, $state, $http){
-  setModalHeight('ion-modal-view');
+
+  setModalHeight('.modalJoin');
 
   $scope.joinData = {};
 
@@ -767,17 +768,16 @@ angular.module('starter.controllers', ['firebase'])
 
 //modal 컨텐트 크기조
 function setModalHeight(parentTag){
-//  jQuery('.modal').css('border','3px solid red');
   var modalHeight;
   var mHeader = jQuery(parentTag+' ion-header-bar').outerHeight();
   var mContent = jQuery(parentTag+' ion-content form').outerHeight();
 
   console.log('mHeader : '+mHeader);
   console.log('mContent : '+mContent);
-  console.log('modalHeight : '+modalHeight);
 
   // 더한 이유는 스크롤이 생기지 않도록
   modalHeight = mHeader + mContent + 4;
+  console.log('modalHeight : '+modalHeight);
 
   jQuery(parentTag).height(modalHeight + 'px');
 }
