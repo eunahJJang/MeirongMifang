@@ -70,6 +70,8 @@ angular.module('starter.controllers', ['firebase'])
 })
   
 .controller('LoginCtrl', function($scope, $http, $state, $cookieStore, AuthenticationService, $rootScope, $cordovaPush, $cordovaDialogs, $cordovaMedia, $cordovaDevice) {
+  setModalHeight('.modal');
+
   $scope.message = "";
 
   $scope.user = {
@@ -274,7 +276,7 @@ angular.module('starter.controllers', ['firebase'])
 })
 
 .controller('JoinCtrl', function($scope, $ionicModal, $state, $http){
-  setModalHeight();
+  setModalHeight('ion-modal-view');
 
   $scope.joinData = {};
 
@@ -563,7 +565,7 @@ angular.module('starter.controllers', ['firebase'])
             return data.substring(84,90);
           })
           .error(function(data){
-            alert(data);
+//            alert(data);
             // alert('getCurrency-error');
             return false;
           });
@@ -595,11 +597,15 @@ angular.module('starter.controllers', ['firebase'])
           tmp = comma(tmp);
           $scope.datas[i].price = tmp + " CNY";
          }
+         jQuery('.btnConvPrice').text('원(₩)화보기');
+
         }
         else{
           for(var i=0; i< $scope.datas.length; i++){
             $scope.datas[i].price = $scope.priceWon[i];
           }
+
+         jQuery('.btnConvPrice').text('위안(￥)화보기');
         }
       }
 })
@@ -761,15 +767,21 @@ angular.module('starter.controllers', ['firebase'])
 });
 
 
-//modal 컨텐트 크기조절
-function setModalHeight(){
+//modal 컨텐트 크기조
+function setModalHeight(parentTag){
+  jQuery('.modal').css('border','3px solid red');
   var modalHeight;
-  var mHeader = jQuery('ion-modal-view ion-header-bar').outerHeight();
-  var mContent = jQuery('ion-modal-view ion-content form').outerHeight();
+  var mHeader = jQuery(parentTag+' ion-header-bar').outerHeight();
+  var mContent = jQuery(parentTag+' ion-content form').outerHeight();
 
-  modalHeight = mHeader + mContent;
+  console.log('mHeader : '+mHeader);
+  console.log('mContent : '+mContent);
+  console.log('modalHeight : '+modalHeight);
 
-  jQuery('ion-modal-view').height(modalHeight + 'px');
+  // 더한 이유는 스크롤이 생기지 않도록
+  modalHeight = mHeader + mContent + 4;
+
+  jQuery(parentTag).height(modalHeight + 'px');
 }
 
 //콤마찍기
