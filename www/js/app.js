@@ -143,12 +143,32 @@ angular.module('starter', ['ionic', 'ngCookies', 'ngCordova', 'ngAnimate', 'ngTo
     }
   })
 
-  .state('app.chat', {
-    url: "/chat",
+  .state('app.chatUser', {
+    url: "/chatUser",
     views: {
       'content': {
         templateUrl: "templates/chat.html",
         controller: 'ChatCtrl'
+      }
+    }
+  })
+
+  .state('app.chatAdminUser', {
+    url: "/chatAdminUser/:user",
+    views: {
+      'content': {
+        templateUrl: "templates/chat.html",
+        controller: 'ChatAdminUserCtrl'
+      }
+    }
+  })
+
+  .state('app.chatAdmin', {
+    url: "/chatAdmin",
+    views: {
+      'content': {
+        templateUrl: "templates/chatAdmin.html",
+        controller: 'ChatAdminCtrl'
       }
     }
   })

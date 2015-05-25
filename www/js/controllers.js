@@ -349,6 +349,39 @@ angular.module('starter.controllers', ['firebase'])
   
 })
 
+.controller('ChatAdminCtrl', function($scope, $http){
+  $scope.datas = [];
+  $scope.getMessages = function(){
+    $http.get("http://meirong-mifang.com/messages/getAdminMessage.php", {})
+      .success(function(data){
+        for(index = 0; index < data.length; index++){
+           $scope.datas.push( { name:data[index].user, content:data[index].message });
+        }
+      })
+      .error(function(data){
+        alert("erro");
+      })
+  }
+  $scope.getMessages();
+})
+
+.controller('ChatAdminUserCtrl', function($scope, $http, $stateParams){
+  $scope.datas = [];
+  $scope.getMessages = function(user){
+    $http.get("http://meirong-mifang.com/messages/getAdminUserMessage.php", {params : {"user" : user}})
+      .success(function(data){
+        for(index = 0; index < data.length; index++){
+           $scope.messages.push( {from:data[index].sender_id, to:data[index].receiver_id, text:data[index].message, time:data[index].created_time});
+        }
+      })
+      .error(function(data){
+        alert("getPicerrer");
+      })
+  }
+  $username = $stateParams.user;
+  $scope.getMessages($username);
+})
+
 .controller('ChatCtrl', function($scope, $firebase, $http, $timeout, $ionicScrollDelegate, $rootScope, $cookieStore, $cordovaToast, $cordovaCamera, $ionicScrollDelegate){
   $cookieStore.get("username");
   $scope.data = {};
