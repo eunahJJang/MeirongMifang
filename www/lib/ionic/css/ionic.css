@@ -8522,7 +8522,10 @@ a.user{
 	padding:0;
 }
 a.user>img{
-	display:none;
+
+}
+a.user>.takenPic{
+	float:right;
 }
 a.user>h2{
 	text-align:right;

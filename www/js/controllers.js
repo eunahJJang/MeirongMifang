@@ -401,9 +401,21 @@ angular.module('starter.controllers', ['firebase'])
   $scope.chats = sync.$asArray();
 
   $scope.sendMsg = function(chat){
+
+    //현재시간
+    var d = new Date();
+    curtime = d.getFullYear()+"/"+(parseInt(d.getMonth())+1)+"/"+d.getDate()+" "+d.getHours()+":"+d.getMinutes()+":"+d.getSeconds();
+
+    //입력값에 공백만있으면 전송안함
+    if( typeof(chat) == "undefined" || chat.message.trim() == null || chat.message.trim() == '' ){
+      console.log('empty str');
+      return;
+    }
+
     $scope.chats.$add({
       user: 'user',
-      message : chat.message
+      message : chat.message,
+      time : curtime
 //      imgURL : $rootScope.authData.facebook.cachedUserProfile.picture.data.url
     });
     chat.message = "";
@@ -432,6 +444,11 @@ angular.module('starter.controllers', ['firebase'])
         };
  
         $cordovaCamera.getPicture(options).then(function(imageData) {
+            $scope.chats.$add({
+              user: 'user',
+              imgageData: imageData,
+              imgURI: "data:image/jpeg;base64," + imageData
+            });
             $scope.imageData = imageData;
             $scope.imgURI = "data:image/jpeg;base64," + imageData;
         }, function(err) {
@@ -453,6 +470,11 @@ angular.module('starter.controllers', ['firebase'])
             saveToPhotoAlbum: false
         };
       $cordovaCamera.getPicture(options).then(function(imageData) {
+            $scope.chats.$add({
+              user: 'user',
+              imgageData: imageData,
+              imgURI: "data:image/jpeg;base64," + imageData
+            });
             $scope.imgURI = "data:image/jpeg;base64," + imageData;
         }, function(err) {
             // An error occured. Show a message to the user
@@ -477,8 +499,9 @@ angular.module('starter.controllers', ['firebase'])
   $scope.sendMessage = function() {
 
     //채팅창에 아무것도 입력하지 않을 시 전송하지 않음.
-    if($scope.data.message == '' || $scope.data.message == null){
+    if($scope.data.message.trim() == '' || $scope.data.message.trim() == null){
       jQuery('#chatInput').focus();
+      console.log($scope.data.message.trim());
       document.getElementById("chatInput").focus();
       return -1;
     }
