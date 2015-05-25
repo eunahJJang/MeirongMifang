@@ -1,3 +1,4 @@
+<!--
 <ion-modal-view class="modalJoin" style="height:296px">
   <ion-header-bar>
     <h1 class="title">Join</h1>
@@ -29,4 +30,30 @@
     </form>
   </ion-content>
 </ion-modal-view>
+-->
 
+<ion-view title="Join">
+    <ion-content>
+        <div>
+          <form ng-submit="doJoin()">
+            <div class="list list-inset">
+                <label class="item item-input">
+                    <input ng-model="username" type="text" placeholder="Username" ng-model="joinData.username"/>
+                    <button class="button button-light" ng-click="check()">check</button>
+                </label>
+                <label class="item item-input">
+                    <input ng-model="password" type="password" placeholder="Password" />
+                </label>
+                <label class="item item-input">
+                    <input ng-model="passwordChk" type="password" placeholder="Password Check" />
+                </label>
+            </div>
+            <div class="padding-left padding-right">
+                <div class="button-bar">
+                    <button class="button button-mifang" type="submit">Join</button>
+                </div>
+            </div>
+          </form>
+        </div>
+    </ion-content>
+</ion-view>
