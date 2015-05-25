@@ -349,6 +349,15 @@ angular.module('starter.controllers', ['firebase'])
   
 })
 
+.controller('ChatTabCtrl', function($scope, $cookieStore, $state){
+ $loginLevel = $cookieStore.get("loginLevel");
+ if($loginLevel > 1){
+  $state.go("app.chatAdmin");
+ }else{
+  $state.go("app.chatUser");
+ }
+})
+
 .controller('ChatAdminCtrl', function($scope, $http){
   $scope.datas = [];
   $scope.getMessages = function(){

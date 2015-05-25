@@ -143,6 +143,15 @@ angular.module('starter', ['ionic', 'ngCookies', 'ngCordova', 'ngAnimate', 'ngTo
     }
   })
 
+  .state('app.chatTab', {
+    url: "/chatTab",
+    views: {
+      'content': {
+        controller: 'ChatTabCtrl'
+      }
+    }
+  })
+
   .state('app.chatUser', {
     url: "/chatUser",
     views: {
