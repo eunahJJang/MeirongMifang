@@ -447,7 +447,8 @@ angular.module('starter.controllers', ['firebase'])
             $scope.chats.$add({
               user: 'user',
               imgageData: imageData,
-              imgURI: "data:image/jpeg;base64," + imageData
+              imgURI: "data:image/jpeg;base64," + imageData,
+              time : curtime
             });
             $scope.imageData = imageData;
             $scope.imgURI = "data:image/jpeg;base64," + imageData;
@@ -473,7 +474,8 @@ angular.module('starter.controllers', ['firebase'])
             $scope.chats.$add({
               user: 'user',
               imgageData: imageData,
-              imgURI: "data:image/jpeg;base64," + imageData
+              imgURI: "data:image/jpeg;base64," + imageData,
+              time : curtime
             });
             $scope.imgURI = "data:image/jpeg;base64," + imageData;
         }, function(err) {
