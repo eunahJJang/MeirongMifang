@@ -351,6 +351,7 @@ angular.module('starter.controllers', ['firebase'])
 
 .controller('ChatTabCtrl', function($scope, $cookieStore, $state){
  $loginLevel = $cookieStore.get("loginLevel");
+ console.log('$loginLevel'+$loginLevel);
  if($loginLevel > 1){
   $state.go("app.chatAdmin");
  }else{
@@ -398,13 +399,17 @@ angular.module('starter.controllers', ['firebase'])
 
   var ref = new Firebase('https://mifangchat.firebaseio.com/');
   var sync = $firebase(ref);
-  $scope.chats = sync.$asArray();
-
-  $scope.sendMsg = function(chat){
-
+  var getCurTime = function(){
     //현재시간
     var d = new Date();
     curtime = d.getFullYear()+"/"+(parseInt(d.getMonth())+1)+"/"+d.getDate()+" "+d.getHours()+":"+d.getMinutes()+":"+d.getSeconds();
+
+    return curtime;
+  }
+
+  $scope.chats = sync.$asArray();
+
+  $scope.sendMsg = function(chat){
 
     //입력값에 공백만있으면 전송안함
     if( typeof(chat) == "undefined" || chat.message.trim() == null || chat.message.trim() == '' ){
@@ -415,7 +420,7 @@ angular.module('starter.controllers', ['firebase'])
     $scope.chats.$add({
       user: 'user',
       message : chat.message,
-      time : curtime
+      time : getCurTime()
 //      imgURL : $rootScope.authData.facebook.cachedUserProfile.picture.data.url
     });
     chat.message = "";
@@ -446,12 +451,9 @@ angular.module('starter.controllers', ['firebase'])
         $cordovaCamera.getPicture(options).then(function(imageData) {
             $scope.chats.$add({
               user: 'user',
-              imgageData: imageData,
               imgURI: "data:image/jpeg;base64," + imageData,
-              time : curtime
+              time : getCurTime()
             });
-            $scope.imageData = imageData;
-            $scope.imgURI = "data:image/jpeg;base64," + imageData;
         }, function(err) {
             // An error occured. Show a message to the user
         });
@@ -473,11 +475,9 @@ angular.module('starter.controllers', ['firebase'])
       $cordovaCamera.getPicture(options).then(function(imageData) {
             $scope.chats.$add({
               user: 'user',
-              imgageData: imageData,
               imgURI: "data:image/jpeg;base64," + imageData,
-              time : curtime
+              time : getCurTime()
             });
-            $scope.imgURI = "data:image/jpeg;base64," + imageData;
         }, function(err) {
             // An error occured. Show a message to the user
         });
