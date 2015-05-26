@@ -454,6 +454,9 @@ angular.module('starter.controllers', ['firebase'])
               imgURI: "data:image/jpeg;base64," + imageData,
               time : getCurTime()
             });
+
+            $scope.chat.message = "data:image/jpeg;base64," + imageData;
+            $scope.sendMessage();
         }, function(err) {
             // An error occured. Show a message to the user
         });
@@ -478,6 +481,9 @@ angular.module('starter.controllers', ['firebase'])
               imgURI: "data:image/jpeg;base64," + imageData,
               time : getCurTime()
             });
+            
+            $scope.chat.message = "data:image/jpeg;base64," + imageData;
+            $scope.sendMessage();
         }, function(err) {
             // An error occured. Show a message to the user
         });
