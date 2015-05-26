@@ -487,47 +487,53 @@ angular.module('starter.controllers', ['firebase'])
   var isIOS = ionic.Platform.isWebView() && ionic.Platform.isIOS();
 
   $scope.getMessages = function(){
-    $http.get("meirong-mifang.com/products/getMessages.php", {params : {"from" : $scope.$root.username}})
+    $scope.$root.username = "user526";
+    $http.get("http://meirong-mifang.com/products/getMessages.php", {params : {"from" : $scope.$root.username}})
       .success(function(data){
+        console.log('getMessages() success');
         for(index = 0; index < data.length; index++){
            $scope.messages.push( {from:data[index].sender_id, to:data[index].receiver_id, text:data[index].message, time:data[index].created_time});
         }
       })
       .error(function(data){
-        alert("getPicerrer");
+        console.log(data);
+        console.log('getMessages error');
       })
   }
 
   $scope.sendMessage = function() {
-
     //채팅창에 아무것도 입력하지 않을 시 전송하지 않음.
-    if($scope.data.message.trim() == '' || $scope.data.message.trim() == null){
+    if($scope.chat.message.trim() == '' || $scope.chat.message.trim() == null){
+      console.log('Empty Message');
       jQuery('#chatInput').focus();
-      console.log($scope.data.message.trim());
       document.getElementById("chatInput").focus();
       return -1;
     }
 
     var d = new Date();
     d = d.toLocaleTimeString().replace(/:\d+ /, ' '); //d예시 : 오후 10:26:10
+
+    $scope.$root.username = 'user526';
+
     $scope.messages.push({
       from: $scope.$root.username,
       to: 'admin',
-      text: $scope.data.message,
+      text: $scope.chat.message,
       time: d
     });
-    $http.get("http://meirong-mifang.com/products/sendMessages.php", {params : {"from" : $scope.$root.username, "to" : 'admin', "message" : $scope.data.message}})
+
+    $http.get("http://meirong-mifang.com/products/sendMessages.php", 
+      {params : {"from" : $scope.$root.username, "to" : 'admin', "message" : $scope.chat.message}})
+
       .success(function(data){
-        for(index = 0; index < data.length; index++){
-           $scope.messages.push( {from:data[index].sender_id, to:data[index].receiver_id, text:data[index].message, time:data[index].created_time});
-           alert(1);
-        }
-      })
-      .error(function(data){
-  
+          console.log('sendMessage success');
       })
 
-    delete $scope.data.message;
+      .error(function(data){
+          console.log('sendMessage db transfer error');
+      })
+
+    delete $scope.chat.message;
     $ionicScrollDelegate.scrollBottom(true);
 
     jQuery('.chatInput').focus();
@@ -555,7 +561,7 @@ angular.module('starter.controllers', ['firebase'])
   }else{
     $scope.getMessages();
   }
-
+  $scope.getMessages();
 })
 
 .controller('ProductsCtrl', function($scope, $http, $stateParams) {
