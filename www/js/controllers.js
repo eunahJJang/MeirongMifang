@@ -393,6 +393,9 @@ angular.module('starter.controllers', ['firebase'])
 })
 
 .controller('ChatCtrl', function($scope, $firebase, $http, $timeout, $ionicScrollDelegate, $rootScope, $cookieStore, $cordovaToast, $cordovaCamera, $ionicScrollDelegate){
+
+//  $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
+  
   $cookieStore.get("username");
   $scope.data = {};
   $scope.messages = [];
@@ -481,7 +484,7 @@ angular.module('starter.controllers', ['firebase'])
               imgURI: "data:image/jpeg;base64," + imageData,
               time : getCurTime()
             });
-            
+
             $scope.chat.message = "data:image/jpeg;base64," + imageData;
             $scope.sendMessage();
         }, function(err) {
@@ -527,17 +530,22 @@ angular.module('starter.controllers', ['firebase'])
       text: $scope.chat.message,
       time: d
     });
-
+/*
     $http.get("http://meirong-mifang.com/products/sendMessages.php", 
       {params : {"from" : $scope.$root.username, "to" : 'admin', "message" : $scope.chat.message}})
+*/
 
-      .success(function(data){
-          console.log('sendMessage success');
-      })
-
-      .error(function(data){
+    $http({
+      method: "post",
+      url: "http://meirong-mifang.com/products/sendMessages.php",
+      headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+      data: $.param({from: $scope.$root.username, to: 'admin', message: $scope.chat.message})
+        }).success(function(result){
+          console.log(result);
+        }).error(function(data){
+          console.log("data : "+data);
           console.log('sendMessage db transfer error');
-      })
+      });  
 
     delete $scope.chat.message;
     $ionicScrollDelegate.scrollBottom(true);
