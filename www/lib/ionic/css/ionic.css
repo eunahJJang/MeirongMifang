@@ -8536,4 +8536,11 @@ a.user>p{
   padding-top:0;
   padding-bottom: 0;
 }
+
+.wide-as-needed{
+	overflow: scroll !important;
+	white-space: nowrap !important;
+}
+
 >>>>>>> origin/master
+

@@ -400,8 +400,6 @@ angular.module('starter.controllers', ['firebase'])
   $scope.data = {};
   $scope.messages = [];
 
-  var ref = new Firebase('https://mifangchat.firebaseio.com/');
-  var sync = $firebase(ref);
   var getCurTime = function(){
     //현재시간
     var d = new Date();
@@ -409,25 +407,6 @@ angular.module('starter.controllers', ['firebase'])
 
     return curtime;
   }
-
-  $scope.chats = sync.$asArray();
-
-  $scope.sendMsg = function(chat){
-
-    //입력값에 공백만있으면 전송안함
-    if( typeof(chat) == "undefined" || chat.message.trim() == null || chat.message.trim() == '' ){
-      console.log('empty str');
-      return;
-    }
-
-    $scope.chats.$add({
-      user: 'user',
-      message : chat.message,
-      time : getCurTime()
-//      imgURL : $rootScope.authData.facebook.cachedUserProfile.picture.data.url
-    });
-    chat.message = "";
-  };
 
   $scope.setScrollPos = function(){
     $ionicScrollDelegate.scrollBottom();
@@ -495,13 +474,50 @@ angular.module('starter.controllers', ['firebase'])
   $scope.hideTime = true;
   var isIOS = ionic.Platform.isWebView() && ionic.Platform.isIOS();
 
+  var getChatDate = function(dateString){
+
+    if(dateString != null){
+      var d = new Date(dateString);
+    }
+    else{
+      var d = new Date();
+    }
+    var chatDate = "";
+
+    chatDate += (""+d.getFullYear()).substring(2,4);
+    chatDate += '/';
+
+    chatDate += d.getMonth()+1;
+    chatDate += '/';
+
+    chatDate += d.getDate();
+    chatDate += '\n';
+
+    if(d.getHours() > 12){
+      chatDate += d.getHours() - 12;
+      chatDate += ':';
+      chatDate += d.getMinutes();
+      chatDate += " PM";
+    }
+    else{
+      chatDate += d.getHours();
+      chatDate += ':';
+      chatDate += d.getMinutes();
+      chatDate += " AM";
+    }
+
+
+    return chatDate;
+  }
+
+
   $scope.getMessages = function(){
     $scope.$root.username = "user526";
     $http.get("http://meirong-mifang.com/products/getMessages.php", {params : {"from" : $scope.$root.username}})
       .success(function(data){
         console.log('getMessages() success');
         for(index = 0; index < data.length; index++){
-           $scope.messages.push( {from:data[index].sender_id, to:data[index].receiver_id, text:data[index].message, time:data[index].created_time});
+           $scope.messages.push( {from:data[index].sender_id, to:data[index].receiver_id, text:data[index].message, time:getChatDate(data[index].created_time)});
         }
       })
       .error(function(data){
@@ -520,7 +536,7 @@ angular.module('starter.controllers', ['firebase'])
     }
 
     var d = new Date();
-    d = d.toLocaleTimeString().replace(/:\d+ /, ' '); //d예시 : 오후 10:26:10
+//    d = d.toLocaleTimeString().replace(/:\d+ /, ' '); //d예시 : 오후 10:26:10
 
     $scope.$root.username = 'user526';
 
@@ -528,7 +544,7 @@ angular.module('starter.controllers', ['firebase'])
       from: $scope.$root.username,
       to: 'admin',
       text: $scope.chat.message,
-      time: d
+      time: getChatDate()
     });
 /*
     $http.get("http://meirong-mifang.com/products/sendMessages.php", 
@@ -742,11 +758,6 @@ angular.module('starter.controllers', ['firebase'])
       $scope.map      = data[0].map;
 
       $scope.doctors  = [];
-      $scope.shopimgs = [];
-
-      //shopImgSrc 임시로 지정
-      $scope.shopImgSrc = data[0].shopImgs;
-      $scope.shopImgSrc = "http://meirong-mifang.com/img/emptyimg.jpg";
 
       for(index = 0; index < data.length; index++){
         $scope.doctors.push({
@@ -757,6 +768,37 @@ angular.module('starter.controllers', ['firebase'])
     })
     .error(function(data){
     });
+
+    //이미지를 가져와서 이미지가 없는 병원의 경우에는 이미지 준비중이라는 이미지를 출력
+    $http.get("http://meirong-mifang.com/products/getShopImg.php", {params : {"shopId" : $stateParams.shopId}})
+  .success(function(data){
+
+    $scope.shopimgs = [];
+
+
+    //DB에 이미지가 존재하는 경우
+    if(data){
+      $scope.hasImg = true;
+      for(index=0; index<data.length; index++){
+        $scope.shopimgs.push({
+          imgsrc : data[index].imgSrc
+        })
+      }
+    }
+
+    //DB에 이미지가 없는 경우
+    else{
+      $scope.hasImg = false;
+      $scope.shopimgs.push({
+        imgsrc : "http://meirong-mifang.com/img/emptyimg.jpg"
+      })
+    }
+
+
+  })
+  .error(function(data){
+    console.log('ProductInfoCtrl imgGet error');
+  });
 
     $scope.shopId   = $stateParams.shopId;
 

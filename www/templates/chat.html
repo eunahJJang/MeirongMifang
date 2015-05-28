@@ -1,8 +1,8 @@
 <ion-view view-title="Chat">
   <ion-pane>
-    <ion-content>
+    <ion-content style="margin-bottom:93px;">
 
-      <div ng-repeat="message in messages">
+      <div ng-repeat="message in messages" ng-repeat-end-watch="setScrollPos">
         <div class="message">
            <div ng-switch on="message.from">
               <div ng-switch-when="admin">
@@ -11,7 +11,7 @@
               <div id = "tableContainer" ng-switch-default>
                 <div id="tableRow">
                   <div id="sub">
-                    <table><tr><td>읽음</td></tr><tr><td>오전12:58</td></tr></table>
+                    <table width="80px"><tr><td></td></tr><tr><td>{{message.time}}</td></tr></table>
                   </div>
                   <div class="sidebar">
                     <span class="" ng-if=" message.text.substring(0,10)=='data:image' ">
@@ -26,19 +26,6 @@
             </div>  
         </div>
       </div>
-
-    <!--
-    <div class="list" style="padding-bottom:91px;">
-      <a class="item item-avatar chatMsg {{chat.user}}" ng-repeat="chat in chats" ng-switch="chat.user" style="border:0;" ng-repeat-end-watch="setScrollPos">
-
-        <img src="{{chat.imgURL}}" ng-hide="chat.user == 'user'">
-        <img class="takenPic" src="{{chat.imgURI}}" ng-hide="chat.imgURI == null" width="40%"> 
-        <h2 >{{chat.user}}</h2> 
-        <p ng-if="chat.imageURI==null">{{chat.message}}</p>
-      </a>
-    </div>
-
-    -->
     </ion-content>
 
     <div class="bar bar-footer item-input-inset" style="bottom:49px; overflow:visible">
