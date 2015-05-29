@@ -649,28 +649,26 @@ angular.module('starter.controllers', ['firebase'])
       $scope.changePage = function(){
         $state.go("app.detailImage", {"shopId": $stateParams.shopId, "surgeryId" : "all"});
       }
-     
-      $scope.getCurrency = function(){
-        var config = {headers:  {
-          'Accept-Encoding': 'gzip, deflate',
-          'Accept': '*/*',
-          "User-Agent" : "runscope/0.1"
-            }
-        };
-        $http.get("http://www.webservicex.net/CurrencyConvertor.asmx/ConversionRate?FromCurrency=CNY&ToCurrency=KRW", config)
+     //재훈이 : 환율 가져오는 부분
+      $scope.getCurrency = function(callback){
+        $http.get("http://meirong-mifang.com/products/getCurrency.php", {})
           .success(function(data){
-            return data.substring(84,90);
+            callback(data);
           })
           .error(function(data){
-//            alert(data);
-            // alert('getCurrency-error');
-            return false;
+            callback(0);
           });
       }
 
       //현재 화폐단위가 원화이면 클릭 시 중국위안으로, 현재 화폐단위가 위안이면 클릭 시 원화로 바꾸어 보여주는 메소드
       $scope.showConvPrice = function(){
-        var currency = $scope.getCurrency();
+        var currency = 0;
+        $scope.getCurrency(function(data){
+          $scope.currency = data;
+          currency=data;
+          console.log(currency);
+        });
+        //재훈 : 여기 서 부르는데 비동기로 불러져서 리턴값이 오기전에 끝나버림;;
         var isWon = false;
 
         //현재 화폐단위가 won으로 끝날 경우 (문자열 끝에서 3개 잘라서 확인)
