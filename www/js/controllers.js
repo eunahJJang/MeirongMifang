@@ -80,6 +80,7 @@ angular.module('starter.controllers', ['firebase'])
   };
  
   $scope.login = function() {
+    $cookieStore.put('username',$scope.user.username)
     $scope.$root.state = "app.main"
     $scope.$root.username = $scope.user.username;
     AuthenticationService.login($scope.user.username, $scope.user.password);
@@ -473,8 +474,8 @@ angular.module('starter.controllers', ['firebase'])
 
 //  $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
   
-  var userName = $cookieStore.get("username");
-  console.log('userName : '+userName);
+  $scope.userName = $cookieStore.get("username");
+  console.log('userName : '+$scope.userName);
   $scope.data = {};
   $scope.messages = [];
 
@@ -603,8 +604,7 @@ angular.module('starter.controllers', ['firebase'])
   }
 
   $scope.getMessages = function(){
-    $scope.$root.username = "user526";
-    $http.get("http://meirong-mifang.com/products/getMessages.php", {params : {"from" : $scope.$root.username}})
+    $http.get("http://meirong-mifang.com/products/getMessages.php", {params : {"from" : $scope.userName}})
       .success(function(data){
         console.log('getMessages() success');
         for(index = 0; index < data.length; index++){
@@ -632,7 +632,7 @@ angular.module('starter.controllers', ['firebase'])
     $scope.$root.username = 'user526';
 
     $scope.messages.push({
-      from: $scope.$root.username,
+      from: $scope.userName,
       to: 'admin',
       text: $scope.chat.message,
       date: getChatDate(),
@@ -647,7 +647,7 @@ angular.module('starter.controllers', ['firebase'])
       method: "post",
       url: "http://meirong-mifang.com/products/sendMessages.php",
       headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-      data: $.param({from: $scope.$root.username, to: 'admin', message: $scope.chat.message})
+      data: $.param({from: $scope.userName, to: 'admin', message: $scope.chat.message})
         }).success(function(result){
           console.log(result);
         }).error(function(data){
@@ -683,7 +683,6 @@ angular.module('starter.controllers', ['firebase'])
   }else{
     $scope.getMessages();
   }
-  $scope.getMessages();
 })
 
 .controller('ProductsCtrl', function($scope, $http, $stateParams) {
