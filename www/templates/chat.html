@@ -11,7 +11,7 @@
               <div id = "tableContainer" ng-switch-default>
                 <div id="tableRow">
                   <div id="sub">
-                    <table width="80px"><tr><td></td></tr><tr><td>{{message.time}}</td></tr></table>
+                    <table width="80px"><tr><td>{{message.date}}</td></tr><tr><td>{{message.time}}</td></tr></table>
                   </div>
                   <div class="sidebar">
                     <span class="" ng-if=" message.text.substring(0,10)=='data:image' ">
@@ -37,7 +37,7 @@
       
 
       <label class="item-input-wrapper">
-        <input id="chatInput" type="text" placeholder="Type your message" on-return="sendMessage()" ng-model="chat.message" />
+        <input id="chatInput" type="text" placeholder="Type your message" on-return="sendMessage()" ng-model="chat.message"/>
       </label>
       <button class="button button-clear" ng-click="sendMessage(chat)">Send</button>
     </div>

@@ -37,6 +37,7 @@ angular.module('starter.controllers', ['firebase'])
       focusFirstInput: true
     }
   );
+
   //Be sure to cleanup the modal by removing it from the DOM
   $scope.$on('$destroy', function() {
     $scope.loginModal.remove();
@@ -141,7 +142,7 @@ angular.module('starter.controllers', ['firebase'])
                 "badge": "true",
                 "sound": "true",
                 "alert": "true"
-            }
+            }    
         }
 
         $cordovaPush.register(config).then(function (result) {
@@ -152,6 +153,7 @@ angular.module('starter.controllers', ['firebase'])
                 storeDeviceToken("ios");
             }
         }, function (err) {
+          alert("Registration error: " + err);
             console.log("Register error " + err)
         });
     }
@@ -431,15 +433,10 @@ angular.module('starter.controllers', ['firebase'])
         };
  
         $cordovaCamera.getPicture(options).then(function(imageData) {
-            $scope.chats.$add({
-              user: 'user',
-              imgURI: "data:image/jpeg;base64," + imageData,
-              time : getCurTime()
-            });
-
             $scope.chat.message = "data:image/jpeg;base64," + imageData;
             $scope.sendMessage();
         }, function(err) {
+          alert('takepicerrer');
             // An error occured. Show a message to the user
         });
     }
@@ -458,12 +455,6 @@ angular.module('starter.controllers', ['firebase'])
             saveToPhotoAlbum: false
         };
       $cordovaCamera.getPicture(options).then(function(imageData) {
-            $scope.chats.$add({
-              user: 'user',
-              imgURI: "data:image/jpeg;base64," + imageData,
-              time : getCurTime()
-            });
-
             $scope.chat.message = "data:image/jpeg;base64," + imageData;
             $scope.sendMessage();
         }, function(err) {
@@ -477,7 +468,10 @@ angular.module('starter.controllers', ['firebase'])
   var getChatDate = function(dateString){
 
     if(dateString != null){
-      var d = new Date(dateString);
+    var t = dateString.split(/[- :]/);
+
+    var d = new Date(t[0], t[1]-1, t[2], t[3], t[4], t[5]);
+    d = new Date(d);
     }
     else{
       var d = new Date();
@@ -493,23 +487,44 @@ angular.module('starter.controllers', ['firebase'])
     chatDate += d.getDate();
     chatDate += '\n';
 
+    return chatDate;
+  }
+
+  var addZero = function(i) {
+    if (i < 10) {
+        i = "0" + i;
+    }
+    return i;
+  }
+
+  var getChatTime = function(dateString){
+    if(dateString != null){
+    var t = dateString.split(/[- :]/);
+
+    var d = new Date(t[0], t[1]-1, t[2], t[3], t[4], t[5]);
+    d = new Date(d);
+    }
+    else{
+      var d = new Date();
+    }
+
+    var chatDate = "";
+
     if(d.getHours() > 12){
       chatDate += d.getHours() - 12;
       chatDate += ':';
-      chatDate += d.getMinutes();
+      chatDate += addZero(d.getMinutes());
       chatDate += " PM";
     }
     else{
       chatDate += d.getHours();
       chatDate += ':';
-      chatDate += d.getMinutes();
+      chatDate += addZero(d.getMinutes());
       chatDate += " AM";
     }
 
-
     return chatDate;
   }
-
 
   $scope.getMessages = function(){
     $scope.$root.username = "user526";
@@ -544,7 +559,8 @@ angular.module('starter.controllers', ['firebase'])
       from: $scope.$root.username,
       to: 'admin',
       text: $scope.chat.message,
-      time: getChatDate()
+      date: getChatDate(),
+      time: getChatTime()
     });
 /*
     $http.get("http://meirong-mifang.com/products/sendMessages.php", 
@@ -563,7 +579,7 @@ angular.module('starter.controllers', ['firebase'])
           console.log('sendMessage db transfer error');
       });  
 
-    delete $scope.chat.message;
+    $scope.chat.message = "";
     $ionicScrollDelegate.scrollBottom(true);
 
     jQuery('.chatInput').focus();
