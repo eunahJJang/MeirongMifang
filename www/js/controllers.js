@@ -840,7 +840,75 @@ angular.module('starter.controllers', ['firebase'])
   $scope.pageTitle = "Communication";
 })
 
-.controller('ReviewCtrl', function($scope, $stateParams, $cordovaCamera, $cordovaFile){
+//리뷰 업로드 페이지를 관리하는 부분입니다.
+.controller('UploadReviewCtrl', function($scope, $stateParams, $http, $cordovaCamera, $cordovaFile, $ionicHistory, $state){
+  //카테고리를 선택하기 위한 categorys 변수 입니다.
+  $scope.categorys =['eye','nose','face','bosom','body','beauty'];
+  
+  //uploadReview.html 안의 textarea의 동적 크기 변경을 위해 선언하였습니다.
+  $scope.autoExpand = function(e) {
+      var element = typeof e === 'object' ? e.target : document.getElementById(e);
+        var scrollHeight = element.scrollHeight -0; 
+      element.style.height =  scrollHeight + "px";    
+  };
+  
+  //카테고리를 선택하고 나면 해당 카테고리와 연관된 모든 병원 목록들을 가져오는 함수입니다.
+  $scope.update = function(review) {
+    //console.log(review.category);
+    Category = review.category;
+    if(Category ==null){
+    console.log("category select error");
+    }else{
+    $scope.getShopId(Category);
+    }
+    }
+  //인자로 받은 카테고리로 "products/getList.php"로부터 병원 ID와 병원 이름을 가져오는 함수입니다.
+  $scope.getShopId = function(category){
+    $http.get("http://meirong-mifang.com/products/getList.php", {params : {"category" : category}})
+      .success(function(data){
+        $scope.noOfProduct = data.length;
+
+        $scope.products = [];
+        for(index = 0; index < data.length; index++){
+           $scope.products.push({ 
+            //category:category,
+            shopId:data[index].shopId,
+            shopName: data[index].shopName});
+        }
+      })
+      .error(function(data){
+      console.log("getShopId error");
+      })
+    }
+  $scope.cancle = function(){
+    //뒤로 돌아가기
+    $ionicHistory.goBack([-1]);
+  };
+  //업로드 하는 부분입니다.
+  $scope.upload = function(review){
+    if(review.category == null || review.hospital.shopName == null){
+      console.log("Empty category or Empty Shop name");
+      return -1;
+    }
+    if(review.body.trim() == '' || review.body.trim() == null){
+      console.log('Empty body');
+      return -1;
+    }
+    //userId는 임의로 설정하였습니다.
+    $scope.$root.username = 'user526';
+    //"review/uploadReview.php"로 작성 정보를 보냅니다.
+    $http.get("http://meirong-mifang.com/review/uploadReview.php", 
+      {params : {"hospital_id":review.hospital.shopId, "hospital_name": review.hospital.shopName, "category": review.category, 
+           "pictures": 'nonPicture', "contents":review.body, "user_name": $scope.$root.username}})
+      .success(function(data){
+        console.log('uploadReview success');
+      })
+      .error(function(data){
+        console.log('uploadReview db transfer error');
+      })  
+    $state.go('app.review');
+  };
+   
    $scope.takePicture = function() {
         var options = { 
             quality : 75, 
@@ -879,6 +947,44 @@ angular.module('starter.controllers', ['firebase'])
             // An error occured. Show a message to the user
         });
     }
+})
+//리뷰 페이지에서 사람들이 올린 글을 표시해주도록 하는 부분입니다.
+.controller('ReviewCtrl',function($scope, $stateParams, $http, $cordovaCamera, $cordovaFile){
+  $scope.categorys =['eye','nose','face','bosom','body','beauty'];
+  //선택한 카테고리의 리뷰 정보들을 뿌려주는 함수입니다.
+  $scope.update = function(review) {
+    console.log(review.category);
+    Category = review.category;
+    if(Category ==null){
+    console.log("category select error");
+    }else{
+    $scope.getReview(Category);
+    }
+    }
+  //"review/getReview.php"로부터 해당 카테고리의 리뷰 자료들을 가져와 $scope.contents 변수에 저장합니다.
+  $scope.getReview = function(category){
+    $http.get("http://meirong-mifang.com/review/getReview.php", {params : {"category" : category}})
+      .success(function(data){
+        $scope.noOfProduct = data.length;
+
+        $scope.contents = [];
+        for(index = 0; index < data.length; index++){
+           $scope.contents.push({ 
+            //category:data[index].part,
+            shopId:data[index].shopId,
+            shopName: data[index].shopName,
+      pictures: data[index].pictures,
+      contents: data[index].contents,
+      username: data[index].userId,
+      createdTime: data[index].createdTime});
+      console.log(data[index].shopName);
+      console.log(data[index].contents);
+    }
+      })
+      .error(function(data){
+      console.log("getShopId error");
+      })
+  }
 })
 
 .controller('SearchCtrl', function($scope){

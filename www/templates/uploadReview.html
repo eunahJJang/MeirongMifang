@@ -12,10 +12,20 @@
 		밑으로 글을 적을 수 있도록 구조를 만들어 보았습니다.
 	-->
 		<div class="list card">
-			<div style="border:1px solid #b2b2b2"class="item item-divider">
-				제목
-			</div>
-			<div style="margin:5px 0px 5px 0px"class="button-bar" >
+			<!-- 
+			controller.js에 있는 카테고리 정보를 불러와 select box를 만들고 
+			카테고리 선택시 관련된 병원 정보들이 업테이트 되도록 ng-change 속성을 활용하였습니다.
+			-->
+			<label class="item item-input item-select" style="background-color:#f5f5f5">
+			  <div class="input-label" >Category</div>
+			  <select style="background-color:#f5f5f5" ng-options = "category for category in categorys" ng-model="review.category" ng-change="update(review)"></select>
+		    </label>
+			<label class="item item-input item-select" style="background-color:#f5f5f5">
+			  <div class="input-label" >Hospital</div>
+			  <select style="background-color:#f5f5f5" ng-options = "product as product.shopName for product in products" ng-model="review.hospital" ng-change="test(review)"></select>
+		    </label>
+			
+			<div style="margin:5px 0px 5px 0px; "class="button-bar" >
 				<a class="button" ng-click="takePicture()">Take Picture</a>
 				<a class="button" ng-click="uploadPhoto()">Bring From Assets</a>
 			</div>
@@ -32,16 +42,17 @@
 					<img src="http://placehold.it/300x300" style="margin-right:10px border:1px solid gray">					
 				</ion-scroll>
 			</div>
-			<div style="padding-top:5px; border:1px solid #b2b2b2"class="item item-body">
-				<p style="margin-top:5px">
-				<!--img ng-show="imgURI !== undefined" ng-src="{{imgURI}}" style="float:left; margin: 0px 10px 10px 0px; border: 1px solid gray ">
-				<img ng-show="imgURI === undefined" ng-src="http://placehold.it/300x300" style="float:left; margin: 0px 10px 10px 0px; border: 1px solid gray"-->
-				
-				  (내용)This is a "Facebook" styled Card. The header is created from a Thumbnail List item,
-				  the content is from a card-body consisting of an image and paragraph text. The footer
-				  consists of tabs, icons aligned left, within the card-footer.
-				  				
-				</p>		
+			<div style="padding:10px; border:1px solid #b2b2b2"class="item item-body">
+				<textarea id="bodyInput" ng-model="review.body" ng-keyup="autoExpand($event)" 
+				style="padding:10px; resize:none" placeholder="내용을 입력하세요"></textarea>		
+			</div>
+			<!-- 
+			취소 버튼의 경우 뒤로 가는 cancle 함수를 적용시켰고
+			업로드 버튼의 경우 서버로 리뷰 작성글을 전송해주는 upload 함수를 적용시켰습니다.
+			-->
+			<div style="margin:5px 0px 5px 0px"class="button-bar" >
+				<a class="button" ng-click="cancle()">취소</a>
+				<a class="button" ng-click="upload(review)">올리기</a> 
 			</div>
 		</div>
 	</ion-content>

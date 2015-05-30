@@ -9,47 +9,34 @@
 	<ion-content style="background-color:gray">
 		<!--
 		카테고리 부분입니다. 부위별 후기를 볼 수 있도록 선택이 가능합니다.
+		카테고리를 선택할 경우 해당 카테고리에 대한 리뷰 글들을 서버로부터 불러옵니다.
 		-->
 		<div style="margin: 0px 10px 0px 10px; top:10px"class="list">
-		  <label class="item item-input item-select">
-			<div style="padding-left:16px"class="input-label">Category</div>
-			<select>
-				<option selected>eye</option>
-				<option>nose</option>
-				<option>bosom</option>
-				<option>face</option>
-				<option>body</option>
-				<option>beauty</option>
-			</select>
-		  </label>
+			<label class="item item-input item-select" >
+			  <div class="input-label" >Category</div>
+			  <select ng-options="category for category in categorys" ng-model="review.category" ng-change="update(review)"></select>
+		    </label>
 		</div>		
 
 		<!--
-		list card 클래스를 활용하여 만들어 보았습니다. 상단에는 후기의 제목과 올린 시간을
-		알 수 있고 올린 사진을 간략하게 볼 수 있습니다. 현재 사진의 크기는 width 100% height 200px로
-		설정하였지만 수정 가능합니다.
+		서버로부터 리뷰글들은 controller.js의 $scope.contents 변수에 저장되므로 이를 활용하여 
+		사용자의 이름, 병원 이름, 작성시간이 나타나도록 하였습니다.
 		-->
-		<div style="padding: 0px 5px 10px 5px;"class="list card">
+		<div style="padding: 0px 5px 10px 5px;"class="list card" ng-repeat="content in contents">
 			<div class="row">
-				<div class="col col-75">
-					<a class="item" href="#"> Title-Title-Title </a>
-				</div>
-				<div class="col"> 
-					<a style="pointer-events:none; text-align:right"class="item" href=""> date</a>
-				</div>
+				<div class="col ">{{content.username}}</div>
+				<div class="col ">{{content.shopName}}</div>
+				<div class="col ">{{content.createdTime}}</div>
 			</div>
 		<!--
-		후기는 여러 사람들에게 공유하는 글이므로 후기에 대한 반응을 나타내기 위해 좋아요와 댓글의 갯수를 나타내는 옵션을 추가하였습니다.
+		사진 데이터의 경우 아직 가져오지 않아 샘플 사진으로 대체하였으며 작성 내용이 하단에 나타나도록 하였습니다.
 		-->
 			<div class="item item-body">
 				<img src="./img/icon.png" style="width:100%; height:200px; border:1px solid gray">
-				<p>
-					<a href="#" class="subdued">1 Like</a>
-					<a href="#" class="subdued">5 Comments</a>
-				</p>
-
+				<p style="margin-top:5px">{{content.contents}}</p>
+					<!--a href="#" class="subdued">1 Like</a>
+					<a href="#" class="subdued">5 Comments</a-->
 			</div>
-			
 		</div>
 	
 	</ion-content>
