@@ -6,7 +6,8 @@
         <div class="message">
            <div ng-switch on="message.from">
               <div ng-switch-when="admin">
-                  <span>{{ message.text }}</span>
+                  <span class="" ng-if=" message.text.substring(0,10)=='data:image' "><img src="{{message.text}}" /></span>
+                  <span class="" ng-if=" !(message.text.substring(0,10)=='data:image') ">{{ message.text}}</span>                  
               </div>
               <div id = "tableContainer" ng-switch-default>
                 <div id="tableRow">
@@ -14,10 +15,7 @@
                     <table width="80px"><tr><td>{{message.date}}</td></tr><tr><td>{{message.time}}</td></tr></table>
                   </div>
                   <div class="sidebar">
-                    <span class="" ng-if=" message.text.substring(0,10)=='data:image' ">
-                      <img src="{{message.text}}" />
-                    </span>
-                    
+                    <span class="" ng-if=" message.text.substring(0,10)=='data:image' "><img src="{{message.text}}" /></span>
                     <span class="chat-bubble right" ng-if=" !(message.text.substring(0,10)=='data:image') ">{{ message.text}}</span>
                   </div>
                   </div>  
