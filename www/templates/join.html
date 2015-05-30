@@ -1,51 +1,17 @@
-<!--
-<ion-modal-view class="modalJoin" style="height:296px">
-  <ion-header-bar>
-    <h1 class="title">Join</h1>
-    <div class="buttons">
-      <button class="button button-clear" ng-click="closeJoin()">Close</button>
-    </div>
-  </ion-header-bar>
-  <ion-content>
-    <form ng-submit="doJoin()">
-      <div class="list">
-        <div class="item item-input-inset item-button-right">
-          <label class="item-input-wrapper-defined" style="padding-left:0">
-            <input type="text" placeholder="Username" ng-model="joinData.username" >
-          </label>
-          <button class="button button-light" ng-click="check()">check</button>
-        </div>
-        <label class="item item-input">
-          <input type="password" placeholder="Password" ng-model="joinData.password">
-        </label>
-
-        <label class="item item-input">
-          <input type="password" placeholder="Password Check" ng-model="joinData.passwordChk">
-        </label>
-
-        <label class="item">
-          <button class="button button-block button-positive" type="submit">Join</button>
-        </label>
-      </div>
-    </form>
-  </ion-content>
-</ion-modal-view>
--->
-
 <ion-view title="Join">
     <ion-content>
         <div>
           <form ng-submit="doJoin()">
             <div class="list list-inset">
                 <label class="item item-input">
-                    <input ng-model="username" type="text" placeholder="Username" ng-model="joinData.username"/>
+                    <input type="email" placeholder="Username" ng-model="joinData.username"/>
                     <button class="button button-light" ng-click="check()">check</button>
                 </label>
                 <label class="item item-input">
-                    <input ng-model="password" type="password" placeholder="Password" />
+                    <input ng-model="joinData.password" type="password" placeholder="Password" class="pw1"/>
                 </label>
                 <label class="item item-input">
-                    <input ng-model="passwordChk" type="password" placeholder="Password Check" />
+                    <input ng-model="joinData.passwordChk" type="password" placeholder="Password Check" class="pw2"/>
                 </label>
             </div>
             <div class="padding-left padding-right">

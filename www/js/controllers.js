@@ -297,32 +297,46 @@ angular.module('starter.controllers', ['firebase'])
 
   // Perform the login action when the user submits the login form
   $scope.doJoin = function() {
-    $http.get("http://meirong-mifang.com/users/join.php", {params : {"username" : $scope.joinData.username, "password" : $scope.joinData.password}})
-      .success(function(data){
-        if(data == "true"){
-          alert("OK");
-        }else{
-          alert("error");
-        }
-      })
-      .error(function(data){
-        alert("error");
-      });
-  };
+    var pw1 = jQuery('.pw1').val();
+    var pw2 = jQuery('.pw2').val();
 
-  $scope.check = function(){
-    $http.get("http://meirong-mifang.com/users/checkEmail.php", {params : {"username" : $scope.joinData.username}})
-      .success(function(data){
-        if(data == false){
-          alert("OK");
-        }else{
-          alert("duplicated");
-        }
-      })
-      .error(function(data){
-        alert("error");
-      });
-  };
+    console.log('pw1 : '+ pw1);
+    console.log('pw2 : '+ pw2);
+
+    if(pw1 != pw2){
+      alert('Password needs checked');
+    }
+    else{
+      console.log("id : "+$scope.joinData.username);
+      console.log("pw : "+$scope.joinData.password);
+      $http.get("http://meirong-mifang.com/users/join.php", {params : {"username" : $scope.joinData.username, "password" : $scope.joinData.password}})
+        .success(function(data){
+          if(data == "true"){
+            alert("OK");
+          }else{
+            alert("error");
+          }
+        })
+        .error(function(data){
+          console.log(data);
+          alert("error");
+        });
+      };
+
+      $scope.check = function(){
+        $http.get("http://meirong-mifang.com/users/checkEmail.php", {params : {"username" : $scope.joinData.username}})
+          .success(function(data){
+            if(data == false){
+              alert("OK");
+            }else{
+              alert("duplicated");
+            }
+          })
+          .error(function(data){
+            alert("error");
+          });
+      };
+    }
 })
 
 .controller('MypageCtrl', function($scope, $state, $http, $stateParams, $cookieStore, $rootScope, $cordovaToast) {
@@ -353,7 +367,7 @@ angular.module('starter.controllers', ['firebase'])
 
 .controller('ChatTabCtrl', function($scope, $cookieStore, $state){
  $loginLevel = $cookieStore.get("loginLevel");
- console.log('$loginLevel'+$loginLevel);
+ console.log('$loginLevel : '+$loginLevel);
  if($loginLevel > 1){
   $state.go("app.chatAdmin");
  }else{
@@ -398,7 +412,8 @@ angular.module('starter.controllers', ['firebase'])
 
 //  $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
   
-  $cookieStore.get("username");
+  var userName = $cookieStore.get("username");
+  console.log('userName : '+userName);
   $scope.data = {};
   $scope.messages = [];
 
