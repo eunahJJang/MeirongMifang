@@ -532,7 +532,7 @@ angular.module('starter.controllers', ['firebase'])
       .success(function(data){
         console.log('getMessages() success');
         for(index = 0; index < data.length; index++){
-           $scope.messages.push( {from:data[index].sender_id, to:data[index].receiver_id, text:data[index].message, time:getChatDate(data[index].created_time)});
+           $scope.messages.push( {from:data[index].sender_id, to:data[index].receiver_id, text:data[index].message, date:getChatDate(data[index].created_time), time:getChatTime(data[index].created_time)});
         }
       })
       .error(function(data){
