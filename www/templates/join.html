@@ -1,12 +1,13 @@
 <ion-view title="Join">
     <ion-content>
         <div>
-          <form ng-submit="doJoin()">
+          <form>
             <div class="list list-inset">
-                <label class="item item-input">
-                    <input type="email" placeholder="Username" ng-model="joinData.username"/>
-                    <button class="button button-light" ng-click="check()">check</button>
-                </label>
+                <div class="item item-input">
+                    <input type="text" placeholder="Username" ng-model="joinData.username"/>
+                    <button class="button button-light"  ng-click="check()">check</button>
+                </div>
+
                 <label class="item item-input">
                     <input ng-model="joinData.password" type="password" placeholder="Password" class="pw1"/>
                 </label>
@@ -16,7 +17,7 @@
             </div>
             <div class="padding-left padding-right">
                 <div class="button-bar">
-                    <button class="button button-mifang" type="submit">Join</button>
+                    <button class="button button-mifang" type="submit" ng-click="doJoin()">Join</button>
                 </div>
             </div>
           </form>

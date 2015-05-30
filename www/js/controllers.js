@@ -274,15 +274,23 @@ angular.module('starter.controllers', ['firebase'])
     }    
 })
 
-.controller('JoinCtrl', function($scope, $ionicModal, $state, $http){
+.controller('JoinCtrl', function($scope, $ionicModal, $state, $http, $ionicHistory){
+
+  $ionicHistory.clearHistory();
 
   $scope.joinData = {};
+  $scope.duplicatedId = false;
 
   $ionicModal.fromTemplateUrl('templates/join.html', {
     scope: $scope
   }).then(function(modal) {
     $scope.modal = modal;
   });
+
+  var validEmail = function(email) {
+    var re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+    return re.test(email);
+  }
 
   // Triggered in the login modal to close it
   $scope.closeJoin = function() {
@@ -297,6 +305,28 @@ angular.module('starter.controllers', ['firebase'])
 
   // Perform the login action when the user submits the login form
   $scope.doJoin = function() {
+    
+    //이메일 빈칸으로 입력
+    if(($scope.joinData.username == null) || ($scope.joinData.username.trim() == '') ){
+      alert("Please input your email");
+      return ;
+    }
+
+    //이메일 형식이 아닐경우
+    else if(!validEmail($scope.joinData.username)){
+      alert("Please check your email form");
+      return ;
+    }
+
+    //Check버튼에서 OK를 받지 못한 경우
+    else if(!$scope.duplicatedId){
+      alert("Please check your email by touching CHECK button");
+      return ;
+    }
+    else{
+
+    }
+
     var pw1 = jQuery('.pw1').val();
     var pw2 = jQuery('.pw2').val();
 
@@ -306,37 +336,68 @@ angular.module('starter.controllers', ['firebase'])
     if(pw1 != pw2){
       alert('Password needs checked');
     }
+
     else{
       console.log("id : "+$scope.joinData.username);
       console.log("pw : "+$scope.joinData.password);
       $http.get("http://meirong-mifang.com/users/join.php", {params : {"username" : $scope.joinData.username, "password" : $scope.joinData.password}})
         .success(function(data){
-          if(data == "true"){
-            alert("OK");
-          }else{
-            alert("error");
+          if(data){
+            if($scope.duplicatedId){
+              alert("Welcome !!");
+              $ionicHistory.goBack([-1]);              
+            }
+            else{
+              alert("please check your email again.");
+            }
+          }
+
+          else{
+            alert("$http.get id insert error");
           }
         })
         .error(function(data){
           console.log(data);
-          alert("error");
+          alert("$http.get query transfer error");
         });
-      };
+      }
+    }
 
       $scope.check = function(){
-        $http.get("http://meirong-mifang.com/users/checkEmail.php", {params : {"username" : $scope.joinData.username}})
-          .success(function(data){
-            if(data == false){
-              alert("OK");
-            }else{
-              alert("duplicated");
-            }
-          })
-          .error(function(data){
-            alert("error");
-          });
+        //이메일 빈칸으로 입력
+        if(($scope.joinData.username == null) || ($scope.joinData.username.trim() == '') ){
+          alert("Please input your email");
+          return ;
+        }
+
+        //입력 값이 이메일 형식이 아닌경우
+        else if(!validEmail($scope.joinData.username)){
+         alert("Please check your email form");
+         return ;
+        }
+
+        //Validation 통
+        else if(validEmail($scope.joinData.username)){
+          $http.get("http://meirong-mifang.com/users/checkEmail.php", {params : {"username" : $scope.joinData.username}})
+            .success(function(data){
+              if(data == false){
+                $scope.duplicatedId = true;
+                alert("OK");
+              }else{
+                alert("duplicated");
+              }
+            })
+            .error(function(data){
+              alert("check database connection error.");
+            });
+        }
+
+        else{
+
+        }
+
       };
-    }
+    
 })
 
 .controller('MypageCtrl', function($scope, $state, $http, $stateParams, $cookieStore, $rootScope, $cordovaToast) {
