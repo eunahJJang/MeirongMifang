@@ -154,7 +154,6 @@ angular.module('starter.controllers', ['firebase'])
                 storeDeviceToken("ios");
             }
         }, function (err) {
-          alert("Registration error: " + err);
             console.log("Register error " + err)
         });
     }
@@ -236,7 +235,7 @@ angular.module('starter.controllers', ['firebase'])
         // Create a random userid to store with it
         var user = { email: $scope.user.username, type: type, regId: $scope.regId };
         console.log("Post token for registered device with data " + JSON.stringify(user));
-        $http.get('http://cpromise.cafe24.com/twinkle/gcm_server/register.php', {params : {"email": $scope.user.username, "type": type, "regId": $scope.regId}})
+        $http.get('http://meirong-mifang.com/push/register.php', {params : {"user": $scope.user.username, "type": type, "regId": $scope.regId}})
             .success(function (data, status) {
                 console.log("Token stored, device is successfully subscribed to receive push notifications.");
             })
