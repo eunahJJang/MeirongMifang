@@ -1104,7 +1104,7 @@ angular.module('starter.controllers', ['firebase'])
     }
   //"review/getReview.php"로부터 해당 카테고리의 리뷰 자료들을 가져와 $scope.contents 변수에 저장합니다.
   $scope.getReview = function(category){
-    $http.get("http://meirong-mifang.com/review/getReview.php", {params : {"category" : category}})
+    $http.get("http://meirong-mifang.com/review/getReview.php", {params : {"category" : category, "rid" : 0}})
       .success(function(data){
         $scope.noOfProduct = data.length;
 
@@ -1114,19 +1114,80 @@ angular.module('starter.controllers', ['firebase'])
             //category:data[index].part,
             shopId:data[index].shopId,
             shopName: data[index].shopName,
-      pictures: data[index].pictures,
-      picture1: data[index].picture1,
-      contents: data[index].contents,
-      username: data[index].userId,
-      createdTime: data[index].createdTime});
-      console.log(data[index].shopName);
-      console.log(data[index].contents);
-    }
+            rid: data[index].reviewId,
+            pictures: data[index].pictures,
+            picture1: data[index].picture1,
+            contents: data[index].contents,
+            username: data[index].userId,
+            createdTime: data[index].createdTime});
+            console.log(data[index].shopName);
+            console.log(data[index].contents);
+          }
       })
       .error(function(data){
       console.log("getShopId error");
       })
   }
+})
+
+.controller('ReviewDetailCtrl', function($scope, $stateParams, $http){
+
+  var rId = $stateParams.reviewId;
+  $scope.rId = rId;
+
+  $scope.getReview = function(category){
+    $http.get("http://meirong-mifang.com/review/getReview.php", {params : {"category" : category, "rid" : rId}})
+      .success(function(data){
+
+        $scope.shopId   = data[0].shopId;
+        $scope.shopName = data[0].shopName;
+        $scope.writer   = data[0].userId;
+        $scope.content  = data[0].contents;
+        $scope.part     = data[0].part;
+        $scope.created_time = data[0].createdTime;
+        $scope.pictures = [];
+
+        if(data[0].picture1 != 'nonPicture'){
+          $scope.pictures.push(data[0].picture1);
+        }
+        if(data[0].picture2 != 'nonPicture'){
+          $scope.pictures.push(data[0].picture2);
+        }
+        if(data[0].picture3 != 'nonPicture'){
+          $scope.pictures.push(data[0].picture3);
+        }
+        if(data[0].picture4 != 'nonPicture'){
+          $scope.pictures.push(data[0].picture4);
+        }
+        if(data[0].picture5 != 'nonPicture'){
+          $scope.pictures.push(data[0].picture5);
+        }
+
+
+        for(var i=0; i<$scope.pictures.length; i++){
+          console.log($scope.pictures[i]);
+        }
+
+        console.log($scope.pictures.length);
+
+        $scope.getLogo($scope.shopId);
+      })
+      .error(function(data){
+      console.log("getShopId error");
+      })
+  }
+
+  $scope.getLogo = function(shopId){
+    $http.get("http://meirong-mifang.com/products/getShopLogo.php", {params : {"shopId" : shopId}})
+      .success(function(data){
+        $scope.logo = data[0].logo;
+      })
+      .error(function(data){
+        console.log("getShopLogo error");
+      })
+  }
+
+  $scope.getReview();
 })
 
 .controller('SearchCtrl', function($scope){

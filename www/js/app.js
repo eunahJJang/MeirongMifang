@@ -262,6 +262,17 @@ angular.module('starter', ['ionic', 'ngCookies', 'ngCordova', 'ngAnimate', 'ngTo
   }
   })
 
+  .state('app.reviewDetail',{
+  url:"/reviewDetail/:reviewId",
+  views: {
+    'content':{
+    templateUrl:"templates/reviewDetail.html",
+    controller: 'ReviewDetailCtrl'
+    }
+  }
+  })
+
+
   .state('app.reviewWrite', {
     url:"/reviewWrite",
     views: {

@@ -31,10 +31,10 @@
 		<!--
 		사진 데이터의 경우 아직 가져오지 않아 샘플 사진으로 대체하였으며 작성 내용이 하단에 나타나도록 하였습니다.
 		-->
-			<div class="item item-body" ng-switch="content.picture1">
+			<div class="item item-body" ng-switch="content.picture1" ui-sref="app.reviewDetail({reviewId:{{content.rid}}})">
 				<img ng-switch-when="nonPicture" src="http://meirong-mifang.com/img/noimg.jpg" style="width:100%; height:200px; border:1px solid gray"/>
 				<img ng-switch-default src="{{content.picture1}}" style="width:100%; height:200px; border:1px solid gray">
-				<p style="margin-top:5px">{{content.contents}}</p>
+				<p style="margin-top:5px">{{content.contents}}{{content.rid}}</p>
 					<!--a href="#" class="subdued">1 Like</a>
 					<a href="#" class="subdued">5 Comments</a-->
 			</div>

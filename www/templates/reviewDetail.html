@@ -1,0 +1,26 @@
+<ion-view view-title="리뷰상세">
+	<ion-content style="margin-bottom:49px;">
+		<div class="list card">
+		  <div class="item item-avatar">
+		    <img src="{{logo}}">
+		    <h2>{{shopName}} {{category}}</h2>
+		    <p>{{created_time}}</p>
+		  </div>
+
+		  <div class="item item-body" >
+		  	<div ng-repeat="picture in pictures track by $index">
+			    <img src="{{picture}}" width="100%">
+			</div>
+		    
+		    <p>
+		    	{{content}}
+		    </p>
+
+		  </div>
+
+
+
+		</div>
+
+	</ion-content>
+</ion-view>
