@@ -708,11 +708,10 @@ angular.module('starter.controllers', ['firebase'])
 
         $scope.data = {
           activeB : category
-        } 
-      })
-    //카테고리: 선택시 이미지 주소 가져오도록 하였습니다.
-    $scope.categoryImg="../img/"+category+".png";
-    console.log($scope.categoryImg);
+        }
+        //카테고리: 선택시 이미지 주소 가져오도록 하였습니다.
+        $scope.categoryImg="../img/"+category+".png";
+        console.log($scope.categoryImg);
       })
       .error(function(data){
 
@@ -944,7 +943,7 @@ angular.module('starter.controllers', ['firebase'])
   $scope.categorys =['eye','nose','face','bosom','body','beauty'];
   $scope.reviewImgs = [];
   //이미지 업로드 개수 제한
-  var imgLim = 4;
+  var imgLim = 5;
   
   //uploadReview.html 안의 textarea의 동적 크기 변경을 위해 선언하였습니다.
   $scope.autoExpand = function(e) {
@@ -1001,17 +1000,39 @@ angular.module('starter.controllers', ['firebase'])
 
     $scope.$root.username = $cookieStore.get('username');
 
-    
-    //"review/uploadReview.php"로 작성 정보를 보냅니다.
-    $http.get("http://meirong-mifang.com/review/uploadReview.php", 
-      {params : {"hospital_id":review.hospital.shopId, "hospital_name": review.hospital.shopName, "category": review.category, 
-           "pictures": 'nonPicture', "contents":review.body, "user_name": $scope.$root.username}})
-      .success(function(data){
-        console.log('uploadReview success');
-      })
-      .error(function(data){
-        console.log('uploadReview db transfer error');
-      })  
+    for(var i=$scope.reviewImgs.length; i<imgLim; i++){
+      $scope.reviewImgs[i] = 'nonPicture';
+    }
+
+    $http({
+      method: "post",
+      url: "http://meirong-mifang.com/review/uploadReview.php",
+      headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+      data: $.param({
+          "hospital_id":review.hospital.shopId,
+          "hospital_name": review.hospital.shopName, 
+          "category": review.category,
+          "contents":review.body,
+          "pictures": "getting ready",
+          "picture1": $scope.reviewImgs[0],
+          "picture2": $scope.reviewImgs[1],
+          "picture3": $scope.reviewImgs[2],
+          "picture4": $scope.reviewImgs[3],
+          "picture5": $scope.reviewImgs[4],
+          "user_name": $scope.$root.username
+        })
+      }).success(function(result){
+          console.log(result);
+
+          //후기 올리고 다시 후기작성 페이지를 가면 이전에 작성했던 내용 리셋되있도록        
+          $scope.reviewImgs = [];
+          jQuery('select').prop('selectedIndex',-1);
+          review.body = "";
+        })
+        .error(function(data){
+          console.log('uploadReview db transfer error');
+    });  
+
     $state.go('app.review');
   };
    
@@ -1094,6 +1115,7 @@ angular.module('starter.controllers', ['firebase'])
             shopId:data[index].shopId,
             shopName: data[index].shopName,
       pictures: data[index].pictures,
+      picture1: data[index].picture1,
       contents: data[index].contents,
       username: data[index].userId,
       createdTime: data[index].createdTime});
