@@ -1,7 +1,7 @@
 <ion-view view-title="Chat">
   <ion-pane>
     <ion-content style="margin-bottom:93px;">
-    <p style="text-align:right">{{userName}}으로 로그인 중...</p>
+    <p style="text-align:right" ng-if="userName != undefined">{{userName}}으로 로그인 중...</p>
 
       <div ng-repeat="message in messages" ng-repeat-end-watch="setScrollPos">
         <div class="message">

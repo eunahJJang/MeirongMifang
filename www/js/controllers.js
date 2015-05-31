@@ -80,7 +80,6 @@ angular.module('starter.controllers', ['firebase'])
   };
  
   $scope.login = function() {
-    $cookieStore.put('username',$scope.user.username)
     $scope.$root.state = "app.main"
     $scope.$root.username = $scope.user.username;
     AuthenticationService.login($scope.user.username, $scope.user.password);
@@ -96,7 +95,11 @@ angular.module('starter.controllers', ['firebase'])
     $scope.loginModal.show();
   });
   
+
+  //로그인 성공 쿠키값 셋팅 부분
   $scope.$on('event:auth-loginConfirmed', function(data) {
+    $cookieStore.put('username',$scope.user.username);
+    $cookieStore.put('loginLevel',1);
     $scope.password = null;
     $scope.loginModal.hide();
     $state.go($scope.$root.state, {}, {reload: true, inherit: false});
@@ -117,7 +120,8 @@ angular.module('starter.controllers', ['firebase'])
   });
  
   $scope.$on('event:auth-logout-complete', function() {
-    $cookieStore.remove('loginLevel'); 
+    $cookieStore.remove('username');
+    $cookieStore.remove('loginLevel');
     $state.go('app.main', {}, {reload: true, inherit: false});
   }); 
 
