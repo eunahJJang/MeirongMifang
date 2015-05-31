@@ -34,12 +34,12 @@
 			사진을 수직으로 나열 할 경우 글 사이에 배치하기 어려운 점과 한꺼번에
 			배치시킬 경우 스크롤 압박 문제가 있을 것 같아서 수평으로 나열할 수 있도록 하였습니다.
 			-->
-			<div style="height:300px; border:1px solid #b2b2b2"class="item item-image">
+			<div style="border:1px solid #b2b2b2"class="item item-image">
 				<ion-scroll direction="x" paging="true">
 				<ion-refresher pulling-text="Pull to refresh..." on-refresh="doRefresh()">  </ion-refresher>
-					<img src="http://placehold.it/300x300" style="margin-right:10px border:1px solid gray">
-					<img src="http://placehold.it/300x300" style="margin-right:10px border:1px solid gray">
-					<img src="http://placehold.it/300x300" style="margin-right:10px border:1px solid gray">					
+					<ion-scroll direction="x" class="wide-as-needed">
+						<div ng-repeat="reviewImg in reviewImgs" style="display:inline-block; margin-right:10px; "><img src="{{reviewImg}}" /></div>
+					</ion-scroll>
 				</ion-scroll>
 			</div>
 			<div style="padding:10px; border:1px solid #b2b2b2"class="item item-body">

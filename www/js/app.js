@@ -257,7 +257,7 @@ angular.module('starter', ['ionic', 'ngCookies', 'ngCordova', 'ngAnimate', 'ngTo
   views: {
     'content':{
     templateUrl:"templates/uploadReview.html",
-    controller: 'ReviewCtrl'
+    controller: 'UploadReviewCtrl'
     }
   }
   })

@@ -939,9 +939,12 @@ angular.module('starter.controllers', ['firebase'])
 })
 
 //리뷰 업로드 페이지를 관리하는 부분입니다.
-.controller('UploadReviewCtrl', function($scope, $stateParams, $http, $cordovaCamera, $cordovaFile, $ionicHistory, $state){
+.controller('UploadReviewCtrl', function($scope, $stateParams, $http, $cordovaCamera, $cordovaFile, $ionicHistory, $state, $cookieStore){
   //카테고리를 선택하기 위한 categorys 변수 입니다.
   $scope.categorys =['eye','nose','face','bosom','body','beauty'];
+  $scope.reviewImgs = [];
+  //이미지 업로드 개수 제한
+  var imgLim = 4;
   
   //uploadReview.html 안의 textarea의 동적 크기 변경을 위해 선언하였습니다.
   $scope.autoExpand = function(e) {
@@ -971,7 +974,10 @@ angular.module('starter.controllers', ['firebase'])
            $scope.products.push({ 
             //category:category,
             shopId:data[index].shopId,
-            shopName: data[index].shopName});
+            shopName: data[index].shopName
+           });
+           
+           console.log(data[index].shopName);
         }
       })
       .error(function(data){
@@ -992,8 +998,10 @@ angular.module('starter.controllers', ['firebase'])
       console.log('Empty body');
       return -1;
     }
-    //userId는 임의로 설정하였습니다.
-    $scope.$root.username = 'user526';
+
+    $scope.$root.username = $cookieStore.get('username');
+
+    
     //"review/uploadReview.php"로 작성 정보를 보냅니다.
     $http.get("http://meirong-mifang.com/review/uploadReview.php", 
       {params : {"hospital_id":review.hospital.shopId, "hospital_name": review.hospital.shopName, "category": review.category, 
@@ -1008,6 +1016,12 @@ angular.module('starter.controllers', ['firebase'])
   };
    
    $scope.takePicture = function() {
+        //이미지 업로드 개수 제한
+        if($scope.reviewImgs.length >= imgLim){
+          alert("You cannot upload images more than "+imgLim);
+          return -1;
+        }
+
         var options = { 
             quality : 75, 
             destinationType : Camera.DestinationType.DATA_URL, 
@@ -1022,15 +1036,22 @@ angular.module('starter.controllers', ['firebase'])
  
         $cordovaCamera.getPicture(options).then(function(imageData) {
             $scope.imgURI = "data:image/jpeg;base64," + imageData;
+            $scope.reviewImgs.push($scope.imgURI);
         }, function(err) {
-            // An error occured. Show a message to the user
+          alert(err);
         });
     }
 
     $scope.uploadPhoto = function() {
+      //이미지 업로드 개수 제한
+      if($scope.reviewImgs.length >= imgLim){
+          alert("You cannot upload images more than "+imgLim);
+          return -1;
+      }
+      
       var options = { 
             quality : 75, 
-            destinationType: Camera.DestinationType.FILE_URI, 
+            destinationType: Camera.DestinationType.DATA_URL, 
             sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
             allowEdit : true,
             encodingType: Camera.EncodingType.JPEG,
@@ -1041,8 +1062,9 @@ angular.module('starter.controllers', ['firebase'])
         };
       $cordovaCamera.getPicture(options).then(function(imageData) {
             $scope.imgURI = "data:image/jpeg;base64," + imageData;
+            $scope.reviewImgs.push($scope.imgURI);
         }, function(err) {
-            // An error occured. Show a message to the user
+            alert(err);
         });
     }
 })
