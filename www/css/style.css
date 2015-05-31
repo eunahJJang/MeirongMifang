@@ -117,3 +117,20 @@ div#tableRow{
 .item.item-icon-right.item-icon-left i {
   color: #ff697e;
 }
+
+/*
+products.html 카테고리: 카테고리 부분 클릭시 글씨 색 변경 밑 밑에 표시 줄 생기도록 하였습니다.
+*/
+.button.button-light.active, .button.button-light.activated {
+  color: #ff697e;
+  border-color: #fff;
+  background-color: #fff;
+  border-bottom: solid 3px #ff697e;
+  box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.1); 
+}
+/*
+products.html 카테고리: 스크롤 시 스크롤 바 투명하게 변경하였습니다.
+*/
+div .categories > ion-scroll .scroll-bar-h{
+  height: 0px;
+}
