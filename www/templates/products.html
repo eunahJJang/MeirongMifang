@@ -1,7 +1,7 @@
 <ion-view view-title="美容秘方">
   <ion-content>
-  
-      <div class="categories" style="height:30px; width:100%; overflow:scroll; background-color:white;">
+  <!-- 카테고리:category 선택시 색 변화와 border-bottom 효과를 주기 위해 height 속성을 지웠습니다.-->
+      <div class="categories" style="width:100%; overflow:scroll; background-color:white;">
         <ion-scroll direction="x" style="overflow: scroll; white-space: nowrap;">
         <div>
           <a ng-click="getProducts('eye')" ng-class="{'active' : data.activeB == 'eye'}" class="button button-light">眼睛</a>
@@ -17,10 +17,11 @@
           <a ng-click="getProducts('bosom')" style="margin-right:30px; font-size:15px;" href="">隆胸整形</a>
           <a ng-click="getProducts('body')" style="margin-right:30px; font-size:15px;" href="">体型</a>
           <a ng-click="getProducts('beauty')" style="font-size:15px;" href="">美容术</a>  -->
-        </ion-scroll>
+        </ion-scroll> 
       </div>
+    
     <!-- 카테고리:부위를 선택할 경우 controller.js에서 해당 부위 이미지 주소를 가져와 보여주도록 합니다.-->
-    <div><img width="100%" height="100px" src="{{categoryImg}}"></div> 
+    <div><img width="100%" height="80px" src="{{categoryImg}}"></div> 
       <div style="width=100%; height:30px; background-color: #f5f5f5" class="shopCnt">
         <div style="margin:0; line-height:30px; padding-left:16px;">
           전체  {{noOfProduct}}

@@ -709,13 +709,13 @@ angular.module('starter.controllers', ['firebase'])
         $scope.data = {
           activeB : category
         }
-        //카테고리: 선택시 이미지 주소 가져오도록 하였습니다.
-        $scope.categoryImg="../img/"+category+".png";
-        console.log($scope.categoryImg);
       })
       .error(function(data){
 
       })
+              //카테고리: 선택시 이미지 주소 가져오도록 하였습니다.
+        $scope.categoryImg="./img/"+category+".png";
+        console.log($scope.categoryImg);
   }
   category = $stateParams.category;
   if(category == null){
