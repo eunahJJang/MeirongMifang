@@ -464,11 +464,9 @@ angular.module('starter.controllers', ['firebase'])
     $http.get("http://meirong-mifang.com/messages/getAdminUserMessage.php", {params : {"user" : user}})
       .success(function(data){
         console.log('chatAdminUserCtrl get success');
-        console.log(data);
         for(index = 0; index < data.length; index++){
            $scope.messages.push( {from:data[index].sender_id, to:data[index].receiver_id, text:data[index].message, time:data[index].created_time});
         }
-        console.log("index : "+index);
       })
       .error(function(data){
         console.log('chatAdminUserCtrl get fail');
