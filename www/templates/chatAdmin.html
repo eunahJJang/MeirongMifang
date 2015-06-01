@@ -1,7 +1,13 @@
 <ion-view view-title="Chat Admin">
   <ion-content>
-	<ion-item ng-repeat="data in datas" ui-sref="app.chatAdminUser({ user:data.name })">
-		{{ data.name }} {{ data.content }}
-    </ion-item>
+
+    <div class="list">
+
+		<ion-item ng-repeat="data in datas" ui-sref="app.chatAdminUser({ user:data.name })">
+			<h2 style="float:left;">{{ data.name }}</h2>
+			<p style="float:right;">{{data.created_time}}</p>
+			<p style="clear:both; white-space:normal;"> {{ data.content }} </p>
+	    </ion-item>
+    </div>
   </ion-content>
 </ion-view>

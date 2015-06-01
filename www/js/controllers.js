@@ -98,8 +98,9 @@ angular.module('starter.controllers', ['firebase'])
 
   //로그인 성공 쿠키값 셋팅 부분
   $scope.$on('event:auth-loginConfirmed', function(data) {
+    console.log(data);
     $cookieStore.put('username',$scope.user.username);
-    $cookieStore.put('loginLevel',1);
+    $cookieStore.put('loginLevel',2);
     $scope.password = null;
     $scope.loginModal.hide();
     $state.go($scope.$root.state, {}, {reload: true, inherit: false});
@@ -446,7 +447,7 @@ angular.module('starter.controllers', ['firebase'])
     $http.get("http://meirong-mifang.com/messages/getAdminMessage.php", {})
       .success(function(data){
         for(index = 0; index < data.length; index++){
-           $scope.datas.push( { name:data[index].user, content:data[index].message });
+           $scope.datas.push( { name:data[index].user, content:data[index].message, created_time:data[index].created_time });
         }
       })
       .error(function(data){
@@ -456,21 +457,30 @@ angular.module('starter.controllers', ['firebase'])
   $scope.getMessages();
 })
 
-.controller('ChatAdminUserCtrl', function($scope, $http, $stateParams){
-  $scope.datas = [];
+.controller('ChatAdminUserCtrl', function($scope, $http, $stateParams, $ionicScrollDelegate){
+  $scope.messages = [];
   $scope.getMessages = function(user){
+    console.log("user : "+user);
     $http.get("http://meirong-mifang.com/messages/getAdminUserMessage.php", {params : {"user" : user}})
       .success(function(data){
+        console.log('chatAdminUserCtrl get success');
+        console.log(data);
         for(index = 0; index < data.length; index++){
            $scope.messages.push( {from:data[index].sender_id, to:data[index].receiver_id, text:data[index].message, time:data[index].created_time});
         }
+        console.log("index : "+index);
       })
       .error(function(data){
+        console.log('chatAdminUserCtrl get fail');
         alert("getPicerrer");
       })
   }
-  $username = $stateParams.user;
-  $scope.getMessages($username);
+  $scope.$username = $stateParams.user;
+  $scope.setScrollPos = function(){
+    $ionicScrollDelegate.scrollBottom();
+  };
+
+  $scope.getMessages($scope.$username);
 })
 
 .controller('ChatCtrl', function($scope, $firebase, $http, $timeout, $ionicScrollDelegate, $rootScope, $cookieStore, $cordovaToast, $cordovaCamera, $ionicScrollDelegate){
