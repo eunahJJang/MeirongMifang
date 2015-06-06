@@ -8542,5 +8542,51 @@ a.user>p{
 	white-space: nowrap !important;
 }
 
+#docProfileTop{
+	width:100%;
+	float:left;
+	padding-bottom:10px;
+	background-color:#fff;
+}
+#docProfileTop .docProfileImg{
+	width:40%;
+	float:left;
+}
+#docProfileTop .docProfileInfo{
+	width:60%;
+	float:left;
+	padding-left:10px;
+}
+#docProfileTop .docProfileInfo .docName{
+	text-align:center;
+	font-weight:bold;
+	padding-bottom:20px;
+}
+
+#docProfileTop .docProfileInfo .subTitle{
+	font-size:25px;
+	font-weight:700;
+}
+#docProfileTop .docProfileInfo .subCont{
+	font-size:20px;
+}
+
+#docProfileBottom{
+	width:100%;
+	float:left;
+	padding-top:10px;
+}
+
+#docProfileBottom .career{
+	font-size:25px;
+	font-weight:700;
+}
+
+#docProfileBottom .col{
+	text-align:center;
+	border: 1px solid #eee;
+	font-size:20px;
+}
+
 >>>>>>> origin/master
 

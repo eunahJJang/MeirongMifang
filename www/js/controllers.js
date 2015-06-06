@@ -101,6 +101,7 @@ angular.module('starter.controllers', ['firebase'])
     console.log(data);
     $cookieStore.put('username',$scope.user.username);
     $cookieStore.put('loginLevel',2);
+    $rootScope.loginLevel = $cookieStore.get('loginLevel');
     $scope.password = null;
     $scope.loginModal.hide();
     $state.go($scope.$root.state, {}, {reload: true, inherit: false});
@@ -457,7 +458,7 @@ angular.module('starter.controllers', ['firebase'])
   $scope.getMessages();
 })
 
-.controller('ChatAdminUserCtrl', function($scope, $http, $stateParams, $ionicScrollDelegate){
+.controller('ChatAdminUserCtrl', function($scope, $http, $stateParams, $ionicScrollDelegate, $cordovaCamera){
   $scope.messages = [];
   $scope.getMessages = function(user){
     console.log("user : "+user);
@@ -478,10 +479,184 @@ angular.module('starter.controllers', ['firebase'])
     $ionicScrollDelegate.scrollBottom();
   };
 
+
+  jQuery('.imgSndBtn').click( function(){
+    jQuery('.sndBtnWrap').slideToggle();
+  });
+
+   $scope.takePicture = function() {
+      jQuery('.sndBtnWrap').hide();
+        var options = { 
+            quality : 75, 
+            destinationType : Camera.DestinationType.DATA_URL, 
+            sourceType : Camera.PictureSourceType.CAMERA, 
+            allowEdit : true,
+            encodingType: Camera.EncodingType.JPEG,
+            targetWidth: 300,
+            targetHeight: 300,
+            popoverOptions: CameraPopoverOptions,
+            saveToPhotoAlbum: false
+        };
+ 
+        $cordovaCamera.getPicture(options).then(function(imageData) {
+            $scope.chat.message = "data:image/jpeg;base64," + imageData;
+            $scope.sendMessage();
+        }, function(err) {
+          alert('takepicerrer');
+            // An error occured. Show a message to the user
+        });
+    }
+
+    $scope.uploadPhoto = function() {
+      jQuery('.sndBtnWrap').hide();
+      var options = { 
+            quality : 75, 
+            destinationType : Camera.DestinationType.DATA_URL, 
+            sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
+            allowEdit : true,
+            encodingType: Camera.EncodingType.JPEG,
+            targetWidth: 300,
+            targetHeight: 300,
+            popoverOptions: CameraPopoverOptions,
+            saveToPhotoAlbum: false
+        };
+      $cordovaCamera.getPicture(options).then(function(imageData) {
+            $scope.chat.message = "data:image/jpeg;base64," + imageData;
+            $scope.sendMessage();
+        }, function(err) {
+            // An error occured. Show a message to the user
+        });
+    }
+
+  $scope.hideTime = true;
+  var isIOS = ionic.Platform.isWebView() && ionic.Platform.isIOS();
+
+  var getChatDate = function(dateString){
+
+    if(dateString != null){
+    var t = dateString.split(/[- :]/);
+
+    var d = new Date(t[0], t[1]-1, t[2], t[3], t[4], t[5]);
+    d = new Date(d);
+    }
+    else{
+      var d = new Date();
+    }
+    var chatDate = "";
+
+    chatDate += (""+d.getFullYear()).substring(2,4);
+    chatDate += '/';
+
+    chatDate += d.getMonth()+1;
+    chatDate += '/';
+
+    chatDate += d.getDate();
+    chatDate += '\n';
+
+    return chatDate;
+  }
+
+  var addZero = function(i) {
+    if (i < 10) {
+        i = "0" + i;
+    }
+    return i;
+  }
+
+  var getChatTime = function(dateString){
+    if(dateString != null){
+    var t = dateString.split(/[- :]/);
+
+    var d = new Date(t[0], t[1]-1, t[2], t[3], t[4], t[5]);
+    d = new Date(d);
+    }
+    else{
+      var d = new Date();
+    }
+
+    var chatDate = "";
+
+    if(d.getHours() > 12){
+      chatDate += d.getHours() - 12;
+      chatDate += ':';
+      chatDate += addZero(d.getMinutes());
+      chatDate += " PM";
+    }
+    else{
+      chatDate += d.getHours();
+      chatDate += ':';
+      chatDate += addZero(d.getMinutes());
+      chatDate += " AM";
+    }
+
+    return chatDate;
+  }
+
+  $scope.sendMessage = function() {
+    //채팅창에 아무것도 입력하지 않을 시 전송하지 않음.
+    if($scope.chat.message.trim() == '' || $scope.chat.message.trim() == null){
+      console.log('Empty Message');
+      jQuery('#chatInput').focus();
+      document.getElementById("chatInput").focus();
+      return -1;
+    }
+
+    var d = new Date();
+//    d = d.toLocaleTimeString().replace(/:\d+ /, ' '); //d예시 : 오후 10:26:10
+
+    $scope.$root.username = 'user526';
+
+    $scope.messages.push({
+      from: 'admin',
+      to: $scope.$username,
+      text: $scope.chat.message,
+      date: getChatDate(),
+      time: getChatTime()
+    });
+/*
+    $http.get("http://meirong-mifang.com/products/sendMessages.php", 
+      {params : {"from" : $scope.$root.username, "to" : 'admin', "message" : $scope.chat.message}})
+*/
+
+    $http({
+      method: "post",
+      url: "http://meirong-mifang.com/products/sendMessages.php",
+      headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+      data: $.param({from: 'admin', to: $scope.$username, message: $scope.chat.message})
+        }).success(function(result){
+          console.log(result);
+        }).error(function(data){
+          console.log("data : "+data);
+          console.log('sendMessage db transfer error');
+      });  
+
+    $scope.chat.message = "";
+    $ionicScrollDelegate.scrollBottom(true);
+
+    jQuery('.chatInput').focus();
+  };
+
+  $scope.inputUp = function() {
+    if (isIOS) $scope.data.keyboardHeight = 216;
+    $timeout(function() {
+      $ionicScrollDelegate.scrollBottom(true);
+    }, 300);
+
+  };
+
+  $scope.inputDown = function() {
+    if (isIOS) $scope.data.keyboardHeight = 0;
+    $ionicScrollDelegate.resize();
+  };
+
+  $scope.closeKeyboard = function() {
+    // cordova.plugins.Keyboard.close();
+  };
+
   $scope.getMessages($scope.$username);
 })
 
-.controller('ChatCtrl', function($scope, $firebase, $http, $timeout, $ionicScrollDelegate, $rootScope, $cookieStore, $cordovaToast, $cordovaCamera, $ionicScrollDelegate){
+.controller('ChatCtrl', function($scope, $http, $timeout, $ionicScrollDelegate, $rootScope, $cookieStore, $cordovaToast, $cordovaCamera, $ionicScrollDelegate){
 
 //  $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
   
@@ -489,14 +664,6 @@ angular.module('starter.controllers', ['firebase'])
   console.log('userName : '+$scope.userName);
   $scope.data = {};
   $scope.messages = [];
-
-  var getCurTime = function(){
-    //현재시간
-    var d = new Date();
-    curtime = d.getFullYear()+"/"+(parseInt(d.getMonth())+1)+"/"+d.getDate()+" "+d.getHours()+":"+d.getMinutes()+":"+d.getSeconds();
-
-    return curtime;
-  }
 
   $scope.setScrollPos = function(){
     $ionicScrollDelegate.scrollBottom();
@@ -1100,6 +1267,9 @@ angular.module('starter.controllers', ['firebase'])
 //리뷰 페이지에서 사람들이 올린 글을 표시해주도록 하는 부분입니다.
 .controller('ReviewCtrl',function($scope, $stateParams, $http, $cordovaCamera, $cordovaFile){
   $scope.categorys =['eye','nose','face','bosom','body','beauty'];
+  jQuery(document).ready( function(){
+    jQuery("select option:eq(1)").attr("selected", "selected");
+  })
   //선택한 카테고리의 리뷰 정보들을 뿌려주는 함수입니다.
   $scope.update = function(review) {
     console.log(review.category);

@@ -102,8 +102,7 @@ div#tableRow{
 .chat-bubble.left {
   background-color: #ff697e;
   float: left;
-  margin-left: 55px;
-  margin-right: 100%;
+  margin-left: 10px;
 }
 .chat-bubble.left:before {
   background-color: #ff697e;

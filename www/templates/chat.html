@@ -1,14 +1,20 @@
 <ion-view view-title="Chat">
   <ion-pane>
     <ion-content style="margin-bottom:93px;">
-    <p style="text-align:right" >{{$username}}님과 대화</p>
+    <p>login Level : {{loginLevel}}</p>
+    <p ng-if="(loginLevel==2)" style="text-align:right" >{{$username}}님과 대화</p>
     <p style="text-align:right" ng-if="userName != undefined">{{userName}}으로 로그인 중...</p>
       <div ng-repeat="message in messages" ng-repeat-end-watch="setScrollPos">
         <div class="message">
            <div ng-switch on="message.from">
               <div ng-switch-when="admin">
-                  <span class="" ng-if=" message.text.substring(0,10)=='data:image' "><img src="{{message.text}}" /></span>
-                  <span class="" ng-if=" !(message.text.substring(0,10)=='data:image') ">{{ message.text}}</span>                  
+                <div class="sidebar">
+                  <span class="fromAdmin" ng-if=" message.text.substring(0,10)=='data:image' "><img src="{{message.text}}" /></span>
+                  <span class="chat-bubble left fromAdmin" ng-if=" !(message.text.substring(0,10)=='data:image') ">{{ message.text}}</span>
+                </div>
+                  <div id="sub">
+                    <table style="float:left" width="80px"><tr><td>{{message.date}}</td></tr><tr><td>{{message.time}}</td></tr></table>
+                  </div>
               </div>
               <div id = "tableContainer" ng-switch-default>
                 <div id="tableRow">
@@ -16,8 +22,8 @@
                     <table width="80px"><tr><td>{{message.date}}</td></tr><tr><td>{{message.time}}</td></tr></table>
                   </div>
                   <div class="sidebar">
-                    <span class="" ng-if=" message.text.substring(0,10)=='data:image' "><img src="{{message.text}}" /></span>
-                    <span class="chat-bubble right" ng-if=" !(message.text.substring(0,10)=='data:image') ">{{ message.text}}</span>
+                    <span class="fromUser" ng-if=" message.text.substring(0,10)=='data:image' "><img src="{{message.text}}" /></span>
+                    <span class="chat-bubble right fromUser" ng-if=" !(message.text.substring(0,10)=='data:image') ">{{ message.text}}</span>
                   </div>
                   </div>  
               </div>

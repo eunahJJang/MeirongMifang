@@ -1,33 +1,30 @@
 <ion-view view-title="의료진">
-  <ion-content>
+  <ion-content style="padding:10px">
+    <div id="docProfileTop">
+      <div class="docProfileImg">
+        <img src="{{imgSrc}}" width="100%">
+      </div>
 
-  	<table class="tmp_tbl" border='1' align="center" style="border:1px!important">
-  		<tr>
-  			<td>docId : </td>
-  			<td>{{docId}}</td>
-  		</tr>
+      <div class="docProfileInfo">
+        <h1 class="docName">{{docName}}</h1>
+        <p> <span class="subTitle">소속</span> <span class="subCont"> &nbsp강남성형외과</span> </p>
+        <p> <span class="subTitle">전공</span> <span class="subCont"> &nbsp코</span> </p>
+      </div>
+    </div>
 
-  		<tr>
-  			<td>이름</td>
-  			<td>{{docName}}</td>
-  		</tr>
+  <hr style="margin:0"/>
 
-  		<tr>
-  			<td>사진</td>
-  			<td><img src="{{imgSrc}}" /></td>
-  		</tr>
+  <div id="docProfileBottom">
+    <p class="career">약력</p>
 
-  		<tr>
-  			<td></td>
-  			<td></td>
-  		</tr>
+    <div class="docProfileExp">
+      <div class="row">
+        <div class="col" style="">기간</div>
+        <div class="col col-67" style="">내용</div>
+      </div>
+    </div>
+  </div>
 
-  		<tr>
-  			<td></td>
-  			<td></td>
-  		</tr>
-  	</table>
-  	<hr/>
 
   </ion-content>
 </ion-view>
