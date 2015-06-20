@@ -1266,26 +1266,42 @@ angular.module('starter.controllers', ['firebase'])
 })
 //리뷰 페이지에서 사람들이 올린 글을 표시해주도록 하는 부분입니다.
 .controller('ReviewCtrl',function($scope, $stateParams, $http, $cordovaCamera, $cordovaFile){
-  $scope.categorys =['eye','nose','face','bosom','body','beauty'];
-  jQuery(document).ready( function(){
-    jQuery("select option:eq(1)").attr("selected", "selected");
-  })
+ $scope.categorys =['eye','nose','face','bosom','body','beauty'];
+  
+  //pageNum : 현재 페이지 번호,  totalNum : 전체 데이터 갯수, pageSu : 총 페이지 수
+  $scope.pageNum =0;
+  $scope.totalNum;
+  $scope.pageSu =0;
   //선택한 카테고리의 리뷰 정보들을 뿌려주는 함수입니다.
   $scope.update = function(review) {
     console.log(review.category);
     Category = review.category;
+  $scope.pageNum=1;
     if(Category ==null){
     console.log("category select error");
     }else{
-    $scope.getReview(Category);
-    }
-    }
+  $scope.totalPage(Category);
+    $scope.getReview(Category,$scope.pageNum, $scope.resize);
+  }
+  }
+  //해당 카테고리에 대한 리뷰 게시글의 총 갯수를 가져오는 함수입니다. 10개 = 1페이지 를 기준으로 총 페이지 수를 계산합니다.
+  개$scope.totalPage = function(category){
+  $http.get("http://meirong-mifang.com/review/getLength.php", {params : {"category" : category, "rid" : 0}})
+    .success(function(data){
+      $scope.totalNum = data;
+      $scope.pageSu = Math.ceil($scope.totalNum/10);
+    })
+    .error(function(data){
+      console.log("totalPage error");
+    })
+  }
   //"review/getReview.php"로부터 해당 카테고리의 리뷰 자료들을 가져와 $scope.contents 변수에 저장합니다.
-  $scope.getReview = function(category){
-    $http.get("http://meirong-mifang.com/review/getReview.php", {params : {"category" : category, "rid" : 0}})
+  //callback 함수로 resize 함수를 추가하였는데 이는 다른 페이지로 넘어갈 경우 크기를 재 조정시켜 상단으로 옮겨주는 역할을 합니다.
+  $scope.getReview = function(category, pageNum, callback){
+    $http.get("http://meirong-mifang.com/review/getReview.php", {params : {"category" : category, "rid" : 0, "page": pageNum}})
       .success(function(data){
         $scope.noOfProduct = data.length;
-
+    console.log(data.length);
         $scope.contents = [];
         for(index = 0; index < data.length; index++){
            $scope.contents.push({ 
@@ -1301,11 +1317,32 @@ angular.module('starter.controllers', ['firebase'])
             console.log(data[index].shopName);
             console.log(data[index].contents);
           }
+    if(typeof callback == "function"){
+      callback();
+    }
       })
       .error(function(data){
-      console.log("getShopId error");
+        console.log("getShopId error");
       })
   }
+
+  //각 각 다음 페이지와 이전 페이지로 돌아가도록 해주는 함수들 입니다.
+  $scope.nextPage=function(){
+  if($scope.pageNum==$scope.pageSu) return ;
+  $scope.pageNum ++;
+  $scope.getReview(Category,$scope.pageNum, $scope.resize);
+  }
+  $scope.beforePage=function(){
+  if($scope.pageNum==1) return ;
+  $scope.pageNum --;  
+  $scope.getReview(Category,$scope.pageNum, $scope.resize);
+  }
+  //페이지가 변할 때마다 크기를 재조정 해주는 함수입니다.
+  $scope.resize = function(){
+  $ionicScrollDelegate.resize();
+  }
+
+  
 })
 
 .controller('ReviewDetailCtrl', function($scope, $stateParams, $http){

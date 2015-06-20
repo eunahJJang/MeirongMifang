@@ -39,7 +39,13 @@
 					<a href="#" class="subdued">5 Comments</a-->
 			</div>
 		</div>
-	
+		<div style="margin: 0px 10px 50px 10px; text-align:center"class="list">
+		  <div class="item item-button-left item-button-right">
+			  <a style="font-size:1.5em; margin-right:10px"class="icon ion-ios-skipbackward backPage" ng-click="beforePage()"></a>
+			  {{pageNum}}/{{pageSu}}
+			  <a style="font-size:1.5em; margin-left:10px" class="icon ion-ios-skipforward frontPage" ng-click="nextPage()"></a>
+		  </div>
+		</div>
 	</ion-content>
 
 		<!-- 리뷰페이지 우측 하단 리뷰 작성 버튼 입니다.-->
