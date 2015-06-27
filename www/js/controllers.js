@@ -822,7 +822,7 @@ angular.module('starter.controllers', ['firebase'])
 
     $http({
       method: "post",
-      url: "http://meirong-mifang.com/products/sendMessages.php",
+      url: "http://meirong-mifang.com/messages/sendMessages.php",
       headers: {'Content-Type': 'application/x-www-form-urlencoded'},
       data: $.param({from: $scope.userName, to: 'admin', message: $scope.chat.message})
         }).success(function(result){
