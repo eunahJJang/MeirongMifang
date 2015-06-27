@@ -821,7 +821,7 @@ angular.module('starter.controllers', ['firebase'])
 */
 
     $http({
-      method: "post",
+      method: "get",
       url: "http://meirong-mifang.com/messages/sendMessages.php",
       headers: {'Content-Type': 'application/x-www-form-urlencoded'},
       data: $.param({from: $scope.userName, to: 'admin', message: $scope.chat.message})
@@ -855,7 +855,7 @@ angular.module('starter.controllers', ['firebase'])
     // cordova.plugins.Keyboard.close();
   };
   alert($cookieStore.get('loginLevel'));
-  if($cookieStore.get('loginLevel') == null){
+  if($rootScope.loginLevel == null){
     $rootScope.$broadcast('event:auth-loginRequired', { state: 'app.chat' });
   }else{
     $scope.getMessages();
