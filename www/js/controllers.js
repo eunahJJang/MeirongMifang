@@ -98,10 +98,8 @@ angular.module('starter.controllers', ['firebase'])
 
   //로그인 성공 쿠키값 셋팅 부분
   $scope.$on('event:auth-loginConfirmed', function(data) {
-    console.log(data);
-    $cookieStore.put('username',$scope.user.username);
-    $cookieStore.put('loginLevel',2);
     $rootScope.loginLevel = $cookieStore.get('loginLevel');
+    $rootScope.username = $cookieStore.get('');
     $scope.password = null;
     $scope.loginModal.hide();
     $state.go($scope.$root.state, {}, {reload: true, inherit: false});
@@ -301,7 +299,7 @@ angular.module('starter.controllers', ['firebase'])
   // Triggered in the login modal to close it
   $scope.closeJoin = function() {
  //   $scope.modal.hide();
-    $state.go('app.products');
+    $state.go('app.main');
   };
 
   // Open the login modal
@@ -311,7 +309,6 @@ angular.module('starter.controllers', ['firebase'])
 
   // Perform the login action when the user submits the login form
   $scope.doJoin = function() {
-    
     //이메일 빈칸으로 입력
     if(($scope.joinData.username == null) || ($scope.joinData.username.trim() == '') ){
       alert("Please input your email");
@@ -351,7 +348,8 @@ angular.module('starter.controllers', ['firebase'])
           if(data){
             if($scope.duplicatedId){
               alert("Welcome !!");
-              $ionicHistory.goBack([-1]);              
+              $state.go('app.main');
+              //$ionicHistory.goBack([-1]);              
             }
             else{
               alert("please check your email again.");
@@ -474,7 +472,7 @@ angular.module('starter.controllers', ['firebase'])
         alert("getPicerrer");
       })
   }
-  $scope.$username = $stateParams.user;
+  //$scope.$username = $stateParams.user;
   $scope.setScrollPos = function(){
     $ionicScrollDelegate.scrollBottom();
   };
@@ -660,8 +658,9 @@ angular.module('starter.controllers', ['firebase'])
 
 //  $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
   
-  $scope.userName = $cookieStore.get("username");
-  console.log('userName : '+$scope.userName);
+  //$scope.userName = $cookieStore.get("username");
+  $scope.userName = $rootScope.username;
+  alert('userName : '+$scope.userName);
   $scope.data = {};
   $scope.messages = [];
 
@@ -855,7 +854,7 @@ angular.module('starter.controllers', ['firebase'])
   $scope.closeKeyboard = function() {
     // cordova.plugins.Keyboard.close();
   };
-
+  alert($cookieStore.get('loginLevel'));
   if($cookieStore.get('loginLevel') == null){
     $rootScope.$broadcast('event:auth-loginRequired', { state: 'app.chat' });
   }else{
