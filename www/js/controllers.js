@@ -618,7 +618,7 @@ angular.module('starter.controllers', ['firebase'])
 
     $http({
       method: "post",
-      url: "http://meirong-mifang.com/products/sendMessages.php",
+      url: "http://meirong-mifang.com/messages/sendMessages.php",
       headers: {'Content-Type': 'application/x-www-form-urlencoded'},
       data: $.param({from: 'admin', to: $scope.$username, message: $scope.chat.message})
         }).success(function(result){
@@ -781,7 +781,7 @@ angular.module('starter.controllers', ['firebase'])
   }
 
   $scope.getMessages = function(){
-    $http.get("http://meirong-mifang.com/products/getMessages.php", {params : {"from" : $scope.userName}})
+    $http.get("http://meirong-mifang.com/messages/getMessages.php", {params : {"from" : $scope.userName}})
       .success(function(data){
         console.log('getMessages() success');
         for(index = 0; index < data.length; index++){
