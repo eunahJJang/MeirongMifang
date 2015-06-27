@@ -99,7 +99,7 @@ angular.module('starter.controllers', ['firebase'])
   //로그인 성공 쿠키값 셋팅 부분
   $scope.$on('event:auth-loginConfirmed', function(data) {
     $rootScope.loginLevel = $cookieStore.get('loginLevel');
-    $rootScope.username = $cookieStore.get('');
+    $rootScope.username = $cookieStore.get('username');
     $scope.password = null;
     $scope.loginModal.hide();
     $state.go($scope.$root.state, {}, {reload: true, inherit: false});
@@ -472,7 +472,7 @@ angular.module('starter.controllers', ['firebase'])
         alert("getPicerrer");
       })
   }
-  //$scope.$username = $stateParams.user;
+  $scope.$username = $stateParams.user;
   $scope.setScrollPos = function(){
     $ionicScrollDelegate.scrollBottom();
   };
