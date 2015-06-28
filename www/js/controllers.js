@@ -405,7 +405,8 @@ angular.module('starter.controllers', ['firebase'])
 })
 
 .controller('MypageCtrl', function($scope, $state, $http, $stateParams, $cookieStore, $rootScope, $cordovaToast) {
-  if($cookieStore.get('loginLevel') == null){
+  var loginLevel = $cookieStore.get('loginLevel');
+  if(loginLevel == null || loginLevel == undefined){
     $rootScope.$broadcast('event:auth-loginRequired', { state: 'app.mypage' });
   }
 })
@@ -601,8 +602,6 @@ angular.module('starter.controllers', ['firebase'])
 
     var d = new Date();
 //    d = d.toLocaleTimeString().replace(/:\d+ /, ' '); //d예시 : 오후 10:26:10
-
-    $scope.$root.username = 'user526';
 
     $scope.messages.push({
       from: 'admin',
@@ -806,8 +805,6 @@ angular.module('starter.controllers', ['firebase'])
     var d = new Date();
 //    d = d.toLocaleTimeString().replace(/:\d+ /, ' '); //d예시 : 오후 10:26:10
 
-    $scope.$root.username = 'user526';
-
     $scope.messages.push({
       from: $scope.userName,
       to: 'admin',
@@ -855,7 +852,7 @@ angular.module('starter.controllers', ['firebase'])
     // cordova.plugins.Keyboard.close();
   };
   alert($cookieStore.get('loginLevel'));
-  if($rootScope.loginLevel == null){
+  if($rootScope.loginLevel == null || $rootScope.loginLevel == undefined){
     $rootScope.$broadcast('event:auth-loginRequired', { state: 'app.chat' });
   }else{
     $scope.getMessages();
@@ -1284,7 +1281,7 @@ angular.module('starter.controllers', ['firebase'])
   }
   }
   //해당 카테고리에 대한 리뷰 게시글의 총 갯수를 가져오는 함수입니다. 10개 = 1페이지 를 기준으로 총 페이지 수를 계산합니다.
-  개$scope.totalPage = function(category){
+  $scope.totalPage = function(category){
   $http.get("http://meirong-mifang.com/review/getLength.php", {params : {"category" : category, "rid" : 0}})
     .success(function(data){
       $scope.totalNum = data;
