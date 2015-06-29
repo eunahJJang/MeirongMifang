@@ -34,7 +34,9 @@ angular.module('starter.controllers', ['firebase'])
     {
       scope: $scope,
       animation: 'slide-in-up',
-      focusFirstInput: true
+      focusFirstInput: true,
+      backdropClickToClose: false,
+      hardwareBackButtonClose: false
     }
   );
 
@@ -88,6 +90,7 @@ angular.module('starter.controllers', ['firebase'])
 
   $scope.closeLogin = function() {
     $scope.loginModal.hide();
+    $rootScope.$broadcast('loginClosed');
   };
  
   $scope.$on('event:auth-loginRequired', function(e, args) {
@@ -278,34 +281,17 @@ angular.module('starter.controllers', ['firebase'])
     }    
 })
 
-.controller('JoinCtrl', function($scope, $ionicModal, $state, $http, $ionicHistory){
+.controller('JoinCtrl', function($scope, $state, $http, $ionicHistory){
 
   $ionicHistory.clearHistory();
 
   $scope.joinData = {};
   $scope.duplicatedId = false;
 
-  $ionicModal.fromTemplateUrl('templates/join.html', {
-    scope: $scope
-  }).then(function(modal) {
-    $scope.modal = modal;
-  });
-
   var validEmail = function(email) {
     var re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
     return re.test(email);
   }
-
-  // Triggered in the login modal to close it
-  $scope.closeJoin = function() {
- //   $scope.modal.hide();
-    $state.go('app.main');
-  };
-
-  // Open the login modal
-  $scope.join = function() {
-    $scope.modal.show();
-  };
 
   // Perform the login action when the user submits the login form
   $scope.doJoin = function() {
@@ -404,7 +390,11 @@ angular.module('starter.controllers', ['firebase'])
     
 })
 
-.controller('MypageCtrl', function($scope, $state, $http, $stateParams, $cookieStore, $rootScope, $cordovaToast) {
+.controller('MypageCtrl', function($scope, $state, $http, $stateParams, $cookieStore, $rootScope, $cordovaToast, $ionicHistory) {
+ $scope.$on('loginClosed', function(){
+    $ionicHistory.goBack([-1]);
+  });
+
   var loginLevel = $cookieStore.get('loginLevel');
   if(loginLevel == null || loginLevel == undefined){
     $rootScope.$broadcast('event:auth-loginRequired', { state: 'app.mypage' });
@@ -431,10 +421,10 @@ angular.module('starter.controllers', ['firebase'])
   
 })
 
-.controller('ChatTabCtrl', function($scope, $cookieStore, $state){
- $loginLevel = $cookieStore.get("loginLevel");
- console.log('$loginLevel : '+$loginLevel);
- if($loginLevel > 1){
+.controller('ChatTabCtrl', function($rootScope, $scope, $cookieStore, $state){
+ var loginLevel = $rootScope.loginLevel;
+ console.log('loginLevel : '+loginLevel);
+ if(loginLevel > 1){
   $state.go("app.chatAdmin");
  }else{
   $state.go("app.chatUser");
@@ -653,13 +643,18 @@ angular.module('starter.controllers', ['firebase'])
   $scope.getMessages($scope.$username);
 })
 
-.controller('ChatCtrl', function($scope, $http, $timeout, $ionicScrollDelegate, $rootScope, $cookieStore, $cordovaToast, $cordovaCamera, $ionicScrollDelegate){
+.controller('ChatCtrl', function($scope, $state, $http, $timeout, $ionicScrollDelegate, $rootScope, $cookieStore, $cordovaToast, $cordovaCamera, $ionicScrollDelegate){
 
+  $scope.$on('loginClosed', function(){
+    //로그인 취소시 메인으로 이동
+    //$ionicHistory로 goBack([-2])하고 싶은데 안먹혀서 메인으로 보내버림.
+    $state.go('app.main');
+  });
 //  $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
   
   //$scope.userName = $cookieStore.get("username");
   $scope.userName = $rootScope.username;
-  alert('userName : '+$scope.userName);
+  //alert('userName : '+$scope.userName);
   $scope.data = {};
   $scope.messages = [];
 
@@ -851,7 +846,6 @@ angular.module('starter.controllers', ['firebase'])
   $scope.closeKeyboard = function() {
     // cordova.plugins.Keyboard.close();
   };
-  alert($cookieStore.get('loginLevel'));
   if($rootScope.loginLevel == null || $rootScope.loginLevel == undefined){
     $rootScope.$broadcast('event:auth-loginRequired', { state: 'app.chat' });
   }else{
