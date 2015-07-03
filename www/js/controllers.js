@@ -807,22 +807,29 @@ angular.module('starter.controllers', ['firebase'])
       date: getChatDate(),
       time: getChatTime()
     });
-/*
-    $http.get("http://meirong-mifang.com/products/sendMessages.php", 
-      {params : {"from" : $scope.$root.username, "to" : 'admin', "message" : $scope.chat.message}})
-*/
 
-    $http({
-      method: "get",
-      url: "http://meirong-mifang.com/messages/sendMessages.php",
-      headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-      data: $.param({from: $scope.userName, to: 'admin', message: $scope.chat.message})
-        }).success(function(result){
-          console.log(result);
+    $http.get("http://meirong-mifang.com/messages/sendMessages.php", {params : {"from" : $scope.$root.username, "to" : 'admin', "message" : $scope.chat.message}})
+    .success(function(result){
+          alert(result);
         }).error(function(data){
-          console.log("data : "+data);
+          alert("data : "+data);
           console.log('sendMessage db transfer error');
-      });  
+      }); 
+
+
+    // $http({
+    //   method: "get",
+    //   url: "http://meirong-mifang.com/messages/sendMessages.php",
+    //   headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+    //   data: $.param({from: $scope.userName, to: 'admin', message: $scope.chat.message})
+    //     }).success(function(result){
+    //       console.log(result);
+    //     }).error(function(data){
+    //       console.log("data : "+data);
+    //       console.log('sendMessage db transfer error');
+    //   }); 
+
+
 
     $scope.chat.message = "";
     $ionicScrollDelegate.scrollBottom(true);
