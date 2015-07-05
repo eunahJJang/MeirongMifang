@@ -1,54 +1,61 @@
 <ion-view view-title="후기">
-<!-- 사진 올리는 코드
-	<ion-content>
-		<img ng-show="imgURI !== undefined" ng-src="{{imgURI}}">
-    	<img ng-show="imgURI === undefined" ng-src="http://placehold.it/300x300">
-   		<button class="button" ng-click="takePicture()">Take Picture</button>
-   		<button class="button" ng-click="uploadPhoto()">Bring From Assets</button>
-	</ion-content> -->
+	<!-- 사진 올리는 코드
+		<ion-content>
+			<img ng-show="imgURI !== undefined" ng-src="{{imgURI}}">
+			<img ng-show="imgURI === undefined" ng-src="http://placehold.it/300x300">
+			   <button class="button" ng-click="takePicture()">Take Picture</button>
+			   <button class="button" ng-click="uploadPhoto()">Bring From Assets</button>
+		</ion-content> -->
 	<ion-content style="background-color:gray">
 		<!--
 		카테고리 부분입니다. 부위별 후기를 볼 수 있도록 선택이 가능합니다.
 		카테고리를 선택할 경우 해당 카테고리에 대한 리뷰 글들을 서버로부터 불러옵니다.
 		-->
-		<div style="margin: 0px 10px 0px 10px; top:10px"class="list">
-			<label class="item item-input item-select" >
-			  <div class="input-label" >Category</div>
-			  <select ng-options="category for category in categorys" ng-model="review.category" ng-change="update(review)"></select>
-		    </label>
-		</div>		
+		<div style="margin: 0px 10px 0px 10px; top:10px" class="list">
+			<label class="item item-input item-select">
+				<div class="input-label">Category</div>
+				<select ng-options="category for category in categorys" ng-model="review.category"
+				        ng-change="update(review)"></select>
+			</label>
+		</div>
 
 		<!--
 		서버로부터 리뷰글들은 controller.js의 $scope.contents 변수에 저장되므로 이를 활용하여 
 		사용자의 이름, 병원 이름, 작성시간이 나타나도록 하였습니다.
 		-->
-		<div style="padding: 0px 5px 10px 5px;"class="list card" ng-repeat="content in contents">
+		<div style="padding: 0px 5px 10px 5px;" class="list card" ng-repeat="content in contents">
 			<div class="row">
 				<div class="col ">{{content.username}}</div>
 				<div class="col ">{{content.shopName}}</div>
 				<div class="col ">{{content.createdTime}}</div>
 			</div>
-		<!--
-		사진 데이터의 경우 아직 가져오지 않아 샘플 사진으로 대체하였으며 작성 내용이 하단에 나타나도록 하였습니다.
-		-->
-			<div class="item item-body" ng-switch="content.picture1" ui-sref="app.reviewDetail({reviewId:{{content.rid}}})">
-				<img ng-switch-when="nonPicture" src="http://meirong-mifang.com/img/noimg.jpg" style="width:100%; height:200px; border:1px solid gray"/>
-				<img ng-switch-default src="{{content.picture1}}" style="width:100%; height:200px; border:1px solid gray">
+			<!--
+			사진 데이터의 경우 아직 가져오지 않아 샘플 사진으로 대체하였으며 작성 내용이 하단에 나타나도록 하였습니다.
+			-->
+			<div class="item item-body" ng-switch="content.picture1"
+			     ui-sref="app.reviewDetail({reviewId:{{content.rid}}})">
+				<img ng-switch-when="nonPicture" src="http://meirong-mifang.com/img/noimg.jpg"
+				     style="width:100%; height:200px; border:1px solid gray"/>
+				<img ng-switch-default src="{{content.picture1}}"
+				     style="width:100%; height:200px; border:1px solid gray">
+
 				<p style="margin-top:5px">{{content.contents}}{{content.rid}}</p>
-					<!--a href="#" class="subdued">1 Like</a>
-					<a href="#" class="subdued">5 Comments</a-->
+				<!--a href="#" class="subdued">1 Like</a>
+				<a href="#" class="subdued">5 Comments</a-->
 			</div>
 		</div>
-		<div style="margin: 0px 10px 50px 10px; text-align:center"class="list">
-		  <div class="item item-button-left item-button-right">
-			  <a style="font-size:1.5em; margin-right:10px"class="icon ion-ios-skipbackward backPage" ng-click="beforePage()"></a>
-			  {{pageNum}}/{{pageSu}}
-			  <a style="font-size:1.5em; margin-left:10px" class="icon ion-ios-skipforward frontPage" ng-click="nextPage()"></a>
-		  </div>
+		<div style="margin: 0px 10px 50px 10px; text-align:center" class="list">
+			<div class="item item-button-left item-button-right">
+				<a style="font-size:1.5em; margin-right:10px" class="icon ion-ios-skipbackward backPage"
+				   ng-click="beforePage()"></a>
+				{{pageNum}}/{{pageSu}}
+				<a style="font-size:1.5em; margin-left:10px" class="icon ion-ios-skipforward frontPage"
+				   ng-click="nextPage()"></a>
+			</div>
 		</div>
 	</ion-content>
 
-		<!-- 리뷰페이지 우측 하단 리뷰 작성 버튼 입니다.-->
+	<!-- 리뷰페이지 우측 하단 리뷰 작성 버튼 입니다.-->
 	<div style="position:absolute; right:10px; bottom:60px; width:50px; height:50px; padding:11px 11px; background-color:#ff697e ;border-radius:50%">
 		<a style="color:#fff; font-size:30px" class="icon ion-edit" ui-sref="app.uploadReview"></a>
 	</div>

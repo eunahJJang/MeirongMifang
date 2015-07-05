@@ -1,57 +1,59 @@
 <ion-view view-title="My page">
-  <ion-content>
-    <!--ion-item ui-sref="app.profile">개인 정보</ion-item>
-    <ion-item ui-sref="app.event">소식</ion-item>
-    <ion-item ui-sref="app.chat">상담 하기</ion-item>
-    <ion-item ui-sref="app.like">관심 수술</ion-item>
-	<ion-item ui-sref="#">이벤트</ion-item>
-    <ion-item ui-sref="app.uploadReview">후기 작성</ion-item-->
-    <!--
-		마이 페이지의 상단 부분 설정 + 추후 추가될 수 있는 부분
-		1. 포인트 부분은 controller.js와 연결시켜서 동기화
-		2. 이름이 있는 부분의 배경화면에 프로필 사진처럼 적용
-	-->
-	<div style="height:200px; background-color:gainsboro">
-	  <div style="height:30px; background-color:gainsboro; padding-top:4px" class="item item-icon-left item-icon-right">
-	    <i class="icon ion-cash"><font size="3">&nbsp;&nbsp;1,000p</font></i>
-	    <div style="font-size:15px; text-align:center ">MY</div>
-	    <i class="icon ion-power"></i>
-	  </div>
-	  <div style="position:relative; height:170px; top:70px; font-size:25px; text-align:center;" >洪吉同</div>
-	</div>
-	<!-- 
-		아이콘을 활용한 마이페이지 디자인 변경
-	-->
-	<div class="list">
-	  <a class="item item-icon-left item-icon-right" ui-sref="app.profile">
-		<i class="icon ion-happy-outline"></i>
-		개인 정보
-		<i class="icon ion-ios-arrow-right"></i>
-	  </a>
-	  
-	  <a class="item item-icon-left item-icon-right" ui-sref="app.event">
-		<i class="icon ion-android-notifications-none"></i>
-		소식
-		<i class="icon ion-ios-arrow-right"></i>
-	  </a>
+	<ion-content>
+		<!--ion-item ui-sref="app.profile">개인 정보</ion-item>
+		<ion-item ui-sref="app.event">소식</ion-item>
+		<ion-item ui-sref="app.chat">상담 하기</ion-item>
+		<ion-item ui-sref="app.like">관심 수술</ion-item>
+		<ion-item ui-sref="#">이벤트</ion-item>
+		<ion-item ui-sref="app.uploadReview">후기 작성</ion-item-->
+		<!--
+			마이 페이지의 상단 부분 설정 + 추후 추가될 수 있는 부분
+			1. 포인트 부분은 controller.js와 연결시켜서 동기화
+			2. 이름이 있는 부분의 배경화면에 프로필 사진처럼 적용
+		-->
+		<div style="height:200px; background-color:gainsboro">
+			<div style="height:30px; background-color:gainsboro; padding-top:4px"
+			     class="item item-icon-left item-icon-right">
+				<i class="icon ion-cash"><font size="3">&nbsp;&nbsp;1,000p</font></i>
 
-	  <a class="item item-icon-left item-icon-right" ui-sref="app.chat">
-		<i class="icon ion-ios-chatbubble-outline"></i>
-		상담 하기
-		<i class="icon ion-ios-arrow-right"></i>
-	  </a>
+				<div style="font-size:15px; text-align:center ">MY</div>
+				<i class="icon ion-power"></i>
+			</div>
+			<div style="position:relative; height:170px; top:70px; font-size:25px; text-align:center;">洪吉同</div>
+		</div>
+		<!--
+			아이콘을 활용한 마이페이지 디자인 변경
+		-->
+		<div class="list">
+			<a class="item item-icon-left item-icon-right" ui-sref="app.profile">
+				<i class="icon ion-happy-outline"></i>
+				개인 정보
+				<i class="icon ion-ios-arrow-right"></i>
+			</a>
 
-	  <a class="item item-icon-left item-icon-right" ui-sref="app.like">
-		<i class="icon ion-android-star-outline"></i>
-		관심 수술
-		<i class="icon ion-ios-arrow-right"></i>
-	  </a>
+			<a class="item item-icon-left item-icon-right" ui-sref="app.event">
+				<i class="icon ion-android-notifications-none"></i>
+				소식
+				<i class="icon ion-ios-arrow-right"></i>
+			</a>
 
-	  <a class="item item-icon-left item-icon-right" ui-sref="app.uploadReview">
-		<i class="icon ion-compose"></i>
-		후기 작성
-		<i class="icon ion-ios-arrow-right"></i>
-	  </a>  
-	</div>
-  </ion-content>
+			<a class="item item-icon-left item-icon-right" ui-sref="app.tabs.chat">
+				<i class="icon ion-ios-chatbubble-outline"></i>
+				상담 하기
+				<i class="icon ion-ios-arrow-right"></i>
+			</a>
+
+			<a class="item item-icon-left item-icon-right" ui-sref="app.like">
+				<i class="icon ion-android-star-outline"></i>
+				관심 수술
+				<i class="icon ion-ios-arrow-right"></i>
+			</a>
+
+			<a class="item item-icon-left item-icon-right" ui-sref="app.tabs.uploadReview">
+				<i class="icon ion-compose"></i>
+				후기 작성
+				<i class="icon ion-ios-arrow-right"></i>
+			</a>
+		</div>
+	</ion-content>
 </ion-view>

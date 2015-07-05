@@ -1,26 +1,27 @@
 <ion-view title="Join">
-    <ion-content>
-        <div>
-          <form>
-            <div class="list list-inset">
-                <div class="item item-input">
-                    <input type="text" placeholder="Username" ng-model="joinData.username"/>
-                    <button class="button button-light"  ng-click="check()">check</button>
-                </div>
+	<ion-content>
+		<div>
+			<form>
+				<div class="list list-inset">
+					<div class="item item-input">
+						<input type="text" placeholder="Username" ng-model="joinData.username"/>
+						<button class="button button-light" ng-click="check()">check</button>
+					</div>
 
-                <label class="item item-input">
-                    <input ng-model="joinData.password" type="password" placeholder="Password" class="pw1"/>
-                </label>
-                <label class="item item-input">
-                    <input ng-model="joinData.passwordChk" type="password" placeholder="Password Check" class="pw2"/>
-                </label>
-            </div>
-            <div class="padding-left padding-right">
-                <div class="button-bar">
-                    <button class="button button-mifang" type="submit" ng-click="doJoin()">Join</button>
-                </div>
-            </div>
-          </form>
-        </div>
-    </ion-content>
+					<label class="item item-input">
+						<input ng-model="joinData.password" type="password" placeholder="Password" class="pw1"/>
+					</label>
+					<label class="item item-input">
+						<input ng-model="joinData.passwordChk" type="password" placeholder="Password Check"
+						       class="pw2"/>
+					</label>
+				</div>
+				<div class="padding-left padding-right">
+					<div class="button-bar">
+						<button class="button button-mifang" type="submit" ng-click="doJoin()">Join</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</ion-content>
 </ion-view>

@@ -1,135 +1,150 @@
 .item-input-wrapper-defined {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -moz-box;
-  display: -moz-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-flex: 1;
-  -webkit-flex: 1 0;
-  -moz-box-flex: 1;
-  -moz-flex: 1 0;
-  -ms-flex: 1 0;
-  flex: 1 0;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  -webkit-align-items: center;
-  -moz-align-items: center;
-  align-items: center;
-  -webkit-border-radius: 4px;
-  border-radius: 4px;
-  padding-right: 8px;
-  padding-left: 8px; }
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -moz-box;
+	display: -moz-flex;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-flex: 1;
+	-webkit-flex: 1 0;
+	-moz-box-flex: 1;
+	-moz-flex: 1 0;
+	-ms-flex: 1 0;
+	flex: 1 0;
+	-webkit-box-align: center;
+	-ms-flex-align: center;
+	-webkit-align-items: center;
+	-moz-align-items: center;
+	align-items: center;
+	-webkit-border-radius: 4px;
+	border-radius: 4px;
+	padding-right: 8px;
+	padding-left: 8px;
+}
 
 .item-input-inset .item-input-wrapper-defined input {
-  padding-left: 4px;
-  height: 29px;
-  line-height: 18px; }
+	padding-left: 4px;
+	height: 29px;
+	line-height: 18px;
+}
 
 .item-input-wrapper-defined ~ .button {
-  margin-left: 10.66667px; }
+	margin-left: 10.66667px;
+}
 
 img.profile-pic {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  position: absolute;
-  top: 0px;
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+	position: absolute;
+	top: 0px;
 }
 
 img.profile-pic.left {
-  left: 10px;
+	left: 10px;
 }
 
 img.profile-pic.right {
-  right: 10px;
+	right: 10px;
 }
 
 div#tableContainer {
-  display:table;
-  table-layout:fixed;
+	display: table;
+	table-layout: fixed;
 
-  float:right;
-  min-height: 40px;
-  max-width:80%;
+	float: right;
+	min-height: 40px;
+	max-width: 80%;
 }
-div#tableRow{
-  display:table-row;
+
+div#tableRow {
+	display: table-row;
 }
-#sub{
-  display: table-cell;
-  font-size: 70%;
-  color:gray;
-  width: 45px;
-  text-align:right;
-  padding-bottom:5px;
-  vertical-align:bottom;
-  line-height:100%;
+
+#sub {
+	display: table-cell;
+	font-size: 70%;
+	color: gray;
+	width: 45px;
+	text-align: right;
+	padding-bottom: 5px;
+	vertical-align: bottom;
+	line-height: 100%;
 }
-.sidebar{
-  display: table-cell;
-  word-break:break-all;
-  max-width:80%;
+
+.sidebar {
+	display: table-cell;
+	word-break: break-all;
+	max-width: 80%;
 }
-.clear{
-  clear:both;
+
+.clear {
+	clear: both;
 
 }
-.chat-bubble{
-  display: block;
-  position:relative;
-  border-radius: 5px;
-  padding: 10px 15px;
-  margin: 5px 0px 5px 3px;
+
+.chat-bubble {
+	display: block;
+	position: relative;
+	border-radius: 5px;
+	padding: 10px 15px;
+	margin: 5px 0px 5px 3px;
 }
-.chat-bubble:before{
-  content: "\00a0";
-  height: 16px;
-  width: 9px;
-  position: absolute;
-  bottom: -7.5px;
+
+.chat-bubble:before {
+	content: "\00a0";
+	height: 16px;
+	width: 9px;
+	position: absolute;
+	bottom: -7.5px;
 }
-.chat-bubble.right{
-  background-color: #ffbfc9;
-  margin-right: 10px;
+
+.chat-bubble.right {
+	background-color: #ffbfc9;
+	margin-right: 10px;
 }
-.chat-bubble.right:before{
-  background-color: #ffbfc9;
-  top: 5px;
-  right:-5px;
-  -webkit-transform: rotate(0deg) skew(-30deg);
+
+.chat-bubble.right:before {
+	background-color: #ffbfc9;
+	top: 5px;
+	right: -5px;
+	-webkit-transform: rotate(0deg) skew(-30deg);
 }
+
 .chat-bubble.left {
-  background-color: #ff697e;
-  float: left;
-  margin-left: 10px;
+	background-color: #ff697e;
+	float: left;
+	margin-left: 10px;
 }
+
 .chat-bubble.left:before {
-  background-color: #ff697e;
-  top: 5px;
-  left: -5px;
-  -webkit-transform: rotate(180deg) skew(30deg);
+	background-color: #ff697e;
+	top: 5px;
+	left: -5px;
+	-webkit-transform: rotate(180deg) skew(30deg);
 }
+
 /*
  mypage 에서 아이콘 색 변경
 */
 .item.item-icon-right.item-icon-left i {
-  color: #ff697e;
+	color: #ff697e;
 }
 
 /*
 products.html 카테고리: 카테고리 부분 클릭시 글씨 색 변경 밑 밑에 표시 줄 생기도록 하였습니다.
 */
 .button.button-light.active, .button.button-light.activated {
-  color: #ff697e;
-  border-color: #fff;
-  background-color: #fff;
-  border-bottom: solid 3px #ff697e;
-  box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.1); 
+	color: #ff697e;
+	border-color: #fff;
+	background-color: #fff;
+	border-bottom: solid 3px #ff697e;
+	box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.1);
 }
+
 /*
 products.html 카테고리: 스크롤 시 스크롤 바 투명하게 변경하였습니다.
 */
-div .categories > ion-scroll .scroll-bar-h{
-  height: 0px;
+div .categories > ion-scroll .scroll-bar-h {
+	height: 0px;
 }

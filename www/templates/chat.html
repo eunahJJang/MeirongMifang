@@ -1,50 +1,75 @@
 <ion-view view-title="Chat">
-  <ion-pane>
-    <ion-content style="margin-bottom:93px;">
-    <p>login Level : {{loginLevel}}</p>
-    <p ng-if="(loginLevel==2)" style="text-align:right" >{{$username}}님과 대화</p>
-    <p style="text-align:right" ng-if="userName != undefined">{{userName}}으로 로그인 중...</p>
-      <div ng-repeat="message in messages" ng-repeat-end-watch="setScrollPos">
-        <div class="message">
-           <div ng-switch on="message.from">
-              <div ng-switch-when="admin">
-                <div class="sidebar">
-                  <span class="fromAdmin" ng-if=" message.text.substring(0,10)=='data:image' "><img src="{{message.text}}" /></span>
-                  <span class="chat-bubble left fromAdmin" ng-if=" !(message.text.substring(0,10)=='data:image') ">{{ message.text}}</span>
-                </div>
-                  <div id="sub">
-                    <table style="float:left" width="80px"><tr><td>{{message.date}}</td></tr><tr><td>{{message.time}}</td></tr></table>
-                  </div>
-              </div>
-              <div id = "tableContainer" ng-switch-default>
-                <div id="tableRow">
-                  <div id="sub">
-                    <table width="80px"><tr><td>{{message.date}}</td></tr><tr><td>{{message.time}}</td></tr></table>
-                  </div>
-                  <div class="sidebar">
-                    <span class="fromUser" ng-if=" message.text.substring(0,10)=='data:image' "><img src="{{message.text}}" /></span>
-                    <span class="chat-bubble right fromUser" ng-if=" !(message.text.substring(0,10)=='data:image') ">{{ message.text}}</span>
-                  </div>
-                  </div>  
-              </div>
-              <div class="clear"></div>
-            </div>  
-        </div>
-      </div>
-    </ion-content>
+	<ion-pane>
+		<ion-content style="margin-bottom:93px;">
+			<p>login Level : {{loginLevel}}</p>
 
-    <div class="bar bar-footer item-input-inset" style="bottom:49px; overflow:visible">
-      <ul style="position:absolute; bottom:39px; width:40px; background-color:#fff; display:none;" class="sndBtnWrap">
-        <li class="" ng-click="takePicture()"><a class="button button-icon icon ion-camera" style="padding:0"></a></li>
-        <li class="" ng-click="uploadPhoto()"><a class="button button-icon icon ion-images" style="padding:0"></a></li>
-      </ul>
-      <a class="button button-icon icon ion-plus-round imgSndBtn" style="padding-left:0"></a>
-      
+			<p ng-if="(loginLevel==2)" style="text-align:right">{{$username}}님과 대화</p>
 
-      <label class="item-input-wrapper">
-        <input id="chatInput" type="text" placeholder="Type your message" on-return="sendMessage()" ng-model="chat.message"/>
-      </label>
-      <button class="button button-clear" ng-click="sendMessage(chat)">Send</button>
-    </div>
-  </ion-pane>
+			<p style="text-align:right" ng-if="userName != undefined">{{userName}}으로 로그인 중...</p>
+
+			<div ng-repeat="message in messages" ng-repeat-end-watch="setScrollPos">
+				<div class="message">
+					<div ng-switch on="message.from">
+						<div ng-switch-when="admin">
+							<div class="sidebar">
+								<span class="fromAdmin" ng-if=" message.text.substring(0,10)=='data:image' "><img
+										src="{{message.text}}"/></span>
+								<span class="chat-bubble left fromAdmin"
+								      ng-if=" !(message.text.substring(0,10)=='data:image') ">{{ message.text}}</span>
+							</div>
+							<div id="sub">
+								<table style="float:left" width="80px">
+									<tr>
+										<td>{{message.date}}</td>
+									</tr>
+									<tr>
+										<td>{{message.time}}</td>
+									</tr>
+								</table>
+							</div>
+						</div>
+						<div id="tableContainer" ng-switch-default>
+							<div id="tableRow">
+								<div id="sub">
+									<table width="80px">
+										<tr>
+											<td>{{message.date}}</td>
+										</tr>
+										<tr>
+											<td>{{message.time}}</td>
+										</tr>
+									</table>
+								</div>
+								<div class="sidebar">
+									<span class="fromUser" ng-if=" message.text.substring(0,10)=='data:image' "><img
+											src="{{message.text}}"/></span>
+									<span class="chat-bubble right fromUser"
+									      ng-if=" !(message.text.substring(0,10)=='data:image') ">{{ message.text}}</span>
+								</div>
+							</div>
+						</div>
+						<div class="clear"></div>
+					</div>
+				</div>
+			</div>
+		</ion-content>
+
+		<div class="bar bar-footer item-input-inset" style="bottom:49px; overflow:visible">
+			<ul style="position:absolute; bottom:39px; width:40px; background-color:#fff; display:none;"
+			    class="sndBtnWrap">
+				<li class="" ng-click="takePicture()"><a class="button button-icon icon ion-camera"
+				                                         style="padding:0"></a></li>
+				<li class="" ng-click="uploadPhoto()"><a class="button button-icon icon ion-images"
+				                                         style="padding:0"></a></li>
+			</ul>
+			<a class="button button-icon icon ion-plus-round imgSndBtn" style="padding-left:0"></a>
+
+
+			<label class="item-input-wrapper">
+				<input id="chatInput" type="text" placeholder="Type your message" on-return="sendMessage()"
+				       ng-model="chat.message"/>
+			</label>
+			<button class="button button-clear" ng-click="sendMessage(chat)">Send</button>
+		</div>
+	</ion-pane>
 </ion-view>

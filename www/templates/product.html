@@ -1,49 +1,61 @@
 <ion-view view-title="Product">
 	<ion-content ng-swipe-left="changePage()">
-	<!-- https://github.com/revolunet/angular-carousel -->
-	<!--div style="height: 200px; width: 100%; overflow: hidden">
-		<div><img src = "{{logo}}"></div>
-	</div-->
-	<!-- 병원 이미지 slide box : ion-slide-box 속성을 활용하여 만들어 보았습니다.
-								 현재 병원에서 가지고 있는 사진을 구하지 못해 샘플로 해 보았습니다.
-								 정해진 높이와 너비에 사진이 잘리는 현상이 있습니다.
-								 하지만 나중에 병원에서 구해올 사진이 규격에 맞춰질 것이라 생각하여 그냥 두었습니다.
-								 추후에 수정 가능합니다.
-	-->
-	  <ion-slide-box show-pager="true" style="height:200px; width:100%; overflow:hidden">
-	    <ion-slide><div><img src = "../img/1.png"></div></ion-slide>
-	    <ion-slide><div><img src = "../img/2.png"></div></ion-slide>
-	    <ion-slide><div><img src = "../img/3.png"></div></ion-slide>
-	  </ion-slide-box>
-	<!-- 병원의 이름과 즐겨찾기를 추가할 수 있는 부분을 디자인 하였습니다. 
-		 shopName 같은 경우 controller.js에서 병원 이름을 가져와야 할 것 같고
-		 즐겨찾기 아이콘을 클릭할 시 추가가 되는 기능도 넣어주어야 합니다.  (추후에...)
-	-->
-	  <div style="width:100%; height:50px; margin-top:5px; padding-top:5px; font-size:1.3em; color:gray">
-		<span style="margin-left:10px;">shopName</span>
-		<i class="icon ion-android-star-outline" style="float:right; margin-right:18px; font-size:1.3em" href="#"></i>
-	  </div>
-	<!-- 전체보기와 각 시술별 디테일 사진 보기 부분을 디자인 하였습니다. 기존에 구현되었던 디자인을 조금 수정하였습니다.
-	-->
+		<!-- https://github.com/revolunet/angular-carousel -->
+		<!--div style="height: 200px; width: 100%; overflow: hidden">
+			<div><img src = "{{logo}}"></div>
+		</div-->
+		<!-- 병원 이미지 slide box : ion-slide-box 속성을 활용하여 만들어 보았습니다.
+									 현재 병원에서 가지고 있는 사진을 구하지 못해 샘플로 해 보았습니다.
+									 정해진 높이와 너비에 사진이 잘리는 현상이 있습니다.
+									 하지만 나중에 병원에서 구해올 사진이 규격에 맞춰질 것이라 생각하여 그냥 두었습니다.
+									 추후에 수정 가능합니다.
+		-->
+		<ion-slide-box show-pager="true" style="height:200px; width:100%; overflow:hidden">
+			<ion-slide>
+				<div><img src="../img/1.png"></div>
+			</ion-slide>
+			<ion-slide>
+				<div><img src="../img/2.png"></div>
+			</ion-slide>
+			<ion-slide>
+				<div><img src="../img/3.png"></div>
+			</ion-slide>
+		</ion-slide-box>
+		<!-- 병원의 이름과 즐겨찾기를 추가할 수 있는 부분을 디자인 하였습니다.
+			 shopName 같은 경우 controller.js에서 병원 이름을 가져와야 할 것 같고
+			 즐겨찾기 아이콘을 클릭할 시 추가가 되는 기능도 넣어주어야 합니다.  (추후에...)
+		-->
+		<div style="width:100%; height:50px; margin-top:5px; padding-top:5px; font-size:1.3em; color:gray">
+			<span style="margin-left:10px;">shopName</span>
+			<i class="icon ion-android-star-outline" style="float:right; margin-right:18px; font-size:1.3em"
+			   href="#"></i>
+		</div>
+		<!-- 전체보기와 각 시술별 디테일 사진 보기 부분을 디자인 하였습니다. 기존에 구현되었던 디자인을 조금 수정하였습니다.
+		-->
 
-	  <a class="button button-mifang" href="#/app/productDetail/{{shopId}}?surgeryId=all&logo={{logo}}" style="text-decoration: none; margin-left:10px; font-size:1.3em;">전체보기</a>
-	  <button ng-click="getCurrency(showConvPrice)" class="button button-mifang btnConvPrice" style="float:right; margin-right:10px;">위안화(￥)보기</button>
-	  <div style="clear:both;"></div>
+		<a class="button button-mifang" href="#/app/tabs/productDetail/{{shopId}}?surgeryId=all&logo={{logo}}"
+		   style="text-decoration: none; margin-left:10px; font-size:1.3em;">전체보기</a>
+		<button ng-click="getCurrency(showConvPrice)" class="button button-mifang btnConvPrice"
+		        style="float:right; margin-right:10px;">위안화(￥)보기
+		</button>
+		<div style="clear:both;"></div>
 
-	<div class="list" style="margin-top:5px; padding-bottom:49px;">    
+		<div class="list" style="margin-top:5px; padding-bottom:49px;">
 
-	    <a href="#/app/productDetail/{{shopId}}?surgeryId={{data.surgeryId}}&logo={{logo}}" class="item item-avatar" ng-repeat="data in datas" style="padding-left:10px; min-height:50px;">
+			<a href="#/app/tabs/productDetail/{{shopId}}?surgeryId={{data.surgeryId}}&logo={{logo}}" class="item item-avatar"
+			   ng-repeat="data in datas" style="padding-left:10px; min-height:50px;">
 
-	      <!--<img src="http://icons.iconarchive.com/icons/custom-icon-design/mono-general-4/512/eye-icon.png">-->
+				<!--<img src="http://icons.iconarchive.com/icons/custom-icon-design/mono-general-4/512/eye-icon.png">-->
 
-	      <div class="surgInfo">
-    	      <h2 style="float:left;">{{data.method}}</h2>
-		      <p style="text-align:right" ng-click="showConvPrice()">{{data.price}}</p>
-		  </div>
+				<div class="surgInfo">
+					<h2 style="float:left;">{{data.method}}</h2>
 
-	    </a>    
+					<p style="text-align:right" ng-click="showConvPrice()">{{data.price}}</p>
+				</div>
 
-	</div>
+			</a>
+
+		</div>
 
 	</ion-content>
 </ion-view>

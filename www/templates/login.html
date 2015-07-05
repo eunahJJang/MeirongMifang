@@ -1,29 +1,32 @@
 <div ng-controller="LoginCtrl">
-<div class="modal modalLogin" style="height:220px;">
-  <ion-header-bar>
-    <div class="buttons">
-      <button class="button button-clear" ng-click="join()">Join</button>
-    </div>
-    <h1 class="title">Login</h1>
-    <div class="buttons">
-      <button class="button button-clear" ng-click="closeLogin()">Close</button>
-    </div>
-  </ion-header-bar>
-    <ion-content has-header="true" padding="true">
-      <form class="list">
-        <label class="item item-input">
-          <input type="text" placeholder="Username" ng-model="user.username" required>
-        </label>
-        <label class="item item-input">
-          <input type="password" placeholder="Password" ng-model="user.password" required>
-        </label>
-<!--         <label class="item item-input">
-          <input type="hidden" ng-model="state" value="{{ $root.state }}" required>
-        </label> -->
-        <div style="padding-right:10px; padding-left:10px;">
-          <button class="button button-block button-assertive" ng-click="login()" style="margin-bottom:0;">Login</button>
-        </div>
-      </form>
-    </ion-content>
-</div>
+	<div class="modal modalLogin" style="height:220px;">
+		<ion-header-bar>
+			<div class="buttons">
+				<button class="button button-clear" ng-click="join()">Join</button>
+			</div>
+			<h1 class="title">Login</h1>
+
+			<div class="buttons">
+				<button class="button button-clear" ng-click="closeLogin()">Close</button>
+			</div>
+		</ion-header-bar>
+		<ion-content has-header="true" padding="true">
+			<form class="list">
+				<label class="item item-input">
+					<input type="text" placeholder="Username" ng-model="user.username" required>
+				</label>
+				<label class="item item-input">
+					<input type="password" placeholder="Password" ng-model="user.password" required>
+				</label>
+				<!--         <label class="item item-input">
+						  <input type="hidden" ng-model="state" value="{{ $root.state }}" required>
+						</label> -->
+				<div style="padding-right:10px; padding-left:10px;">
+					<button class="button button-block button-assertive" ng-click="login()" style="margin-bottom:0;">
+						Login
+					</button>
+				</div>
+			</form>
+		</ion-content>
+	</div>
 </div>

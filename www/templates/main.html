@@ -1,38 +1,49 @@
 <ion-view view-title="美容秘方">
-  <ion-header>
-    <meta info-name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scal=1.0, user-scalable=no, minimal-ui"/>
-  </ion-header>
-   <ion-nav-buttons side="left">
-      <button class="button button-icon ion-power" ng-click="login()" ng-if="$root.isLogin==false"></button>
-      <button class="button button-icon ion-log-out" ng-click="logout()" ng-if="$root.isLogin==true"></button>
-  </ion-nav-buttons>
-  <ion-content>
-    <ion-list>
-    <br />
-    <div class="row" style="margin: auto auto;">    
-      <div class="col col-50 main_icon">
-        <button style="border: none; background-color : transparent;" ui-sref="app.products({category:'eye'})"><img src ="./img/main_eye.png" style="width: 80%"></button>
-      </div>
-      <div class="col col-50 main_icon">
-        <button style="border: none; background-color : transparent;" ui-sref="app.products({category:'nose'})"><img src ="./img/main_nose.png" style="width: 80%"></button>
-      </div>
-    </div>
-    <div class="row" style="margin: auto auto;">
-      <div class="col col-50 main_icon">
-        <button style="border: none; background-color : transparent;" ui-sref="app.products({category:'bosom'})"><img src ="./img/main_bosom.png" style="width: 80%"></button>    
-      </div>
-      <div class="col col-50 main_icon">
-        <button style="border: none; background-color : transparent;" ui-sref="app.products({category:'face'})"><img src ="./img/main_face.png" style="width: 80%"></button>
-      </div>
-    </div>
-    <div class="row" style="margin: auto auto;">
-      <div class="col col-50 main_icon">
-        <button style="border: none; background-color : transparent;" ui-sref="app.products({category:'body'})"><img src ="./img/main_body.png" style="width: 80%"></button>        
-      </div>
-      <div class="col col-50 main_icon">
-        <button style="border: none; background-color : transparent;" ui-sref="app.products({category:'beauty'})"><img src ="./img/main_beauty.png" style="width: 80%"></button>    
-      </div>
-    </div>
-    </ion-list>
-  </ion-content>
+
+	<ion-nav-buttons side="left">
+		<button class="button button-icon ion-power" ng-click="login()" ng-if="$root.isLogin==false"></button>
+		<button class="button button-icon ion-log-out" ng-click="logout()" ng-if="$root.isLogin==true"></button>
+	</ion-nav-buttons>
+
+	<ion-content>
+		<ion-list>
+			<div class="row" style="margin: auto auto;">
+				<div class="col col-50 main_icon">
+					<button style="border: none; background-color : transparent;"
+					        ui-sref="app.tabs.products({category:'eye'})"><img src="./img/main_eye.png" style="width: 80%">
+					</button>
+				</div>
+				<div class="col col-50 main_icon">
+					<button style="border: none; background-color : transparent;"
+					        ui-sref="app.tabs.products({category:'nose'})"><img src="./img/main_nose.png" style="width: 80%">
+					</button>
+				</div>
+			</div>
+			<div class="row" style="margin: auto auto;">
+				<div class="col col-50 main_icon">
+					<button style="border: none; background-color : transparent;"
+					        ui-sref="app.tabs.products({category:'bosom'})"><img src="./img/main_bosom.png"
+					                                                        style="width: 80%"></button>
+				</div>
+				<div class="col col-50 main_icon">
+					<button style="border: none; background-color : transparent;"
+					        ui-sref="app.tabs.products({category:'face'})"><img src="./img/main_face.png" style="width: 80%">
+					</button>
+				</div>
+			</div>
+			<div class="row" style="margin: auto auto;">
+				<div class="col col-50 main_icon">
+					<button style="border: none; background-color : transparent;"
+					        ui-sref="app.tabs.products({category:'body'})"><img src="./img/main_body.png" style="width: 80%">
+					</button>
+				</div>
+				<div class="col col-50 main_icon">
+					<button style="border: none; background-color : transparent;"
+					        ui-sref="app.tabs.products({category:'beauty'})"><img src="./img/main_beauty.png"
+					                                                         style="width: 80%"></button>
+				</div>
+			</div>
+		</ion-list>
+	</ion-content>
+
 </ion-view>

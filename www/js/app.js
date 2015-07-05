@@ -1,287 +1,314 @@
-angular.module('starter', ['ionic', 'ngCookies', 'ngCordova', 'ngAnimate', 'ngTouch', 'starter.controllers', 'starter.services', 'firebase'])
+angular.module('starter', ['ionic', 'ngCookies', 'ngCordova', 'ngAnimate', 'ngTouch', 'starter.controllers', 'starter.services', 'tabs'])
 
-.run(function($ionicPlatform, $ionicPlatform, $http) { 
-  
-  $ionicPlatform.ready(function() {
-    if (window.cordova && window.cordova.plugins.Keyboard) {
-      cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
-    }
-    if (window.StatusBar) {
-      StatusBar.styleDefault();
-    }
-  });
-})
+	.run(function ($ionicPlatform, $ionicPlatform, $http) {
 
-.directive('input', function($timeout) {
-  return {
-    restrict: 'E',
-    scope: {
-      'returnClose': '=',
-      'onReturn': '&',
-      'onFocus': '&',
-      'onBlur': '&'
-    },
-    link: function(scope, element, attr) {
-      element.bind('focus', function(e) {
-        if (scope.onFocus) {
-          $timeout(function() {
-            scope.onFocus();
-          });
-        }
-      });
-      element.bind('blur', function(e) {
-        if (scope.onBlur) {
-          $timeout(function() {
-            scope.onBlur();
-          });
-        }
-      });
-      element.bind('keydown', function(e) {
-        if (e.which == 13) {
-          if (scope.returnClose) element[0].blur();
-          if (scope.onReturn) {
-            $timeout(function() {
-              scope.onReturn();
-            });
-          }
-        }
-      });
-    }
-  }
-})
+		$ionicPlatform.ready(function () {
+			if (window.cordova && window.cordova.plugins.Keyboard) {
+				cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
+			}
+			if (window.StatusBar) {
+				StatusBar.styleDefault();
+			}
+		});
+	})
 
-.config(function($stateProvider, $urlRouterProvider) {
-  $stateProvider
+	.directive('input', function ($timeout) {
+		return {
+			restrict: 'E',
+			scope: {
+				'returnClose': '=',
+				'onReturn': '&',
+				'onFocus': '&',
+				'onBlur': '&'
+			},
+			link: function (scope, element, attr) {
+				element.bind('focus', function (e) {
+					if (scope.onFocus) {
+						$timeout(function () {
+							scope.onFocus();
+						});
+					}
+				});
+				element.bind('blur', function (e) {
+					if (scope.onBlur) {
+						$timeout(function () {
+							scope.onBlur();
+						});
+					}
+				});
+				element.bind('keydown', function (e) {
+					if (e.which == 13) {
+						if (scope.returnClose) element[0].blur();
+						if (scope.onReturn) {
+							$timeout(function () {
+								scope.onReturn();
+							});
+						}
+					}
+				});
+			}
+		}
+	})
 
-  // 모든 화면의 기본
-  .state('app', {
-    url: "/app",
-    abstract: true,
-    templateUrl: "templates/layout.html",
-    controller: 'AppCtrl'
-  })
+	.config(function ($stateProvider, $urlRouterProvider) {
+		$stateProvider
+			.state('app', {
+				url: '/app',
+				abstract: true,
+				views : {
+					root : {
+						templateUrl : 'templates/layout.html',
+						controller  : 'AppCtrl'
+					}
+				}
+			})
+			/*------------------------------------------------
+			 app.tabs
+			 ------------------------------------------------*/
+			.state('app.tabs', {
+				url: '/tabs',
+				abstract : true,
+				views    : {
+					content : {
+						templateUrl : 'templates/tabs.html',
+						controller  : 'TabsCtrl'
+					}
+				}
+			})
+			/*------------------------------------------------
+			 app.tabs.main
+			 ------------------------------------------------*/
+			.state('app.tabs.main', {
+				url: '/main',
+				views: {
+					'app-tabs-main' : {
+						templateUrl : 'templates/main.html',
+						controller  : 'mainCtrl'
+					}
+				}
+			})
 
-  //메인 페이지
-  .state('app.main', {
-    url: "/main",
-    views: {
-      'content': {
-        templateUrl: "templates/main.html",
-        controller: 'mainCtrl'
-      }
-    }
-  })
+			.state('app.tabs.single', {
+				url: '/product/:category?shopId&logo',
+				views: {
+					'app-tabs-main' : {
+						templateUrl : 'templates/product.html',
+						controller  : 'ProductCtrl'
+					}
+				}
+			})
+			.state('app.tabs.detailImage', {
+				url: '/productDetail/:shopId?surgeryId&logo',
+				views: {
+					'app-tabs-main' : {
+						templateUrl : 'templates/detailImage.html',
+						controller  : 'DetailImageCtrl'
+					}
+				}
+			})
+			.state('app.tabs.productInfo', {
+				url: '/productInfo/:shopId',
+				views: {
+					'app-tabs-main' : {
+						templateUrl : 'templates/productInfo.html',
+						controller  : 'ProductInfoCtrl'
+					}
+				}
+			})
 
-  //상품 전체보기
-  .state('app.products', {
-    url: "/products/:category",
-    views: {
-      'content': {
-        templateUrl: "templates/products.html",
-        controller: 'ProductsCtrl',
-      }
-    }
-  })
+			.state('app.tabs.docProfile', {
+				url: '/docProfile/:docId',
+				views: {
+					'app-tabs-main' : {
+						templateUrl : 'templates/docprofile.html',
+						controller  : 'docProfile'
+					}
+				}
+			})
 
-  // 가입 페이지
-  .state('app.join', {
-    url: "/join",
-    views:{
-      'content': {
-        templateUrl:"templates/join.html",
-        controller: 'JoinCtrl'
-      }
-    }
-  })
+			.state('app.tabs.shopImg', {
+				url: '/shopImg/:shopId',
+				views: {
+					'app-tabs-main' : {
+						templateUrl : 'templates/shopimg.html',
+						controller  : 'shopImgCtrl'
+					}
+				}
+			})
 
-  .state('app.search', {
-    url: "/search",
-    views: {
-      'content': {
-        templateUrl: "templates/notready.html",
-        controller: 'SearchCtrl'
-      }
-    }
-  })
+			.state('app.tabs.products', {
+				url: '/products/:category',
+				views: {
+					'app-tabs-main' : {
+						templateUrl     : 'templates/products.html',
+						controller      : 'ProductsCtrl'
+					}
+				}
+			})
+			/*------------------------------------------------
+			 app.tabs.communication
+			 ------------------------------------------------*/
+			.state('app.tabs.communication', {
+				url: '/communication',
+				views: {
+					'app-tabs-communication' : {
+						templateUrl : 'templates/notready.html',
+						controller  : 'CommCtrl'
+					}
+				}
+			})
 
-  .state('app.mypage', {
-    url: "/mypage",
-    views: {
-      'content': {
-        templateUrl: "templates/mypage.html",
-        controller: 'MypageCtrl'
-      }
-    }
-  })
+			/*------------------------------------------------
+			 app.tabs.review
+			 ------------------------------------------------*/
+			.state('app.tabs.review', {
+				url: '/review',
+				views: {
+					'app-tabs-review' : {
+						templateUrl   : 'templates/review.html',
+						controller    : 'ReviewCtrl'
+					}
+				}
+			})
+			.state('app.uploadReview', {
+				url: '/uploadReview',
+				views: {
+					'app-tabs-review' : {
+						templateUrl   : 'templates/uploadReview.html',
+						controller    : 'UploadReviewCtrl'
+					}
+				}
+			})
 
-  .state('app.profile', {
-    url: "/profile",
-    views: {
-      'content': {
-        templateUrl: "templates/profile.html",
-        controller: 'ProfileCtrl'
-      }
-    }
-  })
+			.state('app.reviewDetail', {
+				url: '/reviewDetail/:reviewId',
+				views: {
+					content: {
+						templateUrl : 'templates/reviewDetail.html',
+						controller  : 'ReviewDetailCtrl'
+					}
+				}
+			})
 
-  .state('app.event', {
-    url: "/event",
-    views: {
-      'content': {
-        templateUrl: "templates/event.html"
-      }
-    }
-  })
+			.state('app.reviewWrite', {
+				url: '/reviewWrite',
+				views: {
+					content: {
+						templateUrl : 'templates/write.html',
+						controller  : 'WriteCtrl'
+					}
+				}
+			})
 
-  .state('app.like', {
-    url: "/like",
-    views: {
-      'content': {
-        templateUrl: "templates/like.html",
-        controller: 'LikeCtrl'
-      }
-    }
-  })
-
-  .state('app.chatTab', {
-    url: "/chatTab",
-    views: {
-      'content': {
-        controller: 'ChatTabCtrl'
-      }
-    }
-  })
-
-  .state('app.chatUser', {
-    url: "/chatUser",
-    views: {
-      'content': {
-        templateUrl: "templates/chat.html",
-        controller: 'ChatCtrl'
-      }
-    }
-  })
-
-  .state('app.chatAdminUser', {
-    url: "/chatAdminUser/:user",
-    views: {
-      'content': {
-        templateUrl: "templates/chat.html",
-        controller: 'ChatAdminUserCtrl'
-      }
-    }
-  })
-
-  .state('app.chatAdmin', {
-    url: "/chatAdmin",
-    views: {
-      'content': {
-        templateUrl: "templates/chatAdmin.html",
-        controller: 'ChatAdminCtrl'
-      }
-    }
-  })
-  
-  .state('app.single', {
-    url: "/product/:category?shopId&logo",
-    views: {
-      'content': {
-        templateUrl: "templates/product.html",
-        controller: 'ProductCtrl'
-      }
-    }
-  })
-
-  .state('app.detailImage',{
-    url: "/productDetail/:shopId?surgeryId&logo",
-    views: {
-      'content':{
-        templateUrl: "templates/detailImage.html",
-        controller: 'DetailImageCtrl'
-      }
-    }
-  })
-
-  .state('app.productInfo', {
-    url:"/productInfo/:shopId",
-    views: {
-      'content':{
-        templateUrl: "templates/productInfo.html",
-        controller: 'ProductInfoCtrl'
-      }
-    }
-  })
-
-  .state('app.docProfile', {
-    url:"/docProfile/:docId",
-    views: {
-      'content':{
-        templateUrl: "templates/docprofile.html",
-        controller: 'docProfile'
-      }
-    }
-  })
-
-  .state('app.shopImg', {
-    url:"/shopImg/:shopId",
-    views: {
-      'content':{
-        templateUrl: "templates/shopimg.html",
-        controller: 'shopImgCtrl'
-      }
-    }
-  })
-
-  .state('app.communication', {
-    url:"/communication",
-    views: {
-      'content':{
-        templateUrl: "templates/notready.html",
-        controller: 'CommCtrl'
-      }
-    }
-  })  
-
-  .state('app.review', {
-    url:"/review",
-    views: {
-      'content':{
-        templateUrl: "templates/review.html",
-        controller: 'ReviewCtrl'
-      }
-    }
-  })
-
-  .state('app.uploadReview',{
-  url:"/uploadReview",
-  views: {
-    'content':{
-    templateUrl:"templates/uploadReview.html",
-    controller: 'UploadReviewCtrl'
-    }
-  }
-  })
-
-  .state('app.reviewDetail',{
-  url:"/reviewDetail/:reviewId",
-  views: {
-    'content':{
-    templateUrl:"templates/reviewDetail.html",
-    controller: 'ReviewDetailCtrl'
-    }
-  }
-  })
-
-
-  .state('app.reviewWrite', {
-    url:"/reviewWrite",
-    views: {
-      'content':{
-        templateUrl: "templates/write.html",
-        controller: 'WriteCtrl'
-      }
-    }
-  });
-  // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/app/main');
-});
+			/*------------------------------------------------
+			 app.join
+			 ------------------------------------------------*/
+			.state('app.join', {
+				url: '/join',
+				views: {
+					content : {
+						templateUrl : 'templates/join.html',
+						controller  : 'JoinCtrl'
+					}
+				}
+			})
+			/*------------------------------------------------
+			 app.search
+			 ------------------------------------------------*/
+			.state('app.search', {
+				url: '/search',
+				views: {
+					content: {
+						templateUrl : 'templates/notready.html',
+						controller  : 'SearchCtrl'
+					}
+				}
+			})
+			/*------------------------------------------------
+			 app.mypage
+			 ------------------------------------------------*/
+			.state('app.mypage', {
+				url: '/mypage',
+				views: {
+					content: {
+						templateUrl : 'templates/mypage.html',
+						controller  : 'MypageCtrl'
+					}
+				}
+			})
+			/*------------------------------------------------
+			 app.profile
+			 ------------------------------------------------*/
+			.state('app.profile', {
+				url: '/profile',
+				views: {
+					content: {
+						templateUrl : 'templates/profile.html',
+						controller  : 'ProfileCtrl'
+					}
+				}
+			})
+			/*------------------------------------------------
+			 app.event
+			 ------------------------------------------------*/
+			.state('app.event', {
+				url: '/event',
+				views: {
+					content: {
+						templateUrl : 'templates/event.html'
+					}
+				}
+			})
+			/*------------------------------------------------
+			 app.like
+			 ------------------------------------------------*/
+			.state('app.like', {
+				url: '/like',
+				views: {
+					content: {
+						templateUrl : 'templates/like.html',
+						controller  : 'LikeCtrl'
+					}
+				}
+			})
+			/*------------------------------------------------
+			 app.tabs.chat
+			 ------------------------------------------------*/
+			.state('app.tabs.chat', {
+				url: '/chat',
+				views: {
+					'app-tabs-chat' : {
+						controller : 'ChatTabCtrl'
+					}
+				}
+			})
+			.state('app.tabs.chatUser', {
+				url: '/chatUser',
+				views: {
+					'app-tabs-chat' : {
+						templateUrl : 'templates/chat.html',
+						controller  : 'ChatCtrl'
+					}
+				}
+			})
+			.state('app.tabs.chatAdminUser', {
+				url: '/chatAdminUser/:user',
+				views: {
+					'app-tabs-chat' : {
+						templateUrl : 'templates/chat.html',
+						controller  : 'ChatAdminUserCtrl'
+					}
+				}
+			})
+			.state('app.tabs.chatAdmin', {
+				url: '/chatAdmin',
+				views: {
+					'app-tabs-chat' : {
+						templateUrl : 'templates/chatAdmin.html',
+						controller  : 'ChatAdminCtrl'
+					}
+				}
+			});
+		// if none of the above states are matched, use this as the fallback
+		$urlRouterProvider.otherwise('/app/tabs/main');
+	});

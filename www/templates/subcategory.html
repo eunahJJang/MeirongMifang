@@ -1,29 +1,29 @@
-<ion-header-bar class="bar-stable" >
-  <div class="buttons" ng-controller="BackCtrl">
-    <a class="button icon-left ion-chevron-left button-clear" ng-click="returnCategory({{currentCategory}})">&nbsp;Back</a>
-  </div>
-  <h1 class="title">Category2</h1>
+<ion-header-bar class="bar-stable">
+	<div class="buttons" ng-controller="BackCtrl">
+		<a class="button icon-left ion-chevron-left button-clear" ng-click="returnCategory({{currentCategory}})">&nbsp;Back</a>
+	</div>
+	<h1 class="title">Category2</h1>
 </ion-header-bar>
 
 <ion-content ng-controller="BackCtrl">
-  <ion-list>
-	<ion-item ng-repeat="item in items" item="item" href="#/app/subcategory/{{item.id}}">
-	눈
-	</ion-item>
-	<ion-item ng-repeat="item in items" item="item" href="#/app/subcategory/{{item.id}}">
-	코
-	</ion-item>
-	<ion-item ng-repeat="item in items" item="item" href="#/app/subcategory/{{item.id}}">
-	안면윤곽	
-	</ion-item>
+	<ion-list>
 		<ion-item ng-repeat="item in items" item="item" href="#/app/subcategory/{{item.id}}">
-	가슴성형 	
-	</ion-item>
+			눈
+		</ion-item>
 		<ion-item ng-repeat="item in items" item="item" href="#/app/subcategory/{{item.id}}">
-	지방흡입	
-	</ion-item>
+			코
+		</ion-item>
 		<ion-item ng-repeat="item in items" item="item" href="#/app/subcategory/{{item.id}}">
-	뷰티수술 
-	</ion-item>
-  </ion-list>
+			안면윤곽
+		</ion-item>
+		<ion-item ng-repeat="item in items" item="item" href="#/app/subcategory/{{item.id}}">
+			가슴성형
+		</ion-item>
+		<ion-item ng-repeat="item in items" item="item" href="#/app/subcategory/{{item.id}}">
+			지방흡입
+		</ion-item>
+		<ion-item ng-repeat="item in items" item="item" href="#/app/subcategory/{{item.id}}">
+			뷰티수술
+		</ion-item>
+	</ion-list>
 </ion-content>
