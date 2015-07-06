@@ -813,7 +813,6 @@ angular.module('starter.controllers', ['firebase'])
 					console.log("data : "+data);
 					alert("data : "+data);
 					console.log('sendMessage db transfer error');
-				});  
 			}); 
 
 

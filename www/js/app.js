@@ -173,7 +173,7 @@ angular.module('starter', ['ionic', 'ngCookies', 'ngCordova', 'ngAnimate', 'ngTo
 			.state('app.uploadReview', {
 				url: '/uploadReview',
 				views: {
-					'app-tabs-review' : {
+					content : {
 						templateUrl   : 'templates/uploadReview.html',
 						controller    : 'UploadReviewCtrl'
 					}
