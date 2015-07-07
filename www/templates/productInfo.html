@@ -20,7 +20,7 @@
 
 				<div>
 					<ion-scroll direction="x" class="wide-as-needed">
-						<a ui-sref="app.docProfile({docId:'{{doctor.id}}'})" ng-repeat="doctor in doctors">
+						<a ui-sref="app.tabs.docProfile({docId:'{{doctor.id}}'})" ng-repeat="doctor in doctors">
 							<img style="margin:10px 10px 0px 10px" src="{{ doctor.imgsrc }}" width="100px"
 							     height="150px">
 						</a>
