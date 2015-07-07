@@ -76,6 +76,7 @@ angular.module('starter.controllers', ['firebase'])
 	.controller('LoginCtrl', function ($scope, $http, $state, $cookieStore, AuthenticationService, $rootScope, $cordovaPush, $cordovaDialogs, $cordovaMedia, $cordovaDevice) {
 
 		$scope.message = "";
+    $scope.$root.state = "app.main"; //로그인 후 보게되는 화면은 메인이 디폴트
 
 		$scope.user = {
 			username: null,
@@ -83,7 +84,6 @@ angular.module('starter.controllers', ['firebase'])
 		};
 
 		$scope.login = function () {
-			$scope.$root.state = "app.main"
 			$scope.$root.username = $scope.user.username;
 			AuthenticationService.login($scope.user.username, $scope.user.password);
 			$scope.registerDevice();
@@ -392,14 +392,16 @@ angular.module('starter.controllers', ['firebase'])
 	})
 
 	.controller('MypageCtrl', function($scope, $state, $http, $stateParams, $cookieStore, $rootScope, $cordovaToast, $ionicHistory) {
-		$scope.$on('loginClosed', function(){
-			$ionicHistory.goBack([-1]);
-		});
+		$scope.$on('$ionicView.enter', function() {
+      $scope.$on('loginClosed', function(){
+  			$ionicHistory.goBack([-1]);
+  		});
 
-		var loginLevel = $cookieStore.get('loginLevel');
-  		if(loginLevel == null || loginLevel == undefined){
-			$rootScope.$broadcast('event:auth-loginRequired', { state: 'app.mypage' });
-		}
+  		var loginLevel = $cookieStore.get('loginLevel');
+    		if(loginLevel == null || loginLevel == undefined){
+  			$rootScope.$broadcast('event:auth-loginRequired', { state: 'app.mypage' });
+  		}
+    })
 	})
 
 	.controller('ProfileCtrl', function ($scope) {
@@ -422,14 +424,35 @@ angular.module('starter.controllers', ['firebase'])
 
 	})
 
-	.controller('ChatTabCtrl', function($rootScope, $scope, $cookieStore, $state){
-		 var loginLevel = $rootScope.loginLevel;
-		 console.log('loginLevel : '+loginLevel);
-		 if(loginLevel > 1){
-			$state.go("app.tabs.chatAdmin");
-		} else {
-			$state.go("app.tabs.chatUser");
-		}
+	.controller('ChatTabCtrl', function($rootScope, $scope, $cookieStore, $state, $ionicHistory){
+   $scope.$on('$ionicView.enter', function() {
+  		var loginLevel = $rootScope.loginLevel;
+
+      $scope.$on('loginClosed', function(){
+        $ionicHistory.goBack([-1]);
+      });
+
+      //로그아웃 상태
+      if(loginLevel == undefined){
+        console.log('loginlevel is undefined');
+        $rootScope.$broadcast('event:auth-loginRequired', { state: 'app.tabs.chat' });
+      }
+
+      //어드민계정
+  		else if(loginLevel > 1){
+  			$state.go("app.tabs.chatAdmin");
+  		} 
+
+      //일반계정
+      else if(loginLevel == 1){
+  			$state.go("app.tabs.chatUser");
+  		}
+      
+      //예외
+      else{
+
+      }
+    })
 	})
 
 	.controller('ChatAdminCtrl', function ($scope, $http) {
@@ -838,7 +861,7 @@ angular.module('starter.controllers', ['firebase'])
 		$scope.closeKeyboard = function () {
 			// cordova.plugins.Keyboard.close();
 		};
-		alert($cookieStore.get('loginLevel'));
+		//alert($cookieStore.get('loginLevel'));
 		if($rootScope.loginLevel == null || $rootScope.loginLevel == undefined){
 			$rootScope.$broadcast('event:auth-loginRequired', { state: 'app.chat' });
 		} else {
