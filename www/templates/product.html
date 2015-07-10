@@ -21,22 +21,17 @@
 				<div><img src="../img/3.png"></div>
 			</ion-slide>
 		</ion-slide-box>
-		<!-- 병원의 이름과 즐겨찾기를 추가할 수 있는 부분을 디자인 하였습니다.
-			 shopName 같은 경우 controller.js에서 병원 이름을 가져와야 할 것 같고
-			 즐겨찾기 아이콘을 클릭할 시 추가가 되는 기능도 넣어주어야 합니다.  (추후에...)
-		-->
+
 		<div style="width:100%; height:50px; margin-top:5px; padding-top:5px; font-size:1.3em; color:gray">
 			<span style="margin-left:10px;">shopName</span>
 			<i class="icon ion-android-star-outline" style="float:right; margin-right:18px; font-size:1.3em"
 			   href="#"></i>
 		</div>
-		<!-- 전체보기와 각 시술별 디테일 사진 보기 부분을 디자인 하였습니다. 기존에 구현되었던 디자인을 조금 수정하였습니다.
-		-->
 
 		<a class="button button-mifang" href="#/app/tabs/productDetail/{{shopId}}?surgeryId=all&logo={{logo}}"
-		   style="text-decoration: none; margin-left:10px; font-size:1.3em;">전체보기</a>
+		   style="text-decoration: none; margin-left:10px; font-size:1.3em;">一共</a>
 		<button ng-click="getCurrency(showConvPrice)" class="button button-mifang btnConvPrice"
-		        style="float:right; margin-right:10px;">위안화(￥)보기
+		        style="float:right; margin-right:10px;">人民币
 		</button>
 		<div style="clear:both;"></div>
 
@@ -44,8 +39,6 @@
 
 			<a href="#/app/tabs/productDetail/{{shopId}}?surgeryId={{data.surgeryId}}&logo={{logo}}" class="item item-avatar"
 			   ng-repeat="data in datas" style="padding-left:10px; min-height:50px;">
-
-				<!--<img src="http://icons.iconarchive.com/icons/custom-icon-design/mono-general-4/512/eye-icon.png">-->
 
 				<div class="surgInfo">
 					<h2 style="float:left;">{{data.method}}</h2>

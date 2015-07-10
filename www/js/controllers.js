@@ -915,10 +915,12 @@ angular.module('starter.controllers', ['firebase'])
 				$scope.logo = $stateParams.logo;
 				$scope.shopId = $stateParams.shopId;
 				for (index = 0; index < data.length; index++) {
+					var price = removeComma(data[index].price);
 					$scope.datas.push({
 						surgeryId: data[index].surgeryId,
 						method: data[index].method,
-						price: data[index].price + " won"});
+						price: (parseInt(price)/10000) + " 万韩币" //단위가 길어서 만원 단위로 잘라 보여줍니다.
+					});
 				}
 			})
 			.error(function (data) {
@@ -948,11 +950,11 @@ angular.module('starter.controllers', ['firebase'])
 			var isWon = false;
 
 			//현재 화폐단위가 won으로 끝날 경우 (문자열 끝에서 3개 잘라서 확인)
-			if ($scope.datas[0].price.substr(-3, 3) == "won") {
+			if ($scope.datas[0].price.substr(-3, 3) == "万韩币") {
 				isWon = true;
 			}
 			//현재 화폐단위가 CNY 로 끝날 경우 (문자열 끝에서 3개 잘라서 확인)
-			else if ($scope.datas[0].price.substr(-3, 3) == "CNY") {
+			else if ($scope.datas[0].price.substr(-3, 3) == "元") {
 				isWon = false;
 			}
 
@@ -963,12 +965,13 @@ angular.module('starter.controllers', ['firebase'])
 				for (var i = 0; i < $scope.datas.length; i++) {
 					$scope.priceWon[i] = $scope.datas[i].price;
 					var tmp = parseInt($scope.datas[i].price.replace(/,/g, ""));
+					tmp *= 10000; //화면상엔 만원 단위로 잘려있습니다.
 					tmp /= currency;
 					tmp = parseInt(tmp) + "";
 					tmp = comma(tmp);
-					$scope.datas[i].price = tmp + " CNY";
+					$scope.datas[i].price = tmp + " 元";
 				}
-				jQuery('.btnConvPrice').text('원(₩)화보기');
+				jQuery('.btnConvPrice').text('韩币');
 
 			}
 			else {
@@ -976,7 +979,7 @@ angular.module('starter.controllers', ['firebase'])
 					$scope.datas[i].price = $scope.priceWon[i];
 				}
 
-				jQuery('.btnConvPrice').text('위안(￥)화보기');
+				jQuery('.btnConvPrice').text('人民币');
 			}
 		}
 	})
@@ -1434,5 +1437,10 @@ function setModalHeight(parentTag) {
 function comma(str) {
 	str = String(str);
 	return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
+}
+//콤마지우기
+function removeComma(str) {
+	str = String(str);
+	return str.split(",").join("");
 }
 
