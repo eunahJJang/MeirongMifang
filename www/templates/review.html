@@ -1,4 +1,4 @@
-<ion-view view-title="후기">
+<ion-view view-title="术后">
 	<!-- 사진 올리는 코드
 		<ion-content>
 			<img ng-show="imgURI !== undefined" ng-src="{{imgURI}}">
@@ -13,7 +13,7 @@
 		-->
 		<div style="margin: 0px 10px 0px 10px; top:10px" class="list">
 			<label class="item item-input item-select">
-				<div class="input-label">Category</div>
+				<div class="input-label"><!-- Category -->分类</div>
 				<select ng-options="category for category in categorys" ng-model="review.category"
 				        ng-change="update(review)"></select>
 			</label>

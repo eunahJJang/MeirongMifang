@@ -1124,7 +1124,7 @@ angular.module('starter.controllers', ['firebase'])
 //리뷰 업로드 페이지를 관리하는 부분입니다.
 	.controller('UploadReviewCtrl', function ($scope, $stateParams, $http, $cordovaCamera, $cordovaFile, $ionicHistory, $state, $cookieStore) {
 		//카테고리를 선택하기 위한 categorys 변수 입니다.
-		$scope.categorys = ['eye', 'nose', 'face', 'bosom', 'body', 'beauty'];
+		$scope.categorys = ['眼部', '鼻部', '面部', '胸部', '身材', '微整形'];
 		$scope.reviewImgs = [];
 		//이미지 업로드 개수 제한
 		var imgLim = 5;

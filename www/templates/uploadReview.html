@@ -1,36 +1,21 @@
-<ion-view view-title="후기">
-	<!--ion-content>
-		<img ng-show="imgURI !== undefined" ng-src="{{imgURI}}">
-    	<img ng-show="imgURI === undefined" ng-src="http://placehold.it/300x300">
-   		<button class="button" ng-click="takePicture()">Take Picture</button>
-   		<button class="button" ng-click="uploadPhoto()">Bring From Assets</button>
-	</ion-content-->
+<ion-view view-title="术后">
 	<ion-content>
-		<!--
-			list card 클래스를 활용하여 만들어 보았습니다. 상단에는 기존에 구현되어 있는
-			두 버튼을 과 button-bar 클래스를 활용하여 만들어 보았습니다. 그 다음 이미지가 나오고
-			밑으로 글을 적을 수 있도록 구조를 만들어 보았습니다.
-		-->
 		<div class="list card">
-			<!-- 
-			controller.js에 있는 카테고리 정보를 불러와 select box를 만들고 
-			카테고리 선택시 관련된 병원 정보들이 업테이트 되도록 ng-change 속성을 활용하였습니다.
-			-->
 			<label class="item item-input item-select" style="background-color:#f5f5f5">
-				<div class="input-label">Category</div>
+				<div class="input-label"><!-- Category -->分类</div>
 				<select style="background-color:#f5f5f5" ng-options="category for category in categorys"
 				        ng-model="review.category" ng-change="update(review)"></select>
 			</label>
 			<label class="item item-input item-select" style="background-color:#f5f5f5">
-				<div class="input-label">Hospital</div>
+				<div class="input-label"><!-- Hospital -->医院</div>
 				<select style="background-color:#f5f5f5"
 				        ng-options="product as product.shopName for product in products" ng-model="review.hospital"
 				        ng-change="test(review)"></select>
 			</label>
 
 			<div style="margin:5px 0px 5px 0px; " class="button-bar">
-				<a class="button" ng-click="takePicture()">Take Picture</a>
-				<a class="button" ng-click="uploadPhoto()">Bring From Assets</a>
+				<a class="button" ng-click="takePicture()"><!-- Take Picture -->拍照</a>
+				<a class="button" ng-click="uploadPhoto()"><!-- Bring From Assets -->相册</a>
 			</div>
 			<!--
 			스크롤 기능을 활용하여 여러 사진을 업로드 할 수 있도록 하였습니다.
@@ -48,15 +33,15 @@
 			</div>
 			<div style="padding:10px; border:1px solid #b2b2b2" class="item item-body">
 				<textarea id="bodyInput" ng-model="review.body" ng-keyup="autoExpand($event)"
-				          style="padding:10px; resize:none" placeholder="내용을 입력하세요"></textarea>
+				          style="padding:10px; resize:none" placeholder="请输入内容。"></textarea>
 			</div>
 			<!-- 
 			취소 버튼의 경우 뒤로 가는 cancle 함수를 적용시켰고
 			업로드 버튼의 경우 서버로 리뷰 작성글을 전송해주는 upload 함수를 적용시켰습니다.
 			-->
 			<div style="margin:5px 0px 5px 0px" class="button-bar">
-				<a class="button" ng-click="cancle()">취소</a>
-				<a class="button" ng-click="upload(review)">올리기</a>
+				<a class="button" ng-click="cancle()"><!-- 취소 -->取消</a>
+				<a class="button" ng-click="upload(review)"><!-- 올리기 -->上传</a>
 			</div>
 		</div>
 	</ion-content>

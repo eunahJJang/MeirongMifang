@@ -1,4 +1,4 @@
-<ion-view view-title="비포애프터">
+<ion-view view-title="前后">
 	<ion-content ng-swipe-left="changePage()">
 		<!-- 상단에 위치한 부위별 이미지 사진 text-align, padding-top 속성은 이미지가 삽입될 것이므로 추후에 삭제되어야 합니다.-->
 		<div style="width=100%; height:80px; background-color:#efefff; text-align:center; padding-top:25px">
@@ -15,7 +15,7 @@
 				<span style="color:black; font-size:18px; margin-left:8px;">{{ data.method }}</span>
 
 				<div style="display:inline-block; float:right; margin-right:8px;">
-					<span style="color:black; font-size:18px;">{{ data.price }}</span>
+					<span style="color:black; font-size:18px;">{{ data.price }} 万韩币</span>
 				</div>
 			</div>
 			<div>
@@ -23,12 +23,12 @@
 					<img style="width: 150px; height: 150px;" src="{{ data.before }}">
 
 					<p style="background-color:gray; color:white; width:150px; height:20px; text-align:center">
-						BEFORE</p>
+						<!-- BEFORE -->术前</p>
 				</div>
 				<div style="float:right;">
 					<img style="width: 150px; height: 150px;" src="{{ data.after }}">
 
-					<p style="background-color:gray; color:white; width:150px; height:20px; text-align:center">AFTER</p>
+					<p style="background-color:gray; color:white; width:150px; height:20px; text-align:center"><!-- AFTER -->术后</p>
 				</div>
 			</div>
 			<!--/ion-item-->
