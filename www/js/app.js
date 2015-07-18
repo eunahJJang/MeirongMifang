@@ -170,10 +170,10 @@ angular.module('starter', ['ionic', 'ngCookies', 'ngCordova', 'ngAnimate', 'ngTo
 					}
 				}
 			})
-			.state('app.uploadReview', {
+			.state('app.tabs.uploadReview', {
 				url: '/uploadReview',
 				views: {
-					content : {
+					'app-tabs-review' : {
 						templateUrl   : 'templates/uploadReview.html',
 						controller    : 'UploadReviewCtrl'
 					}
@@ -227,10 +227,10 @@ angular.module('starter', ['ionic', 'ngCookies', 'ngCordova', 'ngAnimate', 'ngTo
 			/*------------------------------------------------
 			 app.mypage
 			 ------------------------------------------------*/
-			.state('app.mypage', {
+			.state('app.tabs.mypage', {
 				url: '/mypage',
 				views: {
-					content: {
+					'app-tabs-mypage': {
 						templateUrl : 'templates/mypage.html',
 						controller  : 'MypageCtrl'
 					}
