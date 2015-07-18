@@ -148,3 +148,39 @@ products.html 카테고리: 스크롤 시 스크롤 바 투명하게 변경하�
 div .categories > ion-scroll .scroll-bar-h {
 	height: 0px;
 }
+
+.data-before{
+	width:50%;
+	float:left;
+} 
+.data-before img{
+	width: 85%;
+	margin-left: 10%;
+}
+.data-before .text-before{
+	background-color:gray; 
+	color:white; 
+	width:85%; 
+	height:20px;
+	margin-left: 10%; 
+	text-align:center
+}
+
+.data-after{
+	width:50%;
+	float:right;
+}
+
+.data-after img{
+	width:85%;
+	margin-left:5%;
+}
+
+.data-after .text-after{
+	background-color:gray; 
+	color:white; 
+	width:85%; 
+	height:20px;
+	margin-left: 5%; 
+	text-align:center
+}

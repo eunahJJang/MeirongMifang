@@ -10,7 +10,7 @@
 			 개선해야할 사항: 1. 이미지 사이 공백 제거
 							  2. productInfo와의 연결 기능 추가
 		-->
-		<div ng-repeat="data in datas" style="height:210px;">
+		<div ng-repeat="data in datas" style="overflow:hidden; margin-top:15px">
 			<div style="background-color:lightgray; width:100%">
 				<span style="color:black; font-size:18px; margin-left:8px;">{{ data.method }}</span>
 
@@ -19,16 +19,14 @@
 				</div>
 			</div>
 			<div>
-				<div style="float:left;">
-					<img style="width: 150px; height: 150px;" src="{{ data.before }}">
-
-					<p style="background-color:gray; color:white; width:150px; height:20px; text-align:center">
-						<!-- BEFORE -->术前</p>
+				<div class="data-before">
+					<img src="{{ data.before }}">
+					<p class="text-before"><!-- BEFORE -->术前</p>
 				</div>
-				<div style="float:right;">
-					<img style="width: 150px; height: 150px;" src="{{ data.after }}">
 
-					<p style="background-color:gray; color:white; width:150px; height:20px; text-align:center"><!-- AFTER -->术后</p>
+				<div class="data-after">
+					<img src="{{ data.after }}">
+					<p class="text-after"><!-- AFTER -->术后</p>
 				</div>
 			</div>
 			<!--/ion-item-->
