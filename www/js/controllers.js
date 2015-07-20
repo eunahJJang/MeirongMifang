@@ -190,7 +190,7 @@ angular.module('starter.controllers', ['firebase'])
 				storeDeviceToken("android");
 			}
 			else if (notification.event == "message") {
-				$cordovaDialogs.alert(notification.message, "Push Notification Received");
+				$cordovaDialogs.alert(notification.message, "美容秘方");
 				$scope.$apply(function () {
 					$scope.notifications.push(JSON.stringify(notification.message));
 				})
@@ -215,7 +215,7 @@ angular.module('starter.controllers', ['firebase'])
 				if (notification.body && notification.messageFrom) {
 					$cordovaDialogs.alert(notification.body, notification.messageFrom);
 				}
-				else $cordovaDialogs.alert(notification.alert, "Push Notification Received");
+				else $cordovaDialogs.alert(notification.alert, "美容秘方");
 
 				if (notification.badge) {
 					$cordovaPush.setBadgeNumber(notification.badge).then(function (result) {
@@ -328,8 +328,6 @@ angular.module('starter.controllers', ['firebase'])
 			}
 
 			else {
-				console.log("id : " + $scope.joinData.username);
-				console.log("pw : " + $scope.joinData.password);
 				$http.get("http://meirong-mifang.com/users/join.php", {params: {"username": $scope.joinData.username, "password": $scope.joinData.password}})
 					.success(function (data) {
 						if (data) {
@@ -411,17 +409,6 @@ angular.module('starter.controllers', ['firebase'])
 	.controller('LikeCtrl', function ($scope) {
 		$scope.products = [];
 		$scope.products.push({ content: "눈의짱", shop_name: "압구정성형외과", id: 0, image: "http://www.stclinic.net/img/main_visual04.png", price: "200000~3000000" });
-
-
-		//     $http.get("http://cpromise.cafe24.com/twinkle/mypage.php", {params : {"username" : $stateParams.username}})
-//       .success(function (data, status, headers, config) {
-//     $scope.products = [];
-//       $scope.products.push({ content: "눈의짱", shop_name: "압구정성형외과", id: 0, image: "http://www.stclinic.net/img/main_visual04.png", price: "200000~3000000" });
-//       })
-//       .error(function (data, status, headers, config) {
-//           console.log("Error occurred.  Status:" + status);
-//       });
-
 	})
 
 	.controller('ChatTabCtrl', function($rootScope, $scope, $cookieStore, $state, $ionicHistory){
@@ -474,17 +461,14 @@ angular.module('starter.controllers', ['firebase'])
 	.controller('ChatAdminUserCtrl', function ($scope, $http, $stateParams, $ionicScrollDelegate, $cordovaCamera) {
 		$scope.messages = [];
 		$scope.getMessages = function (user) {
-			console.log("user : " + user);
 			$http.get("http://meirong-mifang.com/messages/getAdminUserMessage.php", {params: {"user": user}})
 				.success(function (data) {
-					console.log('chatAdminUserCtrl get success');
 					for (index = 0; index < data.length; index++) {
 						$scope.messages.push({from: data[index].sender_id, to: data[index].receiver_id, text: data[index].message, time: data[index].created_time});
 					}
 				})
 				.error(function (data) {
-					console.log('chatAdminUserCtrl get fail');
-					alert("getPicerrer");
+					alert("failed");
 				})
 		}
 		$scope.$username = $stateParams.user;
@@ -623,23 +607,15 @@ angular.module('starter.controllers', ['firebase'])
 				date: getChatDate(),
 				time: getChatTime()
 			});
-			/*
-			 $http.get("http://meirong-mifang.com/products/sendMessages.php",
-			 {params : {"from" : $scope.$root.username, "to" : 'admin', "message" : $scope.chat.message}})
-			 */
-
-			$http({
-				method: "post",
-				url: "http://meirong-mifang.com/messages/sendMessages.php",
-				headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-				data: $.param({from: 'admin', to: $scope.$username, message: $scope.chat.message})
-			}).success(function (result) {
-				console.log(result);
-			}).error(function (data) {
-				console.log("data : " + data);
-				console.log('sendMessage db transfer error');
-			});
-
+			$http.get("http://meirong-mifang.com/messages/sendMessages.php", {params : {"from" : 'admin', "to" : $scope.$username, "message" : $scope.chat.message}})
+				.success(function(result){
+					//
+				})
+				.error(function(data){
+					console.log("data : "+data);
+					alert("data : "+data);
+					console.log('sendMessage db transfer error');
+			}); 
 			$scope.chat.message = "";
 			$ionicScrollDelegate.scrollBottom(true);
 
@@ -820,7 +796,7 @@ angular.module('starter.controllers', ['firebase'])
 			}
 
 			var d = new Date();
-//    d = d.toLocaleTimeString().replace(/:\d+ /, ' '); //d예시 : 오후 10:26:10
+
 			$scope.messages.push({
 				from: $scope.userName,
 				to: 'admin',
