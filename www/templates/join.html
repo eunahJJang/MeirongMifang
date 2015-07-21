@@ -1,18 +1,18 @@
-<ion-view title="Join">
+<ion-view title="注册">
 	<ion-content>
 		<div>
 			<form>
 				<div class="list list-inset">
 					<div class="item item-input">
-						<input type="text" placeholder="Username" ng-model="joinData.username"/>
-						<button class="button button-light" ng-click="check()">check</button>
+						<input type="text" placeholder="电子邮箱" ng-model="joinData.username"/>
+						<button class="button button-light" ng-click="check()">检查<!-- check --></button>
 					</div>
 
 					<label class="item item-input">
-						<input ng-model="joinData.password" type="password" placeholder="Password" class="pw1"/>
+						<input ng-model="joinData.password" type="password" placeholder="设置密码" class="pw1"/>
 					</label>
 					<label class="item item-input">
-						<input ng-model="joinData.passwordChk" type="password" placeholder="Password Check"
+						<input ng-model="joinData.passwordChk" type="password" placeholder="确认密码"
 						       class="pw2"/>
 					</label>
 				</div>
