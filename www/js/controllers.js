@@ -133,9 +133,9 @@ angular.module('starter.controllers', ['firebase'])
 		});
 
 		$scope.$on('event:auth-login-failed', function (e, status) {
-			var error = "Login failed.";
+			var error = " 登录失败。";
 			if (status == 401) {
-				error = "Invalid Username or Password.";
+				error = "请输入正确的电子邮箱和密码。";
 			}
 			$scope.message = error;
 			alert(error);
@@ -319,19 +319,19 @@ angular.module('starter.controllers', ['firebase'])
 		$scope.doJoin = function () {
 			//이메일 빈칸으로 입력
 			if (($scope.joinData.username == null) || ($scope.joinData.username.trim() == '')) {
-				alert("Please input your email");
+				alert("请输入您的电子邮箱。");
 				return;
 			}
 
 			//이메일 형식이 아닐경우
 			else if (!validEmail($scope.joinData.username)) {
-				alert("Please check your email form");
+				alert("请检查您的电子邮箱表格。");
 				return;
 			}
 
 			//Check버튼에서 OK를 받지 못한 경우
 			else if (!$scope.duplicatedId) {
-				alert("Please check your email by touching CHECK button");
+				alert("请检查您的电子邮箱。");
 				return;
 			}
 			else {
@@ -345,7 +345,7 @@ angular.module('starter.controllers', ['firebase'])
 			console.log('pw2 : ' + pw2);
 
 			if (pw1 != pw2) {
-				alert('Password needs checked');
+				alert("请确认密码。");
 			}
 
 			else {
@@ -353,12 +353,12 @@ angular.module('starter.controllers', ['firebase'])
 					.success(function (data) {
 						if (data) {
 							if ($scope.duplicatedId) {
-								alert("Welcome !!");
+								alert("欢迎参加美容秘方!");
 								$state.go('app.tabs.main');
 								//$ionicHistory.goBack([-1]);
 							}
 							else {
-								alert("please check your email again.");
+								alert("请检查您的电子邮箱。");
 							}
 						}
 
@@ -376,13 +376,13 @@ angular.module('starter.controllers', ['firebase'])
 		$scope.check = function () {
 			//이메일 빈칸으로 입력
 			if (($scope.joinData.username == null) || ($scope.joinData.username.trim() == '')) {
-				alert("Please input your email");
+				alert("请输入您的电子邮箱。");
 				return;
 			}
 
 			//입력 값이 이메일 형식이 아닌경우
 			else if (!validEmail($scope.joinData.username)) {
-				alert("Please check your email form");
+				alert("请检查您的电子邮箱表格。");
 				return;
 			}
 
@@ -394,11 +394,11 @@ angular.module('starter.controllers', ['firebase'])
 							$scope.duplicatedId = true;
 							alert("OK");
 						} else {
-							alert("duplicated");
+							alert("该邮箱已被注册。");
 						}
 					})
 					.error(function (data) {
-						alert("check database connection error.");
+						alert("系统错误");
 					});
 			}
 
@@ -439,7 +439,7 @@ angular.module('starter.controllers', ['firebase'])
 					}
 				})
 				.error(function (data) {
-					alert("error");
+					alert("系统错误");
 				})
 		}
 		$scope.getMessages();
@@ -455,7 +455,7 @@ angular.module('starter.controllers', ['firebase'])
 					}
 				})
 				.error(function (data) {
-					alert("failed");
+					alert("系统错误");
 				})
 		}
 		$scope.$username = $stateParams.user;
@@ -486,7 +486,7 @@ angular.module('starter.controllers', ['firebase'])
 				$scope.chat.message = "data:image/jpeg;base64," + imageData;
 				$scope.sendMessage();
 			}, function (err) {
-				alert('takepicerrer');
+				alert('系统错误');
 				// An error occured. Show a message to the user
 			});
 		}
@@ -599,8 +599,6 @@ angular.module('starter.controllers', ['firebase'])
 					//
 				})
 				.error(function (data) {
-					console.log("data : " + data);
-					alert("data : " + data);
 					console.log('sendMessage db transfer error');
 				});
 			$scope.chat.message = "";
@@ -665,7 +663,7 @@ angular.module('starter.controllers', ['firebase'])
 				$scope.chat.message = "data:image/jpeg;base64," + imageData;
 				$scope.sendMessage();
 			}, function (err) {
-				alert('takepicerrer');
+				alert('系统错误');
 				// An error occured. Show a message to the user
 			});
 		}
@@ -792,8 +790,7 @@ angular.module('starter.controllers', ['firebase'])
 					//alert(result);
 				})
 				.error(function (data) {
-					console.log("data : " + data);
-					alert("sendMessage error");
+					alert("系统错误");
 					console.log('sendMessage db transfer error');
 				});
 
@@ -1076,7 +1073,7 @@ angular.module('starter.controllers', ['firebase'])
 	})
 
 	.controller('CommCtrl', function ($scope) {
-		$scope.pageTitle = "Communication";
+		$scope.pageTitle = "交流";
 	})
 
 //리뷰 업로드 페이지를 관리하는 부분입니다.
@@ -1233,7 +1230,7 @@ angular.module('starter.controllers', ['firebase'])
 	})
 //리뷰 페이지에서 사람들이 올린 글을 표시해주도록 하는 부분입니다.
 	.controller('ReviewCtrl', function ($scope, $stateParams, $http, $ionicScrollDelegate, $cordovaCamera, $cordovaFile) {
-		$scope.categorys = ['eye', 'nose', 'face', 'bosom', 'body', 'beauty'];
+		$scope.categorys = ['眼部', '鼻部', '面部', '胸部', '身材', '微整形'];
 
 		//pageNum : 현재 페이지 번호,  totalNum : 전체 데이터 갯수, pageSu : 총 페이지 수
 		$scope.pageNum = 0;
@@ -1371,7 +1368,7 @@ angular.module('starter.controllers', ['firebase'])
 	})
 
 	.controller('SearchCtrl', function ($scope) {
-		$scope.pageTitle = "Search";
+		$scope.pageTitle = "搜索";
 	});
 
 
