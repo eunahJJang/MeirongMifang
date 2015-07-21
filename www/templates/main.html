@@ -1,8 +1,7 @@
 <ion-view view-title="美容秘方">
 
 	<ion-nav-buttons side="left">
-		<button class="button button-icon ion-power" ng-click="login()" ng-if="$root.isLogin==false"></button>
-		<button class="button button-icon ion-log-out" ng-click="logout()" ng-if="$root.isLogin==true"></button>
+		<button class="button button-icon" ng-click="onAuth();"  ng-class="{ 'ion-log-in' : !isLogged, 'ion-log-out' : isLogged }"></button>
 	</ion-nav-buttons>
 
 	<ion-content>

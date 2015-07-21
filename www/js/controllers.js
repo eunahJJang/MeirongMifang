@@ -36,8 +36,8 @@ angular.module('starter.controllers', ['firebase'])
 				scope: $scope,
 				animation: 'slide-in-up',
 				focusFirstInput: true,
-		        backdropClickToClose: false,
-		        hardwareBackButtonClose: false
+				backdropClickToClose: false,
+				hardwareBackButtonClose: false
 			}
 		);
 
@@ -63,19 +63,38 @@ angular.module('starter.controllers', ['firebase'])
 		}
 	})
 
-	.controller('mainCtrl', function ($scope, $rootScope, $cookieStore) {
+	.controller('mainCtrl', function ($scope, $rootScope, AuthenticationService) {
+
+		$scope.onAuth = function() {
+
+			if (AuthenticationService.isLogged()) {
+				$scope.logout();
+			}
+			else
+				$scope.login();
+		};
+
 		$scope.login = function () {
-			$rootScope.$broadcast('event:auth-loginRequired', { state: 'app.main' });
+			$rootScope.$broadcast('event:auth-loginRequired', { state: 'app.tabs.main' });
 		};
 
 		$scope.logout = function () {
 			$rootScope.$broadcast('event:auth-logoutRequired');
 		};
+
+		$scope.isLogged = false;
+		$scope.$on('event:auth-loginConfirmed', function(){
+			$scope.isLogged = AuthenticationService.isLogged();
+		});
+		$scope.$on('event:auth-logout-complete', function() {
+			$scope.isLogged = AuthenticationService.isLogged();
+		});
 	})
 
 	.controller('LoginCtrl', function ($scope, $http, $state, $cookieStore, AuthenticationService, $rootScope, $cordovaPush, $cordovaDialogs, $cordovaMedia, $cordovaDevice) {
+
 		$scope.message = "";
-    	$scope.$root.state = "app.main"; //로그인 후 보게되는 화면은 메인이 디폴트
+		$scope.$root.state = "app.main"; //로그인 후 보게되는 화면은 메인이 디폴트
 
 		$scope.user = {
 			username: null,
@@ -101,10 +120,12 @@ angular.module('starter.controllers', ['firebase'])
 
 		//로그인 성공 쿠키값 셋팅 부분
 		$scope.$on('event:auth-loginConfirmed', function (data) {
-			$rootScope.loginLevel = $cookieStore.get('loginLevel');
-			$rootScope.username = $cookieStore.get('username');
-			$scope.password = null;
+			$rootScope.loginLevel = AuthenticationService.getSession().loginLevel;
+			$rootScope.username   = AuthenticationService.getSession().username;
+
+			$scope.password = null  ;
 			$scope.loginModal.hide();
+
 			$state.go($scope.$root.state, {}, {reload: true, inherit: false});
 		});
 
@@ -118,13 +139,11 @@ angular.module('starter.controllers', ['firebase'])
 		});
 
 		$scope.$on('event:auth-logoutRequired', function (e, args) {
-			AuthenticationService.logout($scope.user.username);
+			AuthenticationService.logout();
 			$scope.unregister();
 		});
 
 		$scope.$on('event:auth-logout-complete', function () {
-			$cookieStore.remove('username');
-			$cookieStore.remove('loginLevel');
 			$state.go('app.tabs.main', {}, {reload: true, inherit: false});
 		});
 
@@ -388,17 +407,17 @@ angular.module('starter.controllers', ['firebase'])
 
 	})
 
-	.controller('MypageCtrl', function($scope, $state, $http, $stateParams, $cookieStore, $rootScope, $cordovaToast, $ionicHistory) {
-		$scope.$on('$ionicView.enter', function() {
-      $scope.$on('loginClosed', function(){
-  			$ionicHistory.goBack([-1]);
-  		});
+	.controller('MypageCtrl', function ($scope, $state, $http, $stateParams, $cookieStore, $rootScope, $cordovaToast, $ionicHistory, AuthenticationService) {
+		$scope.$on('$ionicView.enter', function () {
+			$scope.$on('loginClosed', function () {
+				$ionicHistory.goBack([-1]);
+			});
 
-  		var loginLevel = $cookieStore.get('loginLevel');
-    		if(loginLevel == null || loginLevel == undefined){
-  			$rootScope.$broadcast('event:auth-loginRequired', { state: 'app.mypage' });
-  		}
-    })
+			var loginLevel = AuthenticationService.getSession().loginLevel;
+			if (loginLevel == null || loginLevel == undefined) {
+				$rootScope.$broadcast('event:auth-loginRequired', { state: 'app.mypage' });
+			}
+		})
 	})
 
 	.controller('ProfileCtrl', function ($scope) {
@@ -407,35 +426,35 @@ angular.module('starter.controllers', ['firebase'])
 	.controller('LikeCtrl', function ($scope) {
 	})
 
-	.controller('ChatTabCtrl', function($rootScope, $scope, $cookieStore, $state, $ionicHistory){
-   $scope.$on('$ionicView.enter', function() {
-  		var loginLevel = $rootScope.loginLevel;
+	.controller('ChatTabCtrl', function ($rootScope, $scope, $cookieStore, $state, $ionicHistory, AuthenticationService) {
+		$scope.$on('$ionicView.enter', function () {
 
-      $scope.$on('loginClosed', function(){
-        $ionicHistory.goBack([-1]);
-      });
+			var loginLevel = AuthenticationService.getSession().loginLevel;
+			$scope.$on('loginClosed', function () {
+				$ionicHistory.goBack([-1]);
+			});
 
-      //로그아웃 상태
-      if(loginLevel == undefined){
-        console.log('loginlevel is undefined');
-        $rootScope.$broadcast('event:auth-loginRequired', { state: 'app.tabs.chat' });
-      }
+			//로그아웃 상태
+			if (loginLevel === undefined || loginLevel < 1) {
+				console.log('user not logged in');
+				$rootScope.$broadcast('event:auth-loginRequired', { state: 'app.tabs.chat' });
+			}
 
-      //어드민계정
-  		else if(loginLevel > 1){
-  			$state.go("app.tabs.chatAdmin");
-  		} 
+			//어드민계정
+			else if (loginLevel > 1) {
+				$state.go("app.tabs.chatAdmin");
+			}
 
-      //일반계정
-      else if(loginLevel == 1){
-  			$state.go("app.tabs.chatUser");
-  		}
-      
-      //예외
-      else{
+			//일반계정
+			else if (loginLevel == 1) {
+				$state.go("app.tabs.chatUser");
+			}
 
-      }
-    })
+			//예외
+			else {
+
+			}
+		})
 	})
 
 	.controller('ChatAdminCtrl', function ($scope, $http) {
@@ -443,12 +462,12 @@ angular.module('starter.controllers', ['firebase'])
 		$scope.getMessages = function () {
 			$http.get("http://meirong-mifang.com/messages/getAdminMessage.php", {})
 				.success(function (data) {
-					for (index = 0; index < data.length; index++) {
+					for (var index = 0; index < data.length; index++) {
 						$scope.datas.push({ name: data[index].user, content: data[index].message, created_time: data[index].created_time });
 					}
 				})
 				.error(function (data) {
-					alert("erro");
+					alert("error");
 				})
 		}
 		$scope.getMessages();
@@ -459,7 +478,7 @@ angular.module('starter.controllers', ['firebase'])
 		$scope.getMessages = function (user) {
 			$http.get("http://meirong-mifang.com/messages/getAdminUserMessage.php", {params: {"user": user}})
 				.success(function (data) {
-					for (index = 0; index < data.length; index++) {
+					for (var index = 0; index < data.length; index++) {
 						$scope.messages.push({from: data[index].sender_id, to: data[index].receiver_id, text: data[index].message, time: data[index].created_time});
 					}
 				})
@@ -603,15 +622,15 @@ angular.module('starter.controllers', ['firebase'])
 				date: getChatDate(),
 				time: getChatTime()
 			});
-			$http.get("http://meirong-mifang.com/messages/sendMessages.php", {params : {"from" : 'admin', "to" : $scope.$username, "message" : $scope.chat.message}})
-				.success(function(result){
+			$http.get("http://meirong-mifang.com/messages/sendMessages.php", {params: {"from": 'admin', "to": $scope.$username, "message": $scope.chat.message}})
+				.success(function (result) {
 					//
 				})
-				.error(function(data){
-					console.log("data : "+data);
-					alert("data : "+data);
+				.error(function (data) {
+					console.log("data : " + data);
+					alert("data : " + data);
 					console.log('sendMessage db transfer error');
-			}); 
+				});
 			$scope.chat.message = "";
 			$ionicScrollDelegate.scrollBottom(true);
 
@@ -640,14 +659,10 @@ angular.module('starter.controllers', ['firebase'])
 
 	.controller('ChatCtrl', function ($scope, $state, $http, $timeout, $ionicScrollDelegate, $rootScope, $cookieStore, $cordovaToast, $cordovaCamera, $ionicScrollDelegate) {
 
-		  $scope.$on('loginClosed', function(){
-		    //로그인 취소시 메인으로 이동
-		    //$ionicHistory로 goBack([-2])하고 싶은데 안먹혀서 메인으로 보내버림.
-		    $state.go('app.tabs.main');
-		  });
-//  $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
+		$scope.$on('loginClosed', function () {
+			$state.go('app.tabs.main');
+		});
 
-		//$scope.userName = $cookieStore.get("username");
 		$scope.userName = $rootScope.username;
 		$scope.data = {};
 		$scope.messages = [];
@@ -800,15 +815,15 @@ angular.module('starter.controllers', ['firebase'])
 				date: getChatDate(),
 				time: getChatTime()
 			});
-			$http.get("http://meirong-mifang.com/messages/sendMessages.php", {params : {"from" : $scope.$root.username, "to" : 'admin', "message" : $scope.chat.message}})
-				.success(function(result){
+			$http.get("http://meirong-mifang.com/messages/sendMessages.php", {params: {"from": $scope.$root.username, "to": 'admin', "message": $scope.chat.message}})
+				.success(function (result) {
 					//alert(result);
 				})
-				.error(function(data){
-					console.log("data : "+data);
+				.error(function (data) {
+					console.log("data : " + data);
 					alert("sendMessage error");
 					console.log('sendMessage db transfer error');
-			}); 
+				});
 
 			$scope.chat.message = "";
 			$ionicScrollDelegate.scrollBottom(true);
@@ -832,9 +847,9 @@ angular.module('starter.controllers', ['firebase'])
 		$scope.closeKeyboard = function () {
 			// cordova.plugins.Keyboard.close();
 		};
-		//alert($cookieStore.get('loginLevel'));
-		if($rootScope.loginLevel == null || $rootScope.loginLevel == undefined){
-			$rootScope.$broadcast('event:auth-loginRequired', { state: 'app.chat' });
+
+		if ($rootScope.loginLevel == null || $rootScope.loginLevel == undefined) {
+			$rootScope.$broadcast('event:auth-loginRequired', { state: 'app.tabs.chat' });
 		} else {
 			$scope.getMessages();
 		}
@@ -890,7 +905,7 @@ angular.module('starter.controllers', ['firebase'])
 					$scope.datas.push({
 						surgeryId: data[index].surgeryId,
 						method: data[index].method,
-						price: (parseInt(price)/10000) + " 万韩币" //단위가 길어서 만원 단위로 잘라 보여줍니다.
+						price: (parseInt(price) / 10000) + " 万韩币" //단위가 길어서 만원 단위로 잘라 보여줍니다.
 					});
 				}
 			})
@@ -1093,14 +1108,14 @@ angular.module('starter.controllers', ['firebase'])
 	})
 
 //리뷰 업로드 페이지를 관리하는 부분입니다.
-	.controller('UploadReviewCtrl', function ($scope, $stateParams, $http, $cordovaCamera, $cordovaFile, $ionicHistory, $state, $cookieStore) {
-		//카테고리를 선택하기 위한 categorys 변수 입니다.
+	.controller('UploadReviewCtrl', function ($scope, $stateParams, $http, $cordovaCamera, $cordovaFile, $ionicHistory, $state, $cookieStore, AuthenticationService) {
+		//카테고리를 선택하기 위한 categories 변수 입니다.
 		$scope.categorys = ['眼部', '鼻部', '面部', '胸部', '身材', '微整形'];
 		$scope.reviewImgs = [];
 		//이미지 업로드 개수 제한
 		var imgLim = 5;
 
-		//uploadReview.html 안의 textarea의 동적 크기 변경을 위해 선언하였습니다.
+		//uploadReview.html 안의 text area의 동적 크기 변경을 위해 선언하였습니다.
 		$scope.autoExpand = function (e) {
 			var element = typeof e === 'object' ? e.target : document.getElementById(e);
 			var scrollHeight = element.scrollHeight - 0;
@@ -1153,7 +1168,7 @@ angular.module('starter.controllers', ['firebase'])
 				return -1;
 			}
 
-			$scope.$root.username = $cookieStore.get('username');
+			$scope.$root.username = AuthenticationService.getSession().username;
 
 			for (var i = $scope.reviewImgs.length; i < imgLim; i++) {
 				$scope.reviewImgs[i] = 'nonPicture';
