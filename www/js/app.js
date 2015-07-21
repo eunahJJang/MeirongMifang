@@ -50,7 +50,7 @@ angular.module('starter', ['ionic', 'ngCookies', 'ngCordova', 'ngAnimate', 'ngTo
 		}
 	})
 
-	.config(function ($stateProvider, $urlRouterProvider) {
+	.config(function ($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
 		$stateProvider
 			.state('app', {
 				url: '/app',
@@ -311,4 +311,5 @@ angular.module('starter', ['ionic', 'ngCookies', 'ngCordova', 'ngAnimate', 'ngTo
 			});
 		// if none of the above states are matched, use this as the fallback
 		$urlRouterProvider.otherwise('/app/tabs/main');
+		$ionicConfigProvider.backButton.previousTitleText(false).text('');
 	});

@@ -403,12 +403,9 @@ angular.module('starter.controllers', ['firebase'])
 	})
 
 	.controller('ProfileCtrl', function ($scope) {
-
 	})
 
 	.controller('LikeCtrl', function ($scope) {
-		$scope.products = [];
-		$scope.products.push({ content: "눈의짱", shop_name: "압구정성형외과", id: 0, image: "http://www.stclinic.net/img/main_visual04.png", price: "200000~3000000" });
 	})
 
 	.controller('ChatTabCtrl', function($rootScope, $scope, $cookieStore, $state, $ionicHistory){
@@ -806,14 +803,13 @@ angular.module('starter.controllers', ['firebase'])
 			});
 			$http.get("http://meirong-mifang.com/messages/sendMessages.php", {params : {"from" : $scope.$root.username, "to" : 'admin', "message" : $scope.chat.message}})
 				.success(function(result){
-					alert(result);
+					//alert(result);
 				})
 				.error(function(data){
 					console.log("data : "+data);
-					alert("data : "+data);
+					alert("sendMessage error");
 					console.log('sendMessage db transfer error');
 			}); 
-
 
 			$scope.chat.message = "";
 			$ionicScrollDelegate.scrollBottom(true);
