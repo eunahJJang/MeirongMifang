@@ -1,7 +1,7 @@
 {
-  "name": "MeirongMifang",
+  "name": "美容秘方",
   "version": "1.0.0",
-  "description": "MeirongMifang: An Ionic project",
+  "description": "美容秘方: An Ionic project",
   "dependencies": {
     "gulp": "^3.5.6",
     "gulp-sass": "^0.7.1",

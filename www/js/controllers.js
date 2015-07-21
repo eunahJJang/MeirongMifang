@@ -74,9 +74,8 @@ angular.module('starter.controllers', ['firebase'])
 	})
 
 	.controller('LoginCtrl', function ($scope, $http, $state, $cookieStore, AuthenticationService, $rootScope, $cordovaPush, $cordovaDialogs, $cordovaMedia, $cordovaDevice) {
-
 		$scope.message = "";
-    $scope.$root.state = "app.main"; //로그인 후 보게되는 화면은 메인이 디폴트
+    	$scope.$root.state = "app.main"; //로그인 후 보게되는 화면은 메인이 디폴트
 
 		$scope.user = {
 			username: null,
