@@ -215,10 +215,10 @@ angular.module('starter', ['ionic', 'ngCookies', 'ngCordova', 'ngAnimate', 'ngTo
 			/*------------------------------------------------
 			 app.search
 			 ------------------------------------------------*/
-			.state('app.search', {
+			.state('app.tabs.search', {
 				url: '/search',
 				views: {
-					content: {
+					'app-tabs-main': {
 						templateUrl : 'templates/notready.html',
 						controller  : 'SearchCtrl'
 					}
