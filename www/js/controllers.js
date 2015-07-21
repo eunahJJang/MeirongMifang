@@ -1044,7 +1044,7 @@ angular.module('starter.controllers', ['firebase'])
 					$scope.hasImg = true;
 					for (index = 0; index < data.length; index++) {
 						$scope.shopimgs.push({
-							imgsrc: data[index].imgSrc
+							imgsrc: data[index].imgThumbSrc
 						})
 					}
 				}
