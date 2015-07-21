@@ -83,6 +83,9 @@ angular.module('starter.controllers', ['firebase'])
 		};
 
 		$scope.isLogged = false;
+		$scope.$on('$ionicView.afterEnter', function(data) {
+			$scope.isLogged = AuthenticationService.isLogged();
+		});
 		$scope.$on('event:auth-loginConfirmed', function(){
 			$scope.isLogged = AuthenticationService.isLogged();
 		});
@@ -94,7 +97,7 @@ angular.module('starter.controllers', ['firebase'])
 	.controller('LoginCtrl', function ($scope, $http, $state, $cookieStore, AuthenticationService, $rootScope, $cordovaPush, $cordovaDialogs, $cordovaMedia, $cordovaDevice) {
 
 		$scope.message = "";
-		$scope.$root.state = "app.main"; //로그인 후 보게되는 화면은 메인이 디폴트
+		$scope.$root.state = "app.tabs.main"; //로그인 후 보게되는 화면은 메인이 디폴트
 
 		$scope.user = {
 			username: null,
@@ -126,7 +129,7 @@ angular.module('starter.controllers', ['firebase'])
 			$scope.password = null  ;
 			$scope.loginModal.hide();
 
-			$state.go($scope.$root.state, {}, {reload: true, inherit: false});
+//			$state.go($scope.$root.state, {}, {reload: true, inherit: false});
 		});
 
 		$scope.$on('event:auth-login-failed', function (e, status) {
@@ -424,37 +427,6 @@ angular.module('starter.controllers', ['firebase'])
 	})
 
 	.controller('LikeCtrl', function ($scope) {
-	})
-
-	.controller('ChatTabCtrl', function ($rootScope, $scope, $cookieStore, $state, $ionicHistory, AuthenticationService) {
-		$scope.$on('$ionicView.enter', function () {
-
-			var loginLevel = AuthenticationService.getSession().loginLevel;
-			$scope.$on('loginClosed', function () {
-				$ionicHistory.goBack([-1]);
-			});
-
-			//로그아웃 상태
-			if (loginLevel === undefined || loginLevel < 1) {
-				console.log('user not logged in');
-				$rootScope.$broadcast('event:auth-loginRequired', { state: 'app.tabs.chat' });
-			}
-
-			//어드민계정
-			else if (loginLevel > 1) {
-				$state.go("app.tabs.chatAdmin");
-			}
-
-			//일반계정
-			else if (loginLevel == 1) {
-				$state.go("app.tabs.chatUser");
-			}
-
-			//예외
-			else {
-
-			}
-		})
 	})
 
 	.controller('ChatAdminCtrl', function ($scope, $http) {
@@ -1044,7 +1016,7 @@ angular.module('starter.controllers', ['firebase'])
 					$scope.hasImg = true;
 					for (index = 0; index < data.length; index++) {
 						$scope.shopimgs.push({
-							imgsrc: data[index].imgThumbSrc
+							imgsrc: data[index].imgSrc
 						})
 					}
 				}

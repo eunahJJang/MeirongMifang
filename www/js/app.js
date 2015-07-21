@@ -274,14 +274,6 @@ angular.module('starter', ['ionic', 'ngCookies', 'ngCordova', 'ngAnimate', 'ngTo
 			/*------------------------------------------------
 			 app.tabs.chat
 			 ------------------------------------------------*/
-			.state('app.tabs.chat', {
-				url: '/chat',
-				views: {
-					'app-tabs-chat' : {
-						controller : 'ChatTabCtrl'
-					}
-				}
-			})
 			.state('app.tabs.chatUser', {
 				url: '/chatUser',
 				views: {
@@ -309,7 +301,10 @@ angular.module('starter', ['ionic', 'ngCookies', 'ngCordova', 'ngAnimate', 'ngTo
 					}
 				}
 			});
+
 		// if none of the above states are matched, use this as the fallback
 		$urlRouterProvider.otherwise('/app/tabs/main');
+
+		$ionicConfigProvider.tabs.position('bottom');
 		$ionicConfigProvider.backButton.previousTitleText(false).text('');
 	});
