@@ -274,21 +274,12 @@ angular.module('starter', ['ionic', 'ngCookies', 'ngCordova', 'ngAnimate', 'ngTo
 			/*------------------------------------------------
 			 app.tabs.chat
 			 ------------------------------------------------*/
-			.state('app.tabs.chatUser', {
-				url: '/chatUser',
+			.state('app.tabs.chat', {
+				url : '/chat/:type/:user',
 				views: {
 					'app-tabs-chat' : {
 						templateUrl : 'templates/chat.html',
 						controller  : 'ChatCtrl'
-					}
-				}
-			})
-			.state('app.tabs.chatAdminUser', {
-				url: '/chatAdminUser/:user',
-				views: {
-					'app-tabs-chat' : {
-						templateUrl : 'templates/chat.html',
-						controller  : 'ChatAdminUserCtrl'
 					}
 				}
 			})

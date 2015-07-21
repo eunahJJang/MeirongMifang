@@ -430,211 +430,46 @@ angular.module('starter.controllers', ['firebase'])
 	})
 
 	.controller('ChatAdminCtrl', function ($scope, $http) {
-		$scope.datas = [];
+	.controller('ChatAdminCtrl', function ($scope, $http) {
+		$scope.data = [];
 		$scope.getMessages = function () {
 			$http.get("http://meirong-mifang.com/messages/getAdminMessage.php", {})
 				.success(function (data) {
 					for (var index = 0; index < data.length; index++) {
-						$scope.datas.push({ name: data[index].user, content: data[index].message, created_time: data[index].created_time });
+						$scope.data.push({ name: data[index].user, content: data[index].message, created_time: new Date(data[index].created_time).getTime() });
 					}
 				})
 				.error(function (data) {
-					alert("系统错误");
+					alert("error");
 				})
-		}
+		};
+
 		$scope.getMessages();
 	})
 
-	.controller('ChatAdminUserCtrl', function ($scope, $http, $stateParams, $ionicScrollDelegate, $cordovaCamera) {
-		$scope.messages = [];
-		$scope.getMessages = function (user) {
-			$http.get("http://meirong-mifang.com/messages/getAdminUserMessage.php", {params: {"user": user}})
-				.success(function (data) {
-					for (var index = 0; index < data.length; index++) {
-						$scope.messages.push({from: data[index].sender_id, to: data[index].receiver_id, text: data[index].message, time: data[index].created_time});
-					}
-				})
-				.error(function (data) {
-					alert("系统错误");
-				})
-		}
-		$scope.$username = $stateParams.user;
-		$scope.setScrollPos = function () {
-			$ionicScrollDelegate.scrollBottom();
-		};
-
-
-		jQuery('.imgSndBtn').click(function () {
-			jQuery('.sndBtnWrap').slideToggle();
-		});
-
-		$scope.takePicture = function () {
-			jQuery('.sndBtnWrap').hide();
-			var options = {
-				quality: 75,
-				destinationType: Camera.DestinationType.DATA_URL,
-				sourceType: Camera.PictureSourceType.CAMERA,
-				allowEdit: true,
-				encodingType: Camera.EncodingType.JPEG,
-				targetWidth: 300,
-				targetHeight: 300,
-				popoverOptions: CameraPopoverOptions,
-				saveToPhotoAlbum: false
-			};
-
-			$cordovaCamera.getPicture(options).then(function (imageData) {
-				$scope.chat.message = "data:image/jpeg;base64," + imageData;
-				$scope.sendMessage();
-			}, function (err) {
-				alert('系统错误');
-				// An error occured. Show a message to the user
-			});
-		}
-
-		$scope.uploadPhoto = function () {
-			jQuery('.sndBtnWrap').hide();
-			var options = {
-				quality: 75,
-				destinationType: Camera.DestinationType.DATA_URL,
-				sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
-				allowEdit: true,
-				encodingType: Camera.EncodingType.JPEG,
-				targetWidth: 300,
-				targetHeight: 300,
-				popoverOptions: CameraPopoverOptions,
-				saveToPhotoAlbum: false
-			};
-			$cordovaCamera.getPicture(options).then(function (imageData) {
-				$scope.chat.message = "data:image/jpeg;base64," + imageData;
-				$scope.sendMessage();
-			}, function (err) {
-				// An error occured. Show a message to the user
-			});
-		}
-
-		$scope.hideTime = true;
-		var isIOS = ionic.Platform.isWebView() && ionic.Platform.isIOS();
-
-		var getChatDate = function (dateString) {
-
-			if (dateString != null) {
-				var t = dateString.split(/[- :]/);
-
-				var d = new Date(t[0], t[1] - 1, t[2], t[3], t[4], t[5]);
-				d = new Date(d);
-			}
-			else {
-				var d = new Date();
-			}
-			var chatDate = "";
-
-			chatDate += ("" + d.getFullYear()).substring(2, 4);
-			chatDate += '/';
-
-			chatDate += d.getMonth() + 1;
-			chatDate += '/';
-
-			chatDate += d.getDate();
-			chatDate += '\n';
-
-			return chatDate;
-		}
-
-		var addZero = function (i) {
-			if (i < 10) {
-				i = "0" + i;
-			}
-			return i;
-		}
-
-		var getChatTime = function (dateString) {
-			if (dateString != null) {
-				var t = dateString.split(/[- :]/);
-
-				var d = new Date(t[0], t[1] - 1, t[2], t[3], t[4], t[5]);
-				d = new Date(d);
-			}
-			else {
-				var d = new Date();
-			}
-
-			var chatDate = "";
-
-			if (d.getHours() > 12) {
-				chatDate += d.getHours() - 12;
-				chatDate += ':';
-				chatDate += addZero(d.getMinutes());
-				chatDate += " PM";
-			}
-			else {
-				chatDate += d.getHours();
-				chatDate += ':';
-				chatDate += addZero(d.getMinutes());
-				chatDate += " AM";
-			}
-
-			return chatDate;
-		}
-
-		$scope.sendMessage = function () {
-			//채팅창에 아무것도 입력하지 않을 시 전송하지 않음.
-			if ($scope.chat.message.trim() == '' || $scope.chat.message.trim() == null) {
-				console.log('Empty Message');
-				jQuery('#chatInput').focus();
-				document.getElementById("chatInput").focus();
-				return -1;
-			}
-
-			var d = new Date();
-//    d = d.toLocaleTimeString().replace(/:\d+ /, ' '); //d예시 : 오후 10:26:10
-			$scope.messages.push({
-				from: 'admin',
-				to: $scope.$username,
-				text: $scope.chat.message,
-				date: getChatDate(),
-				time: getChatTime()
-			});
-			$http.get("http://meirong-mifang.com/messages/sendMessages.php", {params: {"from": 'admin', "to": $scope.$username, "message": $scope.chat.message}})
-				.success(function (result) {
-					//
-				})
-				.error(function (data) {
-					console.log('sendMessage db transfer error');
-				});
-			$scope.chat.message = "";
-			$ionicScrollDelegate.scrollBottom(true);
-
-			jQuery('.chatInput').focus();
-		};
-
-		$scope.inputUp = function () {
-			if (isIOS) $scope.data.keyboardHeight = 216;
-			$timeout(function () {
-				$ionicScrollDelegate.scrollBottom(true);
-			}, 300);
-
-		};
-
-		$scope.inputDown = function () {
-			if (isIOS) $scope.data.keyboardHeight = 0;
-			$ionicScrollDelegate.resize();
-		};
-
-		$scope.closeKeyboard = function () {
-			// cordova.plugins.Keyboard.close();
-		};
-
-		$scope.getMessages($scope.$username);
-	})
-
-	.controller('ChatCtrl', function ($scope, $state, $http, $timeout, $ionicScrollDelegate, $rootScope, $cookieStore, $cordovaToast, $cordovaCamera, $ionicScrollDelegate) {
+	.controller('ChatCtrl', function ($scope, $state, $stateParams, $http, $timeout, $ionicScrollDelegate, $rootScope, $cookieStore, $cordovaToast, $cordovaCamera, $ionicScrollDelegate, AuthenticationService) {
 
 		$scope.$on('loginClosed', function () {
 			$state.go('app.tabs.main');
 		});
 
-		$scope.userName = $rootScope.username;
-		$scope.data = {};
+		/*--------------------------------------------
+		 stateParam
+		 --------------------------------------------*/
+		switch($stateParams.type) {
+			case 'admin':
+				$scope.username = $stateParams.user;
+				$scope.from = 'admin';
+				$scope.to   = $scope.username;
+				break;
+			case 'user':
+				$scope.username = AuthenticationService.getSession().username;
+				$scope.from = $scope.username;
+				$scope.to   = 'admin';
+				break;
+		}
+
+		$scope.data     = {};
 		$scope.messages = [];
 
 		$scope.setScrollPos = function () {
@@ -648,150 +483,83 @@ angular.module('starter.controllers', ['firebase'])
 		$scope.takePicture = function () {
 			jQuery('.sndBtnWrap').hide();
 			var options = {
-				quality: 75,
-				destinationType: Camera.DestinationType.DATA_URL,
-				sourceType: Camera.PictureSourceType.CAMERA,
-				allowEdit: true,
-				encodingType: Camera.EncodingType.JPEG,
-				targetWidth: 300,
-				targetHeight: 300,
-				popoverOptions: CameraPopoverOptions,
-				saveToPhotoAlbum: false
+				quality          : 75,
+				destinationType  : Camera.DestinationType.DATA_URL,
+				sourceType       : Camera.PictureSourceType.CAMERA,
+				allowEdit        : true,
+				encodingType     : Camera.EncodingType.JPEG,
+				targetWidth      : 300,
+				targetHeight     : 300,
+				popoverOptions   : CameraPopoverOptions,
+				saveToPhotoAlbum : false
 			};
 
 			$cordovaCamera.getPicture(options).then(function (imageData) {
 				$scope.chat.message = "data:image/jpeg;base64," + imageData;
 				$scope.sendMessage();
 			}, function (err) {
-				alert('系统错误');
-				// An error occured. Show a message to the user
+				alert('failed to take picture');
 			});
-		}
+		};
 
 		$scope.uploadPhoto = function () {
 			jQuery('.sndBtnWrap').hide();
 			var options = {
-				quality: 75,
-				destinationType: Camera.DestinationType.DATA_URL,
-				sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
-				allowEdit: true,
-				encodingType: Camera.EncodingType.JPEG,
-				targetWidth: 300,
-				targetHeight: 300,
-				popoverOptions: CameraPopoverOptions,
-				saveToPhotoAlbum: false
+				quality          : 75,
+				destinationType  : Camera.DestinationType.DATA_URL,
+				sourceType       : Camera.PictureSourceType.PHOTOLIBRARY,
+				allowEdit        : true,
+				encodingType     : Camera.EncodingType.JPEG,
+				targetWidth      : 300,
+				targetHeight     : 300,
+				popoverOptions   : CameraPopoverOptions,
+				saveToPhotoAlbum : false
 			};
 			$cordovaCamera.getPicture(options).then(function (imageData) {
 				$scope.chat.message = "data:image/jpeg;base64," + imageData;
 				$scope.sendMessage();
 			}, function (err) {
-				// An error occured. Show a message to the user
+				alert('failed to upload picture');
 			});
-		}
+		};
 
 		$scope.hideTime = true;
 		var isIOS = ionic.Platform.isWebView() && ionic.Platform.isIOS();
 
-		var getChatDate = function (dateString) {
-
-			if (dateString != null) {
-				var t = dateString.split(/[- :]/);
-
-				var d = new Date(t[0], t[1] - 1, t[2], t[3], t[4], t[5]);
-				d = new Date(d);
-			}
-			else {
-				var d = new Date();
-			}
-			var chatDate = "";
-
-			chatDate += ("" + d.getFullYear()).substring(2, 4);
-			chatDate += '/';
-
-			chatDate += d.getMonth() + 1;
-			chatDate += '/';
-
-			chatDate += d.getDate();
-			chatDate += '\n';
-
-			return chatDate;
-		}
-
-		var addZero = function (i) {
-			if (i < 10) {
-				i = "0" + i;
-			}
-			return i;
-		}
-
-		var getChatTime = function (dateString) {
-			if (dateString != null) {
-				var t = dateString.split(/[- :]/);
-
-				var d = new Date(t[0], t[1] - 1, t[2], t[3], t[4], t[5]);
-				d = new Date(d);
-			}
-			else {
-				var d = new Date();
-			}
-
-			var chatDate = "";
-
-			if (d.getHours() > 12) {
-				chatDate += d.getHours() - 12;
-				chatDate += ':';
-				chatDate += addZero(d.getMinutes());
-				chatDate += " PM";
-			}
-			else {
-				chatDate += d.getHours();
-				chatDate += ':';
-				chatDate += addZero(d.getMinutes());
-				chatDate += " AM";
-			}
-
-			return chatDate;
-		}
-
 		$scope.getMessages = function () {
-			$http.get("http://meirong-mifang.com/messages/getMessages.php", {params: {"from": $scope.userName}})
+			$http.get("http://meirong-mifang.com/messages/getMessages.php", {params: { from : $scope.username }})
 				.success(function (data) {
-					console.log('getMessages() success');
-					for (index = 0; index < data.length; index++) {
-						$scope.messages.push({from: data[index].sender_id, to: data[index].receiver_id, text: data[index].message, date: getChatDate(data[index].created_time), time: getChatTime(data[index].created_time)});
+					console.log('[ChatCtrl] getMessages() -> success');
+					for (var index = 0; index < data.length; index++) {
+						$scope.messages.push({from: data[index].sender_id, to: data[index].receiver_id, text: data[index].message, time : new Date(data[index].created_time).getTime() });
 					}
 				})
 				.error(function (data) {
-					console.log(data);
-					console.log('getMessages error');
-				})
-		}
+					console.log('[ChatCtrl] getMessages() -> error');
+				});
+		};
 
 		$scope.sendMessage = function () {
 			//채팅창에 아무것도 입력하지 않을 시 전송하지 않음.
 			if ($scope.chat.message.trim() == '' || $scope.chat.message.trim() == null) {
-				console.log('Empty Message');
 				jQuery('#chatInput').focus();
 				document.getElementById("chatInput").focus();
 				return -1;
 			}
 
-			var d = new Date();
-
 			$scope.messages.push({
-				from: $scope.userName,
-				to: 'admin',
-				text: $scope.chat.message,
-				date: getChatDate(),
-				time: getChatTime()
+				from : $scope.from,
+				to   : $scope.to,
+				text : $scope.chat.message,
+				time : new Date().getTime()
 			});
-			$http.get("http://meirong-mifang.com/messages/sendMessages.php", {params: {"from": $scope.$root.username, "to": 'admin', "message": $scope.chat.message}})
+
+			$http.get("http://meirong-mifang.com/messages/sendMessages.php", { params: { from : $scope.from, to : $scope.to, message : $scope.chat.message }})
 				.success(function (result) {
-					//alert(result);
+
 				})
 				.error(function (data) {
-					alert("系统错误");
-					console.log('sendMessage db transfer error');
+					alert("[ChatCtrl] sendMessage error");
 				});
 
 			$scope.chat.message = "";
@@ -805,7 +573,6 @@ angular.module('starter.controllers', ['firebase'])
 			$timeout(function () {
 				$ionicScrollDelegate.scrollBottom(true);
 			}, 300);
-
 		};
 
 		$scope.inputDown = function () {
@@ -817,9 +584,13 @@ angular.module('starter.controllers', ['firebase'])
 			// cordova.plugins.Keyboard.close();
 		};
 
-		if ($rootScope.loginLevel == null || $rootScope.loginLevel == undefined) {
-			$rootScope.$broadcast('event:auth-loginRequired', { state: 'app.tabs.chat' });
-		} else {
+		if (!AuthenticationService.isLogged()) {
+			$rootScope.$broadcast('event:auth-loginRequired', { state: 'app.tabs.main' });
+			$scope.$on('event:auth-loginConfirmed', function() {
+				$scope.getMessages();
+			});
+		}
+		else {
 			$scope.getMessages();
 		}
 	})

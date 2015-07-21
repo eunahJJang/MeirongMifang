@@ -2,13 +2,10 @@
 	<ion-content>
 
 		<div class="list">
-
-			<ion-item ng-repeat="data in datas" ui-sref="app.tabs.chatAdminUser({ user:data.name })">
-				<h2 style="float:left;">{{ data.name }}</h2>
-
-				<p style="float:right;">{{data.created_time}}</p>
-
-				<p style="clear:both; white-space:normal;"> {{ data.content }} </p>
+			<ion-item ng-repeat="item in data" ui-sref="app.tabs.chat({ type : 'admin', user : item.name })">
+				<h2 style="float:left;">{{ item.name }}</h2>
+				<p  style="float:right;">{{ item.created_time | date : 'yy/MM/dd hh:mm:ss' }}</p>
+				<p  style="clear:both; white-space:normal;">{{ item.content }}</p>
 			</ion-item>
 		</div>
 	</ion-content>

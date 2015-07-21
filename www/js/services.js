@@ -11,8 +11,6 @@ angular.module('starter.services', ['http-auth-interceptor'])
 			session.username           = data.username;
 			session.loginLevel         = data.loginLevel;
 			session.authorizationToken = data.authorizationToken;
-
-			console.log('[setSession]', session);
 		};
 
 		var clearSession = function() {
@@ -52,7 +50,7 @@ angular.module('starter.services', ['http-auth-interceptor'])
 
 						delete $window.localStorage.authorizationToken;
 						delete $http.defaults.headers.common.Authorization;
-						
+
 						$rootScope.$broadcast('event:auth-logout-complete');
 					});
 			},

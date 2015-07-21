@@ -13,12 +13,12 @@
 								      ng-if=" !(message.text.substring(0,10)=='data:image') ">{{ message.text}}</span>
 							</div>
 							<div id="sub">
-								<table style="float:left" width="80px">
+								<table style="float:left">
 									<tr>
-										<td>{{message.date}}</td>
+										<td>{{message.time | date : 'MM/dd' }}</td>
 									</tr>
 									<tr>
-										<td>{{message.time}}</td>
+										<td>{{message.time | date : 'hh:mm' }}</td>
 									</tr>
 								</table>
 							</div>
@@ -28,10 +28,10 @@
 								<div id="sub">
 									<table width="80px">
 										<tr>
-											<td>{{message.date}}</td>
+											<td>{{message.time | date : 'MM/dd' }}</td>
 										</tr>
 										<tr>
-											<td>{{message.time}}</td>
+											<td>{{message.time | date : 'hh:mm' }}</td>
 										</tr>
 									</table>
 								</div>

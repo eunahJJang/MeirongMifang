@@ -20,7 +20,7 @@
 
 				//일반계정
 				else if (loginLevel == 1) {
-					$state.go("app.tabs.chatUser");
+					$state.go("app.tabs.chat", { type : 'user' });
 				}
 
 				//예외
