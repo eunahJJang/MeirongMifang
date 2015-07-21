@@ -430,7 +430,6 @@ angular.module('starter.controllers', ['firebase'])
 	})
 
 	.controller('ChatAdminCtrl', function ($scope, $http) {
-	.controller('ChatAdminCtrl', function ($scope, $http) {
 		$scope.data = [];
 		$scope.getMessages = function () {
 			$http.get("http://meirong-mifang.com/messages/getAdminMessage.php", {})
@@ -639,6 +638,7 @@ angular.module('starter.controllers', ['firebase'])
 			.success(function (data) {
 				$scope.datas = [];
 				$scope.logo = $stateParams.logo;
+				$scope.shopName = data[0].shopName;
 				$scope.shopId = $stateParams.shopId;
 				for (index = 0; index < data.length; index++) {
 					var price = removeComma(data[index].price);
@@ -711,6 +711,17 @@ angular.module('starter.controllers', ['firebase'])
 	})
 
 	.controller('DetailImageCtrl', function ($state, $scope, $http, $stateParams) {
+		$scope.getShopName = function () {
+			$http.get("http://meirong-mifang.com/products/getShopLogo.php", {params: {"shopId": $stateParams.shopId}})
+				.success(function (data) {
+					$scope.shopName = data[0].shopName;
+				})
+				.error(function (data) {
+					console.log("getShopLogo error");
+				})
+		}
+
+
 		$scope.getEachDetailImage = function (surgeryId) {
 			$http.get("http://meirong-mifang.com/products/getDetailImage.php", {params: {"shopId": $stateParams.shopId, "surgeryId": surgeryId}})
 				.success(function (data) {
@@ -749,6 +760,7 @@ angular.module('starter.controllers', ['firebase'])
 		$scope.changePage = function () {
 			$state.go('app.tabs.productInfo', {"shopId": $stateParams.shopId});
 		}
+		$scope.getShopName();
 	})
 
 	.controller('ProductInfoCtrl', function ($state, $scope, $http, $stateParams) {
@@ -784,7 +796,7 @@ angular.module('starter.controllers', ['firebase'])
 					$scope.hasImg = true;
 					for (index = 0; index < data.length; index++) {
 						$scope.shopimgs.push({
-							imgsrc: data[index].imgSrc
+							imgsrc: data[index].imgThumbSrc
 						})
 					}
 				}
