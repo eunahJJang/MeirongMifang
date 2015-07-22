@@ -363,12 +363,12 @@ angular.module('starter.controllers', ['firebase'])
 						}
 
 						else {
-							alert("$http.get id insert error");
+							alert("系统错误");
 						}
 					})
 					.error(function (data) {
 						console.log(data);
-						alert("$http.get query transfer error");
+						alert("系统错误");
 					});
 			}
 		}
@@ -439,7 +439,7 @@ angular.module('starter.controllers', ['firebase'])
 					}
 				})
 				.error(function (data) {
-					alert("error");
+					alert("系统错误");
 				})
 		};
 
@@ -497,7 +497,7 @@ angular.module('starter.controllers', ['firebase'])
 				$scope.chat.message = "data:image/jpeg;base64," + imageData;
 				$scope.sendMessage();
 			}, function (err) {
-				alert('failed to take picture');
+				alert('系统错误');
 			});
 		};
 
@@ -518,7 +518,7 @@ angular.module('starter.controllers', ['firebase'])
 				$scope.chat.message = "data:image/jpeg;base64," + imageData;
 				$scope.sendMessage();
 			}, function (err) {
-				alert('failed to upload picture');
+				alert('系统错误');
 			});
 		};
 
@@ -554,11 +554,11 @@ angular.module('starter.controllers', ['firebase'])
 			});
 
 			$http.get("http://meirong-mifang.com/messages/sendMessages.php", { params: { from : $scope.from, to : $scope.to, message : $scope.chat.message }})
-				.success(function (result) {
+				.success(function (data) {
 
 				})
 				.error(function (data) {
-					alert("[ChatCtrl] sendMessage error");
+					alert("系统错误");
 				});
 
 			$scope.chat.message = "";
@@ -590,8 +590,11 @@ angular.module('starter.controllers', ['firebase'])
 			});
 		}
 		else {
-			$scope.getMessages();
 		}
+
+		$scope.$on('$ionicView.afterEnter', function() {
+	 		$scope.getMessages();
+		});
 	})
 
 	.controller('ProductsCtrl', function ($scope, $http, $stateParams) {
