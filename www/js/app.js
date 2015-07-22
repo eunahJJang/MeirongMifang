@@ -203,10 +203,10 @@ angular.module('starter', ['ionic', 'ngCookies', 'ngCordova', 'ngAnimate', 'ngTo
 			/*------------------------------------------------
 			 app.join
 			 ------------------------------------------------*/
-			.state('app.join', {
+			.state('app.tabs.join', {
 				url: '/join',
 				views: {
-					content : {
+					'app-tabs-join' : {
 						templateUrl : 'templates/join.html',
 						controller  : 'JoinCtrl'
 					}

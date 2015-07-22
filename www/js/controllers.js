@@ -152,7 +152,7 @@ angular.module('starter.controllers', ['firebase'])
 
 		$scope.join = function () {
 			$scope.closeLogin();
-			$state.go('app.join');
+			$state.go('app.tabs.join');
 		};
 
 		//PushNotification

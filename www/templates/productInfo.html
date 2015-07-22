@@ -31,7 +31,7 @@
 				<span>医院图片</span>
 				<br/>
 				<ion-scroll direction="x" class="wide-as-needed">
-					<a ng-if="hasImg" ui-sref="app.shopImg({shopId:'{{shopId}}'})" ng-repeat="shopImg in shopimgs">
+					<a ng-if="hasImg" ui-sref="app.tabs.shopImg({shopId:'{{shopId}}'})" ng-repeat="shopImg in shopimgs">
 						<img style="margin:10px 10px 80px 10px; border:1px solid #eee;" src="{{ shopImg.imgsrc }}"
 						     width="150px" height="100px">
 					</a>
