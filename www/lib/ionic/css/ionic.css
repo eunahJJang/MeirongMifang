@@ -3962,12 +3962,12 @@ ion-tabs.tabs-color-active-dark .tab-item {
 .modal {
   /*display: block;*/
   position: absolute;
-  bottom:50%;
+  top:50%;
   left: 50%;
   width: 300px;
   height: 200px;
   margin-left: -150px;
-  margin-bottom: -100px;
+  margin-top: -100px;
   overflow: hidden;
   background-color: #fff; }
 

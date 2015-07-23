@@ -27,6 +27,9 @@
   <feature name="FileTransfer">
     <param name="android-package" value="org.apache.cordova.filetransfer.FileTransfer" />
   </feature>
+  <feature name="Keyboard">
+      <param name="ios-package" value="IonicKeyboard" onload="true" />
+  </feature>
 <preference name="SplashScreen" value="screen" />
 <preference name="SplashScreenDelay" value="3000" />
 <preference name="orientation" value="portrait" />

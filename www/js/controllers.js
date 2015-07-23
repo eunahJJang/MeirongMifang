@@ -1185,3 +1185,16 @@ function removeComma(str) {
 	return str.split(",").join("");
 }
 
+//키보드 show/hide 리스너 등록
+window.addEventListener('native.keyboardshow', keyboardShowHandler);
+window.addEventListener('native.keyboardhide', keyboardHideHandler);
+
+//키보드 show 이벤트
+function keyboardShowHandler(e){
+	$('.modal').css('margin-top',(e.keyboardHeight*-1)+'px');
+}
+
+//키보드 hide 이벤트
+function keyboardHideHandler(e){
+	$('.modal').css('margin-top','-100px');
+}
