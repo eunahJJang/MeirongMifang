@@ -637,6 +637,10 @@ angular.module('starter.controllers', ['firebase'])
 
 	.controller('ProductCtrl', function ($scope, $state, $http, $stateParams) {
 		$scope.priceWon = [];
+		$scope.imgs = [];
+		$scope.imgs.push("http://meirong-mifang.com/img/1.png");
+		$scope.imgs.push("http://meirong-mifang.com/img/2.png");
+		$scope.imgs.push("http://meirong-mifang.com/img/3.png");
 		$http.get("http://meirong-mifang.com/products/getDetail.php", {params: {"category": $stateParams.category, "shopId": $stateParams.shopId}})
 			.success(function (data) {
 				$scope.datas = [];
@@ -1191,10 +1195,10 @@ window.addEventListener('native.keyboardhide', keyboardHideHandler);
 
 //키보드 show 이벤트
 function keyboardShowHandler(e){
-	$('.modal').css('margin-top',(e.keyboardHeight*-1)+'px');
+	$('.modal').css('bottom',(e.keyboardHeight+120)+'px');
 }
 
 //키보드 hide 이벤트
 function keyboardHideHandler(e){
-	$('.modal').css('margin-top','-100px');
+	$('.modal').css('bottom','50%');
 }
