@@ -10,7 +10,8 @@
 			 개선해야할 사항: 1. 이미지 사이 공백 제거
 							  2. productInfo와의 연결 기능 추가
 		-->
-		<div ng-repeat="data in datas" style="overflow:hidden; margin-top:15px">
+		<div id="surgWrap">
+		<div ng-repeat="data in datas" style="overflow:hidden; margin-top:15px" >
 			<div style="background-color:lightgray; width:100%">
 				<span style="color:black; font-size:18px; margin-left:8px;">{{ data.method }}</span>
 
@@ -18,7 +19,7 @@
 					<span style="color:black; font-size:18px;">{{ data.price }} 万韩币</span>
 				</div>
 			</div>
-			<div>
+			<div style="overflow:auto" ng-click="toggleDesc($index)">
 				<div class="data-before">
 					<img src="{{ data.before }}">
 					<p class="text-before"><!-- BEFORE -->术前</p>
@@ -29,7 +30,11 @@
 					<p class="text-after"><!-- AFTER -->术后</p>
 				</div>
 			</div>
-			<!--/ion-item-->
+
+			<div class="surgDesc triangle-right top">
+				{{data.desc}}
+			</div>
+		</div>
 		</div>
 
 		<!-- 웹에서 작업할 때 스와이프 기능해주는 태그. 왠만하면 삭제하지말아줘 -->
