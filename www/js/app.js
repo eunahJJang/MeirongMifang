@@ -239,10 +239,10 @@ angular.module('starter', ['ionic', 'ngCookies', 'ngCordova', 'ngAnimate', 'ngTo
 			/*------------------------------------------------
 			 app.profile
 			 ------------------------------------------------*/
-			.state('app.profile', {
+			.state('app.tabs.profile', {
 				url: '/profile',
 				views: {
-					content: {
+					'app-tabs-mypage': {
 						templateUrl : 'templates/profile.html',
 						controller  : 'ProfileCtrl'
 					}
@@ -251,10 +251,10 @@ angular.module('starter', ['ionic', 'ngCookies', 'ngCordova', 'ngAnimate', 'ngTo
 			/*------------------------------------------------
 			 app.event
 			 ------------------------------------------------*/
-			.state('app.event', {
+			.state('app.tabs.event', {
 				url: '/event',
 				views: {
-					content: {
+					'app-tabs-mypage': {
 						templateUrl : 'templates/event.html'
 					}
 				}
@@ -262,10 +262,10 @@ angular.module('starter', ['ionic', 'ngCookies', 'ngCordova', 'ngAnimate', 'ngTo
 			/*------------------------------------------------
 			 app.like
 			 ------------------------------------------------*/
-			.state('app.like', {
+			.state('app.tabs.like', {
 				url: '/like',
 				views: {
-					content: {
+					'app-tabs-mypage': {
 						templateUrl : 'templates/like.html',
 						controller  : 'LikeCtrl'
 					}
