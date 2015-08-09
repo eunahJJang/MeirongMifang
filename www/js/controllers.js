@@ -492,7 +492,7 @@ angular.module('starter.controllers', ['firebase'])
 				popoverOptions   : CameraPopoverOptions,
 				saveToPhotoAlbum : false
 			};
-
+		
 			$cordovaCamera.getPicture(options).then(function (imageData) {
 				$scope.chat.message = "data:image/jpeg;base64," + imageData;
 				$scope.sendMessage();
@@ -526,6 +526,7 @@ angular.module('starter.controllers', ['firebase'])
 		var isIOS = ionic.Platform.isWebView() && ionic.Platform.isIOS();
 
 		$scope.getMessages = function () {
+			$scope.messages.length = 0;
 			$http.get("http://meirong-mifang.com/messages/getMessages.php", {params: { from : $scope.username }})
 				.success(function (data) {
 					console.log('[ChatCtrl] getMessages() -> success');
