@@ -719,6 +719,7 @@ angular.module('starter.controllers', ['firebase'])
 	})
 
 	.controller('DetailImageCtrl', function ($state, $scope, $http, $stateParams) {
+
 		$scope.getShopName = function () {
 			$http.get("http://meirong-mifang.com/products/getShopLogo.php", {params: {"shopId": $stateParams.shopId}})
 				.success(function (data) {
@@ -736,7 +737,7 @@ angular.module('starter.controllers', ['firebase'])
 					$scope.datas = [];
 					$scope.logo = $stateParams.logo;
 					for (index = 0; index < data.length; index++) {
-						$scope.datas.push({shopId: data[index].shopId, surgeryId: data[index].surgeryId, method: data[index].method, price: data[index].price, before: data[index].picBeforeSrc, after: data[index].picAfterSrc});
+						$scope.datas.push({shopId: data[index].shopId, surgeryId: data[index].surgeryId, method: data[index].method, price: data[index].price, before: data[index].picBeforeSrc, after: data[index].picAfterSrc, desc: data[index].surgeryId+"번 시술에 대한 설명"});
 					}
 				})
 				.error(function (data) {
@@ -750,7 +751,7 @@ angular.module('starter.controllers', ['firebase'])
 					$scope.datas = [];
 					$scope.logo = $stateParams.logo;
 					for (index = 0; index < data.length; index++) {
-						$scope.datas.push({shopId: data[index].shopId, surgeryId: data[index].surgeryId, method: data[index].method, price: data[index].price, before: data[index].picBeforeSrc, after: data[index].picAfterSrc});
+						$scope.datas.push({shopId: data[index].shopId, surgeryId: data[index].surgeryId, method: data[index].method, price: data[index].price, before: data[index].picBeforeSrc, after: data[index].picAfterSrc, desc: data[index].surgeryId+"번 시술에 대한 설명"});
 					}
 				})
 				.error(function (data) {
@@ -769,6 +770,17 @@ angular.module('starter.controllers', ['firebase'])
 			$state.go('app.tabs.productInfo', {"shopId": $stateParams.shopId});
 		}
 		$scope.getShopName();
+
+		$scope.toggleDesc = function($index){
+			var selectedSurg = jQuery('.surgDesc').eq($index);
+			if( selectedSurg.css('display') == 'block' ){
+				jQuery('.surgDesc').slideUp(200);
+				return;
+			}
+			jQuery('.surgDesc').hide();
+			selectedSurg.slideDown(200);
+		}
+
 	})
 
 	.controller('ProductInfoCtrl', function ($state, $scope, $http, $stateParams) {
